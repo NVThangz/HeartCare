@@ -13,6 +13,7 @@
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoStatusBar"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -23,6 +24,17 @@
         </activity>
         <activity
             android:name=".SignIn"
+            android:theme="@style/AppTheme.NoStatusBar"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <intent-filter>
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignUp"
             android:theme="@style/AppTheme.NoStatusBar"
             android:screenOrientation="portrait"
             android:exported="true">

@@ -1,15 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red"
+    android:background="@drawable/gradient_background"
     tools:context=".fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_alignParentBottom="true">
 
-</FrameLayout>
+        <FrameLayout
+            android:id="@+id/box_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-35dp"
+            android:background="@drawable/top_box_white"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/pink_banner_heart_care"
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/pink_banner_heart_care"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="-13dp"
+                android:fontFamily="@font/seguisb"
+                android:text="How are u feeling today?"
+                android:textColor="@color/light_gray"
+                android:textFontWeight="500"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/pink_banner_heart_care"
+                app:layout_constraintTop_toBottomOf="@+id/pink_banner_heart_care" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar_profile"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/profile_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_1" />
+
+            <TextView
+                android:id="@+id/username_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Username"
+                android:textColor="#E9688D"
+                android:textFontWeight="700"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/avatar_profile" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_health_assessment"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/home_btn_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/box_sign_up">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Health Assessment"
+                android:textColor="@color/white"
+                android:textFontWeight="900"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ic_health_assessment"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.507" />
+
+            <ImageView
+                android:id="@+id/ic_health_assessment"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/ic_health_assessment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_health_record"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/home_btn_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_health_assessment">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Health Record"
+                android:textColor="@color/white"
+                android:textFontWeight="900"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ic_health_record"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.507" />
+
+            <ImageView
+                android:id="@+id/ic_health_record"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/ic_health_record"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_doctor_appointment"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/home_btn_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_health_record">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Doctor Appointment"
+                android:textColor="@color/white"
+                android:textFontWeight="900"
+                android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ic_doctor_appointment"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.507" />
+
+            <ImageView
+                android:id="@+id/ic_doctor_appointment"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/ic_doctor_appointment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

@@ -18,13 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="-40dp"
-            android:background="@drawable/box_white"
+            android:background="@drawable/bottom_box_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
             app:layout_constraintVertical_bias="1.0"
             tools:layout_conversion_absoluteHeight="651dp"
-            tools:layout_conversion_absoluteWidth="411dp"></FrameLayout>
+            tools:layout_conversion_absoluteWidth="411dp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -346,12 +346,12 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/white_banner_heart_care"
             android:layout_width="180dp"
             android:layout_height="60dp"
             android:layout_marginEnd="-5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/banner_heart_care" />
+            app:srcCompat="@drawable/white_banner_heart_care" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

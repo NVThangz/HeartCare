@@ -75,7 +75,7 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif"
                         android:text="Username"
-                        android:textColor="#E9688D"
+                        android:textColor="@color/flamingo_pink"
                         android:textFontWeight="700"
                         android:textSize="28sp"
                         app:layout_constraintEnd_toEndOf="parent"

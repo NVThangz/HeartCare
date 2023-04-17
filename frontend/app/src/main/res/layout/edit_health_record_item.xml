@@ -2,10 +2,11 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/health_record_item"
+    android:id="@+id/edit_health_record_item"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,21 +27,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="30dp"
-            android:fontFamily="@font/segoeui"
             android:background="@color/white"
+            android:fontFamily="@font/segoeui"
             android:text="Content"
             android:textColor="@color/black"
             android:textFontWeight="500"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_title" />
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <FrameLayout
             android:layout_width="match_parent"

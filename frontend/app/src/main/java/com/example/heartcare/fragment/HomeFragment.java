@@ -1,7 +1,9 @@
 package com.example.heartcare.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -9,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.heartcare.R;
+import com.example.heartcare.activity.EditHealthRecord;
+import com.example.heartcare.activity.HealthRecord;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +29,10 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootView;
+
+    private ConstraintLayout btnHealthAssessment;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,6 +69,23 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        map();
+        clickBtnHealthAssessment();
+        return rootView;
+    }
+
+    private void map() {
+        btnHealthAssessment = rootView.findViewById(R.id.btn_health_assessment);
+    }
+
+    private void clickBtnHealthAssessment() {
+        btnHealthAssessment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), HealthRecord.class);
+                startActivity(intent);
+            }
+        });
     }
 }

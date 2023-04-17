@@ -1,8 +1,10 @@
-package com.example.heartcare;
+package com.example.heartcare.activity;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.heartcare.R;
 
 public class SignUp extends AppCompatActivity {
     @Override

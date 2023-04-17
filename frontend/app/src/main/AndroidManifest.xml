@@ -11,40 +11,52 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HeartCare"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoStatusBar"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:theme="@style/AppTheme.NoStatusBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+<!--                <action android:name="android.intent.action.MAIN" />-->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SignIn"
-            android:theme="@style/AppTheme.NoStatusBar"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:theme="@style/AppTheme.NoStatusBar">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.MAIN" />-->
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SignUp"
-            android:theme="@style/AppTheme.NoStatusBar"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:theme="@style/AppTheme.NoStatusBar">
             <intent-filter>
-                <!--                <action android:name="android.intent.action.MAIN" />-->
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".HealthRecord"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoStatusBar">
+            <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

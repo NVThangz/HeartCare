@@ -18,10 +18,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoStatusBar">
             <intent-filter>
+<!--                <action android:name="android.intent.action.MAIN" />-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.SelectLanguage"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoStatusBar">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.SignIn"
             android:exported="true"

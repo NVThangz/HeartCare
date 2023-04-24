@@ -64,12 +64,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_1" />
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/full_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
-                android:text="Username"
+                android:text="Full name"
                 android:textColor="@color/flamingo_pink"
                 android:textFontWeight="700"
                 android:textSize="28sp"
@@ -155,7 +155,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btn_doctor_appointment"
+            android:id="@+id/btn_emergency_call"
             android:layout_width="0dp"
             android:layout_height="110dp"
             android:layout_marginStart="25dp"
@@ -171,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:fontFamily="sans-serif"
-                android:text="Doctor Appointment"
+                android:text="Emergency Call"
                 android:textColor="@color/white"
                 android:textFontWeight="900"
                 android:textSize="26sp"

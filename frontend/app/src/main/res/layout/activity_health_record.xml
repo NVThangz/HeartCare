@@ -89,11 +89,11 @@
                 app:layout_constraintTop_toTopOf="@+id/avatar">
 
                 <TextView
-                    android:id="@+id/username"
+                    android:id="@+id/full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:text="Username"
+                    android:text="Full name"
                     android:textColor="@color/white"
                     android:textFontWeight="700"
                     android:textSize="22sp" />

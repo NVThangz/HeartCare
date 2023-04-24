@@ -93,27 +93,27 @@
                 android:textColor="@color/red"
                 android:textFontWeight="500"
                 android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@+id/tf_username"
-                app:layout_constraintStart_toStartOf="@+id/tf_username"
+                app:layout_constraintBottom_toTopOf="@+id/tf_email"
+                app:layout_constraintStart_toStartOf="@+id/tf_email"
                 tools:layout_conversion_absoluteHeight="34dp"
                 tools:layout_conversion_absoluteWidth="87dp" />
 
             <TextView
-                android:id="@+id/tv_username"
+                android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="2dp"
                 android:fontFamily="@font/segoeuib"
-                android:text="Username"
+                android:text="E-mail"
                 android:textColor="@color/red"
                 android:textFontWeight="500"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/tf_username"
-                app:layout_constraintStart_toStartOf="@+id/tf_username" />
+                app:layout_constraintBottom_toTopOf="@+id/tf_email"
+                app:layout_constraintStart_toStartOf="@+id/tf_email" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/tf_username"
+                android:id="@+id/tf_email"
                 android:layout_width="0dp"
                 android:layout_height="57dp"
                 android:layout_marginStart="45dp"
@@ -127,11 +127,11 @@
                 >
 
                 <ImageView
-                    android:id="@+id/auth_ic_user"
+                    android:id="@+id/auth_ic_email"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_marginStart="18dp"
-                    android:src="@drawable/auth_ic_user"
+                    android:src="@drawable/auth_ic_mail"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -151,10 +151,9 @@
                     android:textCursorDrawable="@drawable/custom_cursor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/auth_ic_user"
+                    app:layout_constraintStart_toEndOf="@+id/auth_ic_email"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <TextView
                 android:id="@+id/tv_password"
@@ -177,8 +176,8 @@
                 android:layout_marginBottom="45dp"
                 android:background="@drawable/text_field"
                 app:layout_constraintBottom_toTopOf="@+id/btn_sign_in"
-                app:layout_constraintEnd_toEndOf="@+id/tf_username"
-                app:layout_constraintStart_toStartOf="@+id/tf_username"
+                app:layout_constraintEnd_toEndOf="@+id/tf_email"
+                app:layout_constraintStart_toStartOf="@+id/tf_email"
                 >
 
                 <ImageView

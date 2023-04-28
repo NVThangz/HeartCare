@@ -11,9 +11,92 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  username String
-  password String
-  email    String? 
-  name     String?
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  profile Profile?
+  record Record?
 }
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  sex       String?
+  dob       DateTime?
+  phone     String?
+  address   String?
+  nationalID String?
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Record {
+  id        Int      @id @default(autoincrement())
+  height    Float?
+  weight    Float?
+  BMT       Float?
+  bloodType String?
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+// model Doctor {
+//   id         Int     @id @default(autoincrement())
+//   specialty  String?
+//   name       String?
+//   userId     Int @unique
+//   user       User    @relation(fields: [userId], references: [id])
+//   appointments Appointment[]
+//   buiding    Building? @relation(fields: [buildingId], references: [id])
+//   buildingId Int?
+// } 
+
+// model Building {
+//   id Int @id @default(autoincrement())
+//   name String
+//   address String
+//   doctors Doctor[]
+// }
+
+// model Patient {
+//   id       Int        @id @default(autoincrement())
+//   name String?
+//   gender   String?
+//   dob      DateTime?
+//   address  String?
+//   userId   Int @unique
+//   user     User       @relation(fields: [userId], references: [id])
+//   appointments Appointment[]
+//   medicalRecords MedicalRecord[]
+// }
+
+
+// model Appointment {
+//   id        Int       @id @default(autoincrement())
+//   patient   Patient      @relation(fields: [patientId], references: [userId])
+//   patientId Int
+//   doctor    Doctor    @relation(fields: [doctorId], references: [userId])
+//   doctorId  Int
+//   date      DateTime
+//   duration  Int?
+//   status    String?
+//   reason    String?
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+// model MedicalRecord {
+//   id           Int     @id @default(autoincrement())
+//   symptoms     String
+//   diagnosis    String
+//   prescriptions String?
+//   patient      Patient @relation(fields: [patientId], references: [userId])
+//   patientId    Int
+// }
+
+// enum Role {
+//   PATIENT
+//   DOCTOR
+// }

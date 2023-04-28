@@ -1,0 +1,1 @@
+cd backend && npm i && npx prisma migrate dev && cd ..

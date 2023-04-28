@@ -1,0 +1,31 @@
+scalar DateTime
+
+type User {
+  id:        Int!
+  email:     String!
+  password:  String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  profile:  Profile
+  record: Record
+}
+
+input CreateUserInput {
+  username: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  email: String
+}
+
+type Query {
+  users: [User]!
+  user(email: String!): User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User
+}

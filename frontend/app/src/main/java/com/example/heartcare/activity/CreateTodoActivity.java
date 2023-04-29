@@ -42,17 +42,17 @@ public class CreateTodoActivity extends AppCompatActivity {
 
     private void setDialogCancel() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Xác nhận");
-        builder.setMessage("Bạn có muốn tiếp tục không?");
+        builder.setTitle(getResources().getString(R.string.are_you_sure));
+        builder.setMessage(getResources().getString(R.string.if_you_cancel_now_all_changes_will_be_lost));
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }

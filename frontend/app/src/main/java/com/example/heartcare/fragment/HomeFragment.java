@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
     private View rootView;
 
     private ConstraintLayout btnHealthAssessment;
+    private ConstraintLayout btnHealthRecord;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -77,10 +78,11 @@ public class HomeFragment extends Fragment {
 
     private void map() {
         btnHealthAssessment = rootView.findViewById(R.id.btn_health_assessment);
+        btnHealthRecord = rootView.findViewById(R.id.btn_health_record);
     }
 
     private void clickBtnHealthAssessment() {
-        btnHealthAssessment.setOnClickListener(new View.OnClickListener() {
+        btnHealthRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), HealthRecord.class);

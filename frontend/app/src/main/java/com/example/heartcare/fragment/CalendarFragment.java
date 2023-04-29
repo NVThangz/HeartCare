@@ -1,5 +1,7 @@
 package com.example.heartcare.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -12,11 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.heartcare.R;
+import com.example.heartcare.activity.CreateTodoActivity;
+import com.example.heartcare.activity.HealthRecord;
 import com.example.heartcare.adapter.TodoCalendarAdapter;
 import com.example.heartcare.object.TodoItem;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -98,10 +104,21 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
         map();
+        clickBtnAddTodo();
         setCalendarView();
         setBottomSheetDialog();
         eventTodoCalendarRecycler();
         return rootView;
+    }
+
+    private void clickBtnAddTodo() {
+        btnAddTodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CreateTodoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void eventTodoCalendarRecycler() {

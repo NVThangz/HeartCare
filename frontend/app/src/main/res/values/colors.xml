@@ -17,5 +17,10 @@
     <color name="flamingo_pink">#E9688D</color>
     <color name="alabaster">#EFEDE9</color>
     <color name="dark_green">#005500</color>
+    <color name="green_sea">#17964A</color>
     <color name="silver">#C1C1C1</color>
+    <color name="electric_purple">#AE27C5</color>
+    <color name="dark_liver">#453535</color>
+    <color name="sangria">#891900</color>
+    <color name="gainsboro">#f2f2f3</color>
 </resources>

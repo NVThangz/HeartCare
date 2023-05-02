@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.heartcare.R;
 import com.example.heartcare.activity.EditHealthRecord;
 import com.example.heartcare.activity.HealthRecord;
+
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +36,8 @@ public class HomeFragment extends Fragment {
     private View rootView;
 
     private ConstraintLayout btnHealthAssessment;
+    private ConstraintLayout btnHealthRecord;
+    private TextView tvMeasureHeartRate;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -65,6 +70,12 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private void map() {
+        btnHealthAssessment = rootView.findViewById(R.id.btn_health_assessment);
+        btnHealthRecord = rootView.findViewById(R.id.btn_health_record);
+        tvMeasureHeartRate = rootView.findViewById(R.id.tv_measure_heart_rate);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,12 +86,8 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    private void map() {
-        btnHealthAssessment = rootView.findViewById(R.id.btn_health_assessment);
-    }
-
     private void clickBtnHealthAssessment() {
-        btnHealthAssessment.setOnClickListener(new View.OnClickListener() {
+        btnHealthRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), HealthRecord.class);

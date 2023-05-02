@@ -11,9 +11,11 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { RecordsModule } from './records/records.module';
 import { ProfilesModule } from './profiles/profiles.module';
-
-
-
+import {
+  constraintDirective,
+  constraintDirectiveTypeDefs,
+} from 'graphql-constraint-directive';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { ProfilesModule } from './profiles/profiles.module';
         path: join(process.cwd(), 'src/graphql.ts'),
         outputAs: 'class',
       },
+      typeDefs: constraintDirectiveTypeDefs,
+      transformSchema: constraintDirective(),
     }),
     PrismaModule,
     UserModule,
@@ -34,6 +38,13 @@ import { ProfilesModule } from './profiles/profiles.module';
     ProfilesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [
+    AppService,
+    PrismaService,
+    // ,{
+    //   provide: 'APP_GUARD',
+    //   useClass: JwtAuthGuard,
+    // }
+  ],
 })
 export class AppModule {}

@@ -1,15 +1,17 @@
 type LoginResponse {
   access_token: String!
+  refresh_token: String!
   user: User!
 }
 
-input LoginUserInput {
+input AuthInput {
   username: String!
   password: String!
 }
 
-
 type Mutation {
-  signup(loginUserInput: LoginUserInput): User!
-  login(loginUserInput: LoginUserInput): LoginResponse!
+  signup(AuthInput: AuthInput): LoginResponse!
+  login(AuthInput: AuthInput): LoginResponse!
+  logout: Boolean!
+  refresh: LoginResponse!
 }

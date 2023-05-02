@@ -8,7 +8,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export class LoginUserInput {
+export class AuthInput {
     username: string;
     password: string;
 }
@@ -42,13 +42,18 @@ export class UpdateUserInput {
 
 export class LoginResponse {
     access_token: string;
+    refresh_token: string;
     user: User;
 }
 
 export abstract class IMutation {
-    abstract signup(loginUserInput?: Nullable<LoginUserInput>): User | Promise<User>;
+    abstract signup(AuthInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
 
-    abstract login(loginUserInput?: Nullable<LoginUserInput>): LoginResponse | Promise<LoginResponse>;
+    abstract login(AuthInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
+
+    abstract logout(): boolean | Promise<boolean>;
+
+    abstract refresh(): LoginResponse | Promise<LoginResponse>;
 
     abstract createProfile(userId: number): Profile | Promise<Profile>;
 
@@ -101,6 +106,7 @@ export class User {
     updatedAt?: Nullable<DateTime>;
     profile?: Nullable<Profile>;
     record?: Nullable<Record>;
+    refreshToken?: Nullable<string>;
 }
 
 export type DateTime = any;

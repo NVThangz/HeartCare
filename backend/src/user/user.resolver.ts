@@ -2,7 +2,8 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { CreateUserInput, User } from 'src/graphql';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/dto/jwt-auth.guard';
+import { IsEmail } from 'class-validator';
+import { AuthGuard } from '@nestjs/passport';
 
 @Resolver('User')
 export class UserResolver {

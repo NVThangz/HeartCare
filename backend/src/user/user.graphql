@@ -1,13 +1,12 @@
-scalar DateTime
-
 type User {
-  id:        Int!
-  email:     String!
-  password:  String!
+  id: Int!
+  email: String!
+  password: String!
   createdAt: DateTime
   updatedAt: DateTime
-  profile:  Profile
+  profile: Profile
   record: Record
+  refreshToken: String
 }
 
 input CreateUserInput {

@@ -4,9 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private prisma: PrismaService
-    ) {}
+  constructor(private prisma: PrismaService) {}
 
   createUser({ username, password }: CreateUserInput) {
     return this.prisma.user.create({
@@ -23,7 +21,6 @@ export class UserService {
     });
   }
 
-
   findAll() {
     return this.prisma.user.findMany();
   }
@@ -33,8 +30,46 @@ export class UserService {
       where: {
         email,
       },
+      include: {
+        profile: true,
+        record: true,
+      },
     });
   }
+
+  updateRefreshToken(id: number, refreshToken: string) {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        refreshToken,
+      },
+    });
+  }
+
+  deleteRefreshToken(id: number) {
+    return this.prisma.user.updateMany({
+      where: {
+        id,
+        refreshToken: {
+          not: null,
+        }
+      },
+      data: {
+        refreshToken: null,
+      },
+    });
+  }
+  
+  findById(id: number) {
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+    
 
   // update(id: number, updateUserInput: UpdateUserInput) {
   //   return `This action updates a #${id} user`;

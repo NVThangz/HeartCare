@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".activity.CreateTodoActivity">
+
+    <TextView
+        android:id="@+id/tc_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/segoeuib"
+        android:text="@string/add_note"
+        android:textColor="@color/white"
+        android:textFontWeight="500"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_detail"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/box_white_top_right_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tc_calendar">
+
+        <TextView
+            android:id="@+id/create_event_title_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/latoblack"
+            android:text="2022. October 4"
+            android:textColor="@color/sangria"
+            android:textFontWeight="900"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@+id/content"
+            app:layout_constraintTop_toBottomOf="@+id/create_event_title_date">
+
+            <TextView
+                android:id="@+id/tv_todo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoeuib"
+                android:text="@string/create_todo"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="20sp" />
+
+            <FrameLayout
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:padding="10dp"
+            android:gravity="top"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:background="@drawable/create_todo_edit_box"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_todo" />
+
+        <LinearLayout
+            android:id="@+id/ll_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30sp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@+id/content"
+            app:layout_constraintTop_toBottomOf="@+id/content">
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoeuib"
+                android:text="@string/start"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="20sp" />
+
+            <FrameLayout
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+        </LinearLayout>
+
+        <TimePicker
+            android:textSize="20sp"
+            android:id="@+id/start_time"
+            android:layout_width="match_parent"
+            android:layout_height="150sp"
+            android:timePickerMode="spinner"
+            app:layout_constraintTop_toBottomOf="@+id/ll_start_time" />
+
+        <LinearLayout
+            android:id="@+id/ll_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@+id/content"
+            app:layout_constraintTop_toBottomOf="@+id/start_time">
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoeuib"
+                android:text="@string/end"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="20sp" />
+
+            <FrameLayout
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+        </LinearLayout>
+
+        <TimePicker
+            android:id="@+id/end_time"
+            android:layout_width="match_parent"
+            android:layout_height="150sp"
+            android:timePickerMode="spinner"
+            app:layout_constraintTop_toBottomOf="@+id/ll_end_time" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/end_time">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_save"
+                android:layout_width="150dp"
+                android:layout_height="43dp"
+                android:background="@drawable/btn_save"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/segoeuib"
+                    android:text="@string/save"
+                    android:textColor="@color/white"
+                    android:textFontWeight="500"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_cancel"
+                android:layout_width="150dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/btn_cancel"
+                app:layout_constraintStart_toEndOf="@+id/btn_save"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/segoeuib"
+                    android:text="@string/cancel"
+                    android:textColor="@color/white"
+                    android:textFontWeight="500"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

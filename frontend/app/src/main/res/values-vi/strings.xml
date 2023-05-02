@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Heart Care</string>
+    <string name="measure_heart_rate">Đo nhịp tim</string>
+    <string name="heart_rate_statistics">Thống kê kết quả</string>
+    <string name="emergency_call">Cuộc gọi khẩn cấp</string>
+    <string name="menu_home">Trang chủ</string>
+    <string name="menu_calendar">Nhắc nhở</string>
+    <string name="menu_notifications">Thông báo</string>
+    <string name="menu_profile">Cá nhân</string>
+    <string name="how_are_u_feeling_today">Xin chào! Bạn cảm thấy thế nào?</string>
+    <string name="calendar">Lịch</string>
+    <string name="todo">Ghi chú</string>
+    <string name="start">Bắt đầu</string>
+    <string name="end">Kết thúc</string>
+    <string name="create_todo">Ghi chú</string>
+    <string name="add_note">Thêm nhắc nhở</string>
+    <string name="save">Lưu</string>
+    <string name="cancel">Hủy</string>
+    <string name="full_name">Họ tên</string>
+    <string name="sex">Giới tính</string>
+    <string name="date_of_birth">Ngày sinh</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="national_id">CC/CMND</string>
+    <string name="address">Địa chỉ</string>
+    <string name="save_modified">Lưu thay đổi</string>
+    <string name="about">Giới thiệu</string>
+    <string name="setting">Cài đặt</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="are_you_sure">Bạn có chắc không?</string>
+    <string name="if_you_cancel_now_all_changes_will_be_lost"> Nếu bạn hủy, mọi thay đổi sẽ không được lưu lại!</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+
+
+
+</resources>

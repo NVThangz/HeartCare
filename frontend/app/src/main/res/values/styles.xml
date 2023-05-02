@@ -4,4 +4,22 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <style name="CalendarViewCustom" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/electric_purple</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="CalendarViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="CalendarViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Medium">
+        <item name="android:textColor">@color/white</item>
+
+        <item name="android:textSize">17sp</item>
+    </style>
+
+
 </resources>

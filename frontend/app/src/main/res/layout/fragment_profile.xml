@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:ems="12"
-                        android:hint="Full Name"
+                        android:hint="@string/full_name"
                         android:inputType="textPersonName"
                         android:minHeight="48dp"
                         android:text=""
@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:ems="12"
-                        android:hint="Sex"
+                        android:hint="@string/sex"
                         android:minHeight="48dp"
                         android:text=""
                         android:textSize="16sp"
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:ems="12"
-                        android:hint="Date of birth"
+                        android:hint="@string/date_of_birth"
                         android:minHeight="48dp"
                         android:text=""
                         android:textSize="16sp"
@@ -131,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:ems="12"
-                        android:hint="Phone number"
+                        android:hint="@string/phone_number"
                         android:minHeight="48dp"
                         android:text=""
                         android:textSize="16sp"
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:ems="12"
-                        android:hint="National ID"
+                        android:hint="@string/national_id"
                         android:minHeight="48dp"
                         android:text=""
                         android:textSize="16sp"
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:ems="12"
-                        android:hint="Address"
+                        android:hint="@string/address"
                         android:minHeight="48dp"
                         android:text=""
                         android:textSize="16sp"
@@ -177,7 +177,7 @@
                         android:elevation="7dp"
                         android:fontFamily="sans-serif"
                         android:gravity="center"
-                        android:text="Save modified"
+                        android:text="@string/save_modified"
                         android:textColor="@color/white"
                         android:textFontWeight="700"
                         android:textSize="16sp"
@@ -189,7 +189,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/log_out_box"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="180dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="150dp"
                     android:background="@drawable/profile_white_box">
@@ -223,7 +223,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
                                 android:gravity="center"
-                                android:text="About"
+                                android:text="@string/about"
                                 android:textColor="@color/red"
                                 android:textFontWeight="600"
                                 android:textSize="20sp" />
@@ -233,7 +233,7 @@
                             android:id="@+id/btn_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="15dp"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -250,7 +250,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
                                 android:gravity="center"
-                                android:text="Setting"
+                                android:text="@string/setting"
                                 android:textColor="@color/red"
                                 android:textFontWeight="600"
                                 android:textSize="20sp" />
@@ -261,7 +261,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="15dp"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -277,7 +277,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
                                 android:gravity="center"
-                                android:text="Log out"
+                                android:text="@string/log_out"
                                 android:textColor="@color/red"
                                 android:textFontWeight="600"
                                 android:textSize="20sp" />

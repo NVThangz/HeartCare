@@ -30,6 +30,9 @@
     <string name="if_you_cancel_now_all_changes_will_be_lost"> Nếu bạn hủy, mọi thay đổi sẽ không được lưu lại!</string>
     <string name="yes">Có</string>
     <string name="no">Không</string>
+    <string name="measure">Đo nhịp tim</string>
+    <string name="noFlashWarning">Phép đo không có đèn flash kém tin cậy hơn</string>
+    <string name="camera_not_found">Máy ảnh không khả dụng</string>
 
 
 

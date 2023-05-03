@@ -30,6 +30,9 @@
     <string name="if_you_cancel_now_all_changes_will_be_lost">If you cancel now, all changes will be lost!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="measure">Measure</string>
+    <string name="noFlashWarning">Measurement without flash is less reliable</string>
+    <string name="camera_not_found">Camera not available</string>
 
 
 </resources>

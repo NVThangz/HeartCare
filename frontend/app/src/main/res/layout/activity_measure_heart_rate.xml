@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background_1"
+    android:descendantFocusability="afterDescendants"
+    android:focusable="auto"
+    tools:context=".activity.MeasureHeartRate">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        tools:showIn="@layout/activity_main">
+
+        <ImageView
+            android:id="@+id/measure_circle_heart"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginStart="-5dp"
+            android:layout_marginTop="-5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/frame_layout"
+            app:layout_constraintEnd_toEndOf="@+id/frame_layout"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="@+id/frame_layout"
+            app:layout_constraintTop_toTopOf="@+id/frame_layout"
+            app:srcCompat="@drawable/measure_circle_heart" />
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tc_calendar"
+             />
+
+        <TextView
+            android:id="@+id/tc_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/segoeuib"
+            android:text="@string/measure_heart_rate"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:textSize="33sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_pulse"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="marquee"
+            android:gravity="left"
+            android:text="Pulse: 0 \n(0 cycle in 0 second)"
+            android:textAlignment="gravity"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textureView2"
+            app:layout_constraintTop_toBottomOf="@+id/frame_layout" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/imageView7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:paddingBottom="20dp"
+            android:background="@drawable/measure_block_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pulse">
+
+            <TextureView
+                android:id="@+id/graphTextureView"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/bpm"
+                app:layout_constraintEnd_toStartOf="@+id/bpm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bpm" />
+
+            <TextView
+                android:id="@+id/bpm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/segoeuib"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="60sp"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:foregroundGravity="top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/graphTextureView"
+                app:srcCompat="@drawable/img_level_scale" />
+
+            <TextView
+                android:id="@+id/tv_average"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Average"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+            <TextView
+                android:id="@+id/tv_healthy"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Healthy"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tv_average"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+            <TextView
+                android:id="@+id/tv_maximum"
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Maximum"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tv_healthy"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+
+            <TextView
+                android:id="@+id/tv_danger"
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Danger"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tv_maximum"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_heart_bpm" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:text="BPM"
+                    android:textColor="@color/light_gray"
+                    android:textFontWeight="500"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextureView
+            android:id="@+id/textureView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView7"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_instruction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:text="Please place your finger \non the device\'s camera, covering the flash.\nThen click the button to measure."
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/floatingActionButton"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/profile_btn_save_modified"
+            android:clickable="true"
+            android:contentDescription="@string/new_measurement"
+            android:elevation="7dp"
+            android:focusable="true"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:onClick="onClickNewMeasurement"
+            android:text="@string/measure"
+            android:textColor="@color/white"
+            android:textFontWeight="700"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_instruction"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/ic_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tc_calendar"
+            app:layout_constraintEnd_toStartOf="@+id/tc_calendar"
+            app:layout_constraintTop_toTopOf="@+id/tc_calendar"
+            app:srcCompat="@drawable/ic_back" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

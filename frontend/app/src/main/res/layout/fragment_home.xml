@@ -79,7 +79,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btn_health_assessment"
+            android:id="@+id/btn_measure_heart_rate"
             android:layout_width="0dp"
             android:layout_height="110dp"
             android:layout_marginStart="25dp"
@@ -127,7 +127,7 @@
             android:background="@drawable/home_btn_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_health_assessment">
+            app:layout_constraintTop_toBottomOf="@+id/btn_measure_heart_rate">
 
             <TextView
                 android:layout_width="wrap_content"

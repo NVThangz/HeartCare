@@ -1,5 +1,6 @@
 package com.example.heartcare.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.heartcare.R;
+import com.example.heartcare.activity.MeasureHeartRate;
+import com.example.heartcare.activity.SignIn;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +29,9 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootView;
+    private LinearLayout btnLogOut;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -61,6 +68,24 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        map();
+        clickBtnLogOut();
+        return rootView;
+    }
+
+    private void map() {
+        btnLogOut = rootView.findViewById(R.id.btn_log_out);
+    }
+
+    private void clickBtnLogOut() {
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SignIn.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
 }

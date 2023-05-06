@@ -55,19 +55,15 @@ export abstract class IMutation {
 
     abstract refresh(): LoginResponse | Promise<LoginResponse>;
 
-    abstract createProfile(userId: number): Profile | Promise<Profile>;
+    abstract forgotPassword(email: string): boolean | Promise<boolean>;
+
+    abstract confirmForgotPassword(email: string, token: string): boolean | Promise<boolean>;
 
     abstract updateProfile(updateProfileInput: UpdateProfileInput): Profile | Promise<Profile>;
 
-    abstract createRecord(userId: number): Record | Promise<Record>;
-
     abstract updateRecord(updateRecordInput: UpdateRecordInput): Record | Promise<Record>;
 
-    abstract createUser(createUserInput: CreateUserInput): User | Promise<User>;
-
-    abstract updateUser(updateUserInput: UpdateUserInput): User | Promise<User>;
-
-    abstract removeUser(id: number): Nullable<User> | Promise<Nullable<User>>;
+    abstract resetPasswordConfirmed(email: string, Password: string): User | Promise<User>;
 }
 
 export class Profile {

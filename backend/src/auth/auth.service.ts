@@ -5,13 +5,22 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { ForbiddenError } from '@nestjs/apollo';
 import { createHash } from 'crypto';
+import { MailService } from 'src/mail/mail.service';
+
+interface TokenStore {
+  [email: string]: {value: string, expire: Date};
+}
 
 @Injectable()
 export class AuthService {
+  private tokenStore = {};
+
   constructor(
+    private mailService: MailService,
     private userService: UserService,
     private jwtService: JwtService,
   ) {}
+
 
   async login(user: User) {
     const { password, ...result } = user;
@@ -27,6 +36,10 @@ export class AuthService {
   async signup(authInput: AuthInput) {
     const password = await this.hashData(authInput.password);
 
+    const isEmailExist = await this.userService.findOne(authInput.username);
+    if (isEmailExist) {
+      throw new ForbiddenError('Email đã tồn tại');
+    }
     const user = await this.userService.createUser({ ...authInput, password });
     const token = await this.getToken(user.id, user.email);
     await this.updateRefreshToken(user.id, token.refresh_token);
@@ -46,16 +59,16 @@ export class AuthService {
   async refresh(userId: number, rt: string) {
     const user = await this.userService.findById(userId);
     if (!user) {
-      throw new ForbiddenError('user not found');
+      throw new ForbiddenError('User không tồn tại');
     }
     if (!user.refreshToken) {
-      throw new ForbiddenError('Refresh token not found');
+      throw new ForbiddenError('Refresh token không tồn tại');
     }
     const hashRt = createHash('sha256').update(rt).digest('hex');
     const valid = await bcrypt.compare(hashRt, user.refreshToken);
     console.log(valid);
     if (!valid) {
-      throw new ForbiddenError('Refresh token not valid');
+      throw new ForbiddenError('Refresh token không hợp lệ');
     }
     const token = await this.getToken(user.id, user.email);
     await this.updateRefreshToken(user.id, token.refresh_token);
@@ -64,6 +77,38 @@ export class AuthService {
       refresh_token: token.refresh_token,
       user: user,
     };
+  }
+
+  async forgotPassword(email: string) {
+    const user = await this.userService.findOne(email);
+    if (!user) {
+      throw new ForbiddenError('Email không tồn tại');
+    }
+    const token = Math.floor(1000 + Math.random() * 9000).toString();
+    const expire = new Date();
+    expire.setMinutes(expire.getMinutes() + 5);
+    this.tokenStore[email] = { value: token, expire };
+    await this.mailService.sendUserConfirmation(email, token);
+    return true;
+  }
+
+  async confirmForgotPassword(email: string, token: string) {
+    const user = await this.userService.findOne(email);
+    if (!user) {
+      throw new ForbiddenError('Email không tồn tại');
+    }
+    const tokenStore = this.tokenStore[email];
+    if (!tokenStore) {
+      throw new ForbiddenError('Token không tồn tại');
+    }
+    if (tokenStore.value !== token) {
+      throw new ForbiddenError('Token không hợp lệ');
+    }
+    if (tokenStore.expire < new Date()) {
+      throw new ForbiddenError('Token đã hết hạn');
+    }
+    delete this.tokenStore[email];
+    return true;
   }
 
   hashData(data: string) {

@@ -25,6 +25,5 @@ type Query {
 }
 
 type Mutation {
-  createProfile(userId: Int!): Profile!
   updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
 }

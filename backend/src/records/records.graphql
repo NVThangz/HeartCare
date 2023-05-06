@@ -19,6 +19,5 @@ type Query {
 }
 
 type Mutation {
-  createRecord(userId:  Int!): Record!
   updateRecord(updateRecordInput: UpdateRecordInput!): Record!
 }

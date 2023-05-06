@@ -24,7 +24,5 @@ type Query {
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User
+  resetPasswordConfirmed(email: String!, Password: String!): User!
 }

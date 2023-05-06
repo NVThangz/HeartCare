@@ -9,16 +9,6 @@ import { AuthGuard } from '@nestjs/passport';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Mutation('createUser')
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.userService.createUser(createUserInput);
-  }
-
-  // @Mutation('createUserDoctor')
-  // createUserDoctor(@Args('createUserInput') createUserInput: CreateUserInput) {
-  //   return this.userService.createUserDoctor(createUserInput);
-  // }
-
   @Query(() => [User], {name: 'users'})
   findAll() {
     return this.userService.findAll();
@@ -29,13 +19,9 @@ export class UserResolver {
     return this.userService.findOne(email);
   }
 
-  // @Mutation('updateUser')
-  // update(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-  //   return this.userService.update(updateUserInput.id, updateUserInput);
-  // }
-
-  // @Mutation('removeUser')
-  // remove(@Args('id') id: number) {
-  //   return this.userService.remove(id);
-  // }
+  @Mutation('resetPasswordConfirmed')
+  resetPasswordConfirmed(@Args('email') email: string, @Args('password') password: string) {
+    return this.userService.resetPasswordConfirmed(email, password);
+  }
+  
 }

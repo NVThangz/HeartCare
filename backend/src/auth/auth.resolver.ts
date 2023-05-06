@@ -44,4 +44,19 @@ export class AuthResolver {
     const rt = context.req.headers['authorization'].split(' ')[1];
     return this.authService.refresh(context.req.user['sub'], rt);
   }
+
+  @Public()
+  @Mutation('forgotPassword')
+  @HttpCode(HttpStatus.OK)
+  forgotPassword(@Args('email') email: string) {
+    return this.authService.forgotPassword(email);
+  }
+
+  @Public()
+  @Mutation('confirmForgotPassword')
+  @HttpCode(HttpStatus.OK)
+  confirmForgotPassword(@Args('email') email: string, @Args('token') token: string) {
+    return this.authService.confirmForgotPassword(email, token);
+  }
+  
 }

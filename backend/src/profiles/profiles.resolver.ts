@@ -6,10 +6,6 @@ import { UpdateProfileInput } from 'src/graphql';
 export class ProfilesResolver {
   constructor(private readonly profilesService: ProfilesService) {}
 
-  @Mutation('createProfile')
-  create(@Args('userId') userId: number) {
-    return this.profilesService.create(userId);
-  }
 
   @Query('profile')
   findOne(@Args('email') email: string) {

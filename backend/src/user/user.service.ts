@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserInput } from 'src/graphql';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as bycrypt from 'bcrypt';
+import validate from 'deep-email-validator';
 
 @Injectable()
 export class UserService {
@@ -21,8 +23,15 @@ export class UserService {
     });
   }
 
-  findAll() {
-    return this.prisma.user.findMany();
+  async findAll() {
+    const res = await validate('thang.ludveck@gmail.com');
+    console.log(res);
+      return this.prisma.user.findMany({
+      include: {
+        profile: true,
+        record: true,
+      },
+    });
   }
 
   findOne(email: string) {
@@ -69,7 +78,19 @@ export class UserService {
       },
     });
   }
-    
+
+  resetPasswordConfirmed(email: string, password: string) {
+    const hashPassword = bycrypt.hashSync(password, 10);
+    return this.prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        password: hashPassword,
+      },
+    });
+  }
+        
 
   // update(id: number, updateUserInput: UpdateUserInput) {
   //   return `This action updates a #${id} user`;

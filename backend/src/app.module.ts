@@ -16,9 +16,14 @@ import {
   constraintDirectiveTypeDefs,
 } from 'graphql-constraint-directive';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { MailModule } from './mail/mail.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,
@@ -36,6 +41,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     AuthModule,
     RecordsModule,
     ProfilesModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [

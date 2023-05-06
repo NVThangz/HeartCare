@@ -57,7 +57,7 @@ export class MailService {
         to: email, // list of receivers
         from: 'noreply@nestjs.com', // sender address
         subject: '[HeartCare] Password recovery', // Subject line
-        template: '../src/mail/templates/confirmation',
+        template: './confirmation',
         context: {
           name,
           token,

@@ -2,7 +2,6 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
-import { join } from 'path';
 import { UserModule } from 'src/user/user.module';
 import { ConfigService } from '@nestjs/config';
 
@@ -32,7 +31,7 @@ import { ConfigService } from '@nestjs/config';
     MailerModule.forRoot({
       transport: 'smtps://user@domain.com:pass@smtp.domain.com',
       template: {
-        dir: process.cwd() + '/templates/',
+        dir: process.cwd() + '/src/mail/templates/',
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true,
@@ -43,4 +42,5 @@ import { ConfigService } from '@nestjs/config';
   providers: [MailService, ConfigService],
   exports: [MailService], // 👈 export for DI
 })
+
 export class MailModule {}

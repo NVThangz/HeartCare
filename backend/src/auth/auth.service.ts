@@ -8,19 +8,18 @@ import { createHash } from 'crypto';
 import { MailService } from 'src/mail/mail.service';
 
 interface TokenStore {
-  [email: string]: {value: string, expire: Date};
+  [email: string]: { value: string; expire: Date };
 }
 
 @Injectable()
 export class AuthService {
-  private tokenStore = {};
+  private tokenStore: TokenStore = {};
 
   constructor(
     private mailService: MailService,
     private userService: UserService,
     private jwtService: JwtService,
   ) {}
-
 
   async login(user: User) {
     const { password, ...result } = user;
@@ -34,12 +33,16 @@ export class AuthService {
   }
 
   async signup(authInput: AuthInput) {
+    if (!this.checkEmailRegex(authInput.username)) {
+      throw new ForbiddenError('Email không hợp lệ');
+    }
     const password = await this.hashData(authInput.password);
 
     const isEmailExist = await this.userService.findOne(authInput.username);
     if (isEmailExist) {
       throw new ForbiddenError('Email đã tồn tại');
     }
+
     const user = await this.userService.createUser({ ...authInput, password });
     const token = await this.getToken(user.id, user.email);
     await this.updateRefreshToken(user.id, token.refresh_token);
@@ -140,6 +143,11 @@ export class AuthService {
       access_token: at,
       refresh_token: rt,
     };
+  }
+
+  checkEmailRegex(email: string) {
+    const regex = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$');
+    return regex.test(email);
   }
 
   async validateUser(username: string, password: string): Promise<any> {

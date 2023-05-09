@@ -1,0 +1,9 @@
+input AdvisoryInput {
+  email: String!
+  question: String
+}
+
+
+type Mutation {
+  getAdvisory(advisoryInput: AdvisoryInput!): String!
+}

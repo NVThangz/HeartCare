@@ -2,14 +2,14 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { google } from 'googleapis';
-import { UserService } from 'src/user/user.service';
 import { Options } from 'nodemailer/lib/smtp-transport';
+import { ProfilesService } from 'src/profiles/profiles.service';
 
 @Injectable()
 export class MailService {
   constructor(
     private configService: ConfigService,
-    private userService: UserService,
+    private profileService: ProfilesService,
     private mailerService: MailerService,
   ) {}
 
@@ -49,7 +49,7 @@ export class MailService {
   }
 
   async sendUserConfirmation(email: string, token: string) {
-    const name = await this.userService.findOne(email).profile.name;
+    const name = (await this.profileService.findOne(email)).name;
     await this.setTransport();
     this.mailerService
       .sendMail({

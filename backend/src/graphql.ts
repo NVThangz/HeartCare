@@ -8,6 +8,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export class AdvisoryInput {
+    email: string;
+    question?: Nullable<string>;
+}
+
 export class AuthInput {
     username: string;
     password: string;
@@ -27,7 +32,7 @@ export class UpdateRecordInput {
     email: string;
     height?: Nullable<number>;
     weight?: Nullable<number>;
-    BMT?: Nullable<number>;
+    BMI?: Nullable<number>;
     bloodType?: Nullable<string>;
 }
 
@@ -40,16 +45,12 @@ export class UpdateUserInput {
     email?: Nullable<string>;
 }
 
-export class LoginResponse {
-    access_token: string;
-    refresh_token: string;
-    user: User;
-}
-
 export abstract class IMutation {
-    abstract signup(AuthInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
+    abstract getAdvisory(advisoryInput: AdvisoryInput): string | Promise<string>;
 
-    abstract login(AuthInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
+    abstract login(authInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
+
+    abstract signup(authInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
 
     abstract logout(): boolean | Promise<boolean>;
 
@@ -64,6 +65,12 @@ export abstract class IMutation {
     abstract updateRecord(updateRecordInput: UpdateRecordInput): Record | Promise<Record>;
 
     abstract resetPasswordConfirmed(email: string, Password: string): User | Promise<User>;
+}
+
+export class LoginResponse {
+    access_token: string;
+    refresh_token: string;
+    user: User;
 }
 
 export class Profile {
@@ -89,7 +96,7 @@ export abstract class IQuery {
 export class Record {
     height?: Nullable<number>;
     weight?: Nullable<number>;
-    BMT?: Nullable<number>;
+    BMI?: Nullable<number>;
     bloodType?: Nullable<string>;
     userId?: Nullable<number>;
 }

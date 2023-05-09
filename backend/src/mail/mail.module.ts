@@ -2,12 +2,12 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
-import { UserModule } from 'src/user/user.module';
 import { ConfigService } from '@nestjs/config';
+import { ProfilesModule } from 'src/profiles/profiles.module';
 
 @Module({
   imports: [
-    UserModule,
+    ProfilesModule,
     // MailerModule.forRoot({
     //   transport: {
     //     host: 'smtp.example.com',

@@ -1,7 +1,7 @@
 type Record {
   height:    Float
   weight:    Float
-  BMT:       Float
+  BMI:       Float
   bloodType: String
   userId:  Int
 }
@@ -10,7 +10,7 @@ input UpdateRecordInput {
   email:  String!
   height:    Float
   weight:    Float
-  BMT:       Float
+  BMI:       Float
   bloodType: String
 }
 

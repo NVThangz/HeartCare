@@ -10,7 +10,7 @@ async function main() {
       password: password,
       profile: {
         create: {
-          name: 'Tên User',
+          name: 'Bùi Minh Hoạt',
           sex: 'Nam',
           dob: '2002-04-25T10:48:53.653Z',
           phone: '0123456789',
@@ -22,6 +22,7 @@ async function main() {
         create: {
           height: 1.7,
           weight: 60,
+          BMI: 22.5,
           bloodType: 'A',
         },
       },

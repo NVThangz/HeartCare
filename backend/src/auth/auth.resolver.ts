@@ -18,14 +18,14 @@ export class AuthResolver {
   @Mutation(() => LoginResponse)
   @UseGuards(GqlAuthGuard)
   @HttpCode(HttpStatus.CREATED)
-  login(@Args('AuthInput') authInput: AuthInput, @Context() context) {
+  login(@Args('authInput') authInput: AuthInput, @Context() context) {
     return this.authService.login(context.user);
   }
 
   @Public()
   @Mutation('signup')
   @HttpCode(HttpStatus.OK)
-  signup(@Args('AuthInput') authInput: AuthInput) {
+  signup(@Args('authInput') authInput: AuthInput) {
     return this.authService.signup(authInput);
   }
 

@@ -150,9 +150,9 @@ export class AuthService {
     return regex.test(email);
   }
 
-  async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.userService.findOne(username);
-    const valid = await bcrypt.compare(password, user?.password);
+  async validateUser(authInput: AuthInput): Promise<any> {
+    const user = await this.userService.findOne(authInput.username);
+    const valid = await bcrypt.compare(authInput.password, user.password);
     if (user && valid) {
       const { password, ...result } = user;
       return result;

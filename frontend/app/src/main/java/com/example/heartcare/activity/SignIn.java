@@ -3,8 +3,10 @@ package com.example.heartcare.activity;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.apollographql.apollo3.ApolloCall;
+import com.apollographql.apollo3.ApolloClient;
+import com.apollographql.apollo3.api.ApolloResponse;
+import com.apollographql.apollo3.api.Optional;
+import com.apollographql.apollo3.rx3.Rx3Apollo;
+import com.example.heartcare.LoginMutation;
 import com.example.heartcare.R;
 //import com.facebook.AccessToken;
 //import com.facebook.CallbackManager;
@@ -28,6 +36,7 @@ import com.example.heartcare.R;
 //import com.facebook.GraphResponse;
 //import com.facebook.login.LoginManager;
 //import com.facebook.login.LoginResult;
+import com.example.heartcare.type.AuthInput;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,6 +48,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+
+import io.reactivex.rxjava3.core.Single;
 
 public class SignIn extends AppCompatActivity {
     private static final int RC_SIGN_IN = 200;
@@ -52,7 +63,8 @@ public class SignIn extends AppCompatActivity {
 
     private ImageView btn_back;
     private ConstraintLayout btn_sign_in;
-
+    private SharedPreferences mPref;
+    private SharedPreferences.Editor editor;
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -172,6 +184,8 @@ public class SignIn extends AppCompatActivity {
     private boolean loginAccount() throws Exception {
         String username = txt_username.getText().toString().trim();
         String password = txt_password.getText().toString().trim();
+        mPref = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = mPref.edit();
 
         if (TextUtils.isEmpty(username)) {
             throw new Exception("Enter username address!");
@@ -185,8 +199,31 @@ public class SignIn extends AppCompatActivity {
             throw new Exception("Password too short, enter minimum 6 characters!");
         }
 
-        // Kiểm tra đăng nhập, ghép nốt phần backend
+        AuthInput auth = new AuthInput(username,password) ;
+        Optional<AuthInput> NewAuth = Optional.present(auth);
+        ApolloClient apolloClient = new ApolloClient.Builder()
+                .serverUrl("http://192.168.1.67:3000/graphql")
+                .build();
+
+        ApolloCall<LoginMutation.Data> queryCall = apolloClient.mutation(new LoginMutation( NewAuth));
+        Single<ApolloResponse<LoginMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        queryResponse.subscribe(response ->
+                login(response),
+                Throwable::printStackTrace
+        );
+
+        // Kiểm tra đăng nhập, ghép nốt phần backendSignIn
+
         return true;
+    }
+
+    private void login(ApolloResponse<LoginMutation.Data> response) {
+        System.out.println(response.data);
+        editor.putString(Constant.refresh,response.data.login.refresh_token);
+        editor.putString(Constant.Email,response.data.login.access_token);
+        editor.commit();
+        Toast.makeText(SignIn.this,"helo world",Toast.LENGTH_SHORT).show();
+        System.out.println("Co chay den day");
     }
 
 //    private void getUserProfileFacebook(AccessToken accessToken) {

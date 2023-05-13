@@ -401,7 +401,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/segoeui"
-                    android:text=" @string/sign_in"
+                    android:text="@string/sign_in"
                     android:textColor="@color/red"
                     android:textFontWeight="700"
                     android:textSize="15sp"

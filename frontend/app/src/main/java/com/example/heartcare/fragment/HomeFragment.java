@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.heartcare.R;
 import com.example.heartcare.activity.EditHealthRecord;
 import com.example.heartcare.activity.HealthRecord;
+import com.example.heartcare.activity.HeartRateStatistics;
 import com.example.heartcare.activity.MeasureHeartRate;
 
 import java.util.Locale;
@@ -37,7 +38,7 @@ public class HomeFragment extends Fragment {
     private View rootView;
 
     private ConstraintLayout btnMeasureHeartRate;
-    private ConstraintLayout btnHealthRecord;
+    private ConstraintLayout btnHeartRateStatistics;
     private TextView tvMeasureHeartRate;
 
     public HomeFragment() {
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment {
 
     private void map() {
         btnMeasureHeartRate = rootView.findViewById(R.id.btn_measure_heart_rate);
-        btnHealthRecord = rootView.findViewById(R.id.btn_health_record);
+        btnHeartRateStatistics = rootView.findViewById(R.id.btn_heart_rate_statistics);
         tvMeasureHeartRate = rootView.findViewById(R.id.tv_measure_heart_rate);
     }
 
@@ -84,7 +85,18 @@ public class HomeFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         map();
         clickBtnMeasureHeartRate();
+        clickBtnHeartRateStatistics();
         return rootView;
+    }
+
+    private void clickBtnHeartRateStatistics() {
+        btnHeartRateStatistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), HeartRateStatistics.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void clickBtnMeasureHeartRate() {

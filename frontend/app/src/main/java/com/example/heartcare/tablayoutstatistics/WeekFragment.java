@@ -131,13 +131,13 @@ public class WeekFragment extends Fragment implements OnChartValueSelectedListen
         leftAxis.setAxisMinimum(0f);
 
         final List<String> xLabel = new ArrayList<>();
-        xLabel.add("Mon");
-        xLabel.add("Tue");
-        xLabel.add("Wed");
-        xLabel.add("Thu");
-        xLabel.add("Fri");
-        xLabel.add("Sat");
-        xLabel.add("Sun");
+        xLabel.add(getResources().getString(R.string.mon));
+        xLabel.add(getResources().getString(R.string.tue));
+        xLabel.add(getResources().getString(R.string.wed));
+        xLabel.add(getResources().getString(R.string.thu));
+        xLabel.add(getResources().getString(R.string.fri));
+        xLabel.add(getResources().getString(R.string.sat));
+        xLabel.add(getResources().getString(R.string.sun));
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);

@@ -18,6 +18,7 @@ import com.apollographql.apollo3.api.Optional;
 import com.apollographql.apollo3.rx3.Rx3Apollo;
 import com.example.heartcare.R;
 import com.example.heartcare.SignupMutation;
+import com.example.heartcare.backend.Backend;
 import com.example.heartcare.type.AuthInput;
 import com.example.heartcare.type.UpdateProfileInput;
 
@@ -116,24 +117,7 @@ public class SignUp extends AppCompatActivity {
             Kết nối backend để đăng ký và throw new Expection("Nội dung lỗi");
             Nếu đăng ký thành công thì không cần phải trả ra gì
          */
-        System.out.println("co chay cho nay 1");
-        AuthInput auth = new AuthInput(email,password) ;
-        Optional<AuthInput> NewAuth = Optional.present(auth);
-        UpdateProfileInput updateProfileInput = new UpdateProfileInput(email,Optional.present(fullname),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent());
-        System.out.println("email : " + email);
-        ApolloClient apolloClient = new ApolloClient.Builder()
-                .serverUrl("http://192.168.1.67:3000/graphql")
-                .build();
-
-
-        ApolloCall<SignupMutation.Data> queryCall = apolloClient.mutation(new SignupMutation( NewAuth,updateProfileInput));
-        Single<ApolloResponse<SignupMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
-        queryResponse.subscribe(response ->
-                        System.out.println(response.data),
-                Throwable::printStackTrace
-        );
-
-        System.out.println("co chay cho nay ");
+        Backend.signup(email, password);
     }
 
     @Override

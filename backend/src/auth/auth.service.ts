@@ -22,6 +22,7 @@ export class AuthService {
   ) {}
 
   async login(user: User) {
+    // const user = await this.validateUser(authInput);
     const { password, ...result } = user;
     const token = await this.getToken(user.id, user.email);
     await this.updateRefreshToken(user.id, token.refresh_token);

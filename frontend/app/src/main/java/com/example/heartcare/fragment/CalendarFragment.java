@@ -145,7 +145,7 @@ public class CalendarFragment extends Fragment {
     private void setBottomSheetDialog() {
         View bottomSheet = rootView.findViewById(R.id.bottom_sheet);
         BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
-        behavior.setPeekHeight(1000);
+        behavior.setPeekHeight(950);
         behavior.setMaxHeight(2060);
         behavior.setHideable(false);
         behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);

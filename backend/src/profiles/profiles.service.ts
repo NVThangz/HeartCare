@@ -36,7 +36,6 @@ export class ProfilesService {
         email,
       },
     });
-
     return this.prisma.profile.update({
       where: {
         userId: user.id,

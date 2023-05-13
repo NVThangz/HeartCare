@@ -11,7 +11,7 @@ export class HistoriesResolver {
   create(@Args('email') email: string, @Args('bpm') bpm: number) {
     return this.historiesService.create(email, bpm);
   }
-
+  
   @Query('history')
   findOne(@Args('email') email: string) {
     return this.historiesService.findOne(email);

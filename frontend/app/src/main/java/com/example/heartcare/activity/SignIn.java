@@ -36,6 +36,8 @@ import com.example.heartcare.R;
 //import com.facebook.GraphResponse;
 //import com.facebook.login.LoginManager;
 //import com.facebook.login.LoginResult;
+import com.example.heartcare.backend.Backend;
+import com.example.heartcare.backend.Constant;
 import com.example.heartcare.type.AuthInput;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -199,32 +201,34 @@ public class SignIn extends AppCompatActivity {
             throw new Exception("Password too short, enter minimum 6 characters!");
         }
 
-        AuthInput auth = new AuthInput(username,password) ;
-        Optional<AuthInput> NewAuth = Optional.present(auth);
-        ApolloClient apolloClient = new ApolloClient.Builder()
-                .serverUrl("http://192.168.1.67:3000/graphql")
-                .build();
 
-        ApolloCall<LoginMutation.Data> queryCall = apolloClient.mutation(new LoginMutation( NewAuth));
-        Single<ApolloResponse<LoginMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
-        queryResponse.subscribe(response ->
-                login(response),
-                Throwable::printStackTrace
-        );
+//        AuthInput auth = new AuthInput(username,password) ;
+//        Optional<AuthInput> NewAuth = Optional.present(auth);
+//
+//        ApolloClient apolloClient = new ApolloClient.Builder()
+//                .serverUrl("http://192.168.1.67:3000/graphql")
+//                .build();
+//
+//        ApolloCall<LoginMutation.Data> queryCall = apolloClient.mutation(new LoginMutation( NewAuth));
+//        Single<ApolloResponse<LoginMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+//        queryResponse.subscribe(response ->
+//                login(response),
+//                Throwable::printStackTrace
+//        );
 
         // Kiểm tra đăng nhập, ghép nốt phần backendSignIn
-
+        Backend.login(username,password);
         return true;
     }
 
-    private void login(ApolloResponse<LoginMutation.Data> response) {
-        System.out.println(response.data);
-        editor.putString(Constant.refresh,response.data.login.refresh_token);
-        editor.putString(Constant.Email,response.data.login.access_token);
-        editor.commit();
-        Toast.makeText(SignIn.this,"helo world",Toast.LENGTH_SHORT).show();
-        System.out.println("Co chay den day");
-    }
+//    private void login(ApolloResponse<LoginMutation.Data> response) {
+//        System.out.println(response.data);
+//        editor.putString(Constant.refresh,response.data.login.refresh_token);
+//        editor.putString(Constant.Email,response.data.login.access_token);
+//        editor.commit();
+//        Toast.makeText(SignIn.this,"helo world",Toast.LENGTH_SHORT).show();
+//        System.out.println("Co chay den day");
+//    }
 
 //    private void getUserProfileFacebook(AccessToken accessToken) {
 //        /**

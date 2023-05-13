@@ -5,7 +5,8 @@ for /f "tokens=2 delims=:" %%f in ('ipconfig ^| findstr /i "IPv4.*Address.*:"') 
         setlocal enabledelayedexpansion
         set "ip=!ip: =!"
         set "url=http://!ip!:3000/graphql"
-        echo !url!>IPv4.txt
+        echo !url!
+	pause
         endlocal
         exit /b
     )

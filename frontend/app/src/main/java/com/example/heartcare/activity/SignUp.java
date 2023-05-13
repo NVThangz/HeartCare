@@ -11,7 +11,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.apollographql.apollo3.ApolloCall;
+import com.apollographql.apollo3.ApolloClient;
+import com.apollographql.apollo3.api.ApolloResponse;
+import com.apollographql.apollo3.api.Optional;
+import com.apollographql.apollo3.rx3.Rx3Apollo;
 import com.example.heartcare.R;
+import com.example.heartcare.SignupMutation;
+import com.example.heartcare.type.AuthInput;
+import com.example.heartcare.type.UpdateProfileInput;
+
+import io.reactivex.rxjava3.core.Single;
 
 public class SignUp extends AppCompatActivity {
     private EditText txt_full_name = null;
@@ -77,6 +87,7 @@ public class SignUp extends AppCompatActivity {
         String password = txt_password.getText().toString().trim();
         String confirm_password = txt_confirm_password.getText().toString().trim();
 
+
         if (TextUtils.isEmpty(fullname)) {
             throw new Exception("Enter fullname address!");
         }
@@ -105,6 +116,24 @@ public class SignUp extends AppCompatActivity {
             Kết nối backend để đăng ký và throw new Expection("Nội dung lỗi");
             Nếu đăng ký thành công thì không cần phải trả ra gì
          */
+        System.out.println("co chay cho nay 1");
+        AuthInput auth = new AuthInput(email,password) ;
+        Optional<AuthInput> NewAuth = Optional.present(auth);
+        UpdateProfileInput updateProfileInput = new UpdateProfileInput(email,Optional.present(fullname),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent());
+        System.out.println("email : " + email);
+        ApolloClient apolloClient = new ApolloClient.Builder()
+                .serverUrl("http://192.168.1.67:3000/graphql")
+                .build();
+
+
+        ApolloCall<SignupMutation.Data> queryCall = apolloClient.mutation(new SignupMutation( NewAuth,updateProfileInput));
+        Single<ApolloResponse<SignupMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        queryResponse.subscribe(response ->
+                        System.out.println(response.data),
+                Throwable::printStackTrace
+        );
+
+        System.out.println("co chay cho nay ");
     }
 
     @Override

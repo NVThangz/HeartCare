@@ -1,0 +1,16 @@
+scalar DateTime
+
+type History {
+  id:        Int
+  userId:    Int
+  bpm:       Int
+  createdAt: DateTime
+}
+
+type Query {
+  history(email: String!): [History]
+}
+
+type Mutation {
+  createHistory(email: String!, bpm: Int!): History
+}

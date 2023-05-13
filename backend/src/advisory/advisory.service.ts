@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Configuration, CreateChatCompletionRequest, OpenAIApi } from 'openai';
 import { ProfilesService } from '../profiles/profiles.service';
 import { Profile } from '../graphql';
+import { HistoriesService } from '../histories/histories.service';
 
 const DEFAULT_MODEL = 'gpt-3.5-turbo';
 const DEFAULT_SYSTEM_ROLE = "Bạn là bác sĩ tên Thắng chuyên khoa tim mạch, bạn sẽ tư vấn về các vấn đề sức khỏe cho người dùng, bạn sẽ cho câu trả lời dưới 300 từ"
@@ -15,6 +16,7 @@ export class AdvisoryService {
   constructor(
     private profilesService: ProfilesService,
     private recordsService: RecordsService,
+    private historiesService: HistoriesService,
   ) {
     const configuration = new Configuration({
       organization: process.env.ORGANIZATION_ID,
@@ -25,9 +27,10 @@ export class AdvisoryService {
   }
 
   async getAdvisory(email: string ,question: string) {
-    const [profile, record] = await Promise.all([
+    const [profile, record, history] = await Promise.all([
       await this.profilesService.findOne(email),
       await this.recordsService.findOne(email),
+      await this.historiesService.findLatest(email),
     ]);
 
     if(!profile || !record) throw new Error('Không tìm thấy thông tin người dùng');
@@ -40,14 +43,16 @@ export class AdvisoryService {
     if(!record.weight) need += ' Cân nặng,';
     if(!record.BMI) need += ' BMI,';
     if(!record.bloodType) need += ' Nhóm máu,';
-
+    if(!history[0].bpm) need += ' Nhịp tim,';
+    
+    
     if(need) return `Bạn chưa cung cấp đủ thông tin:${need.slice(0, -1)}.\n\n Vui lòng cung cấp thông tin trên để tôi có thể tư vấn cho bạn.`;
 
     const age = this.calculateAge(profile.dob)
     
     const userQuestion = `Tôi tên là ${profile.name}, tuổi ${age}, giới tính ${profile.sex}, chiều cao ${record.height}m, cân nặng ${record.weight}kg, nhóm máu ${record.bloodType}, BMI ${record.BMI}kg/m2`
                           // + (', những bệnh tôi mắc phải là ' + record.diseases.map((disease) => disease.name).join(', '))
-                          + (', nhịp tim trung bình của tôi là 40bpm')
+                          + (history[0].bpm ? `, nhịp tim trung bình của tôi là ${history[0].bpm}bpm`: '')
                           + (question ? `, cho tôi hỏi ${question}` : '');
 
     console.log(userQuestion);

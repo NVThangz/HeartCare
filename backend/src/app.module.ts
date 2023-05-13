@@ -19,6 +19,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
 import { AdvisoryModule } from './advisory/advisory.module';
+import { HistoriesModule } from './histories/histories.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { AdvisoryModule } from './advisory/advisory.module';
     ProfilesModule,
     MailModule,
     AdvisoryModule,
+    HistoriesModule,
   ],
   controllers: [AppController],
   providers: [

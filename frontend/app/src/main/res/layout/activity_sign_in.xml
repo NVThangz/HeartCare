@@ -308,6 +308,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/segoeui"
+                    android:layout_marginStart="3dp"
                     android:text="@string/create"
                     android:textColor="@color/red"
                     android:textFontWeight="700"

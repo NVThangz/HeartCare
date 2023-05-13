@@ -62,12 +62,22 @@ public class SignIn extends AppCompatActivity {
     private ImageButton btn_login_google;
 //    private CallbackManager callbackManager;
     private TextView tv_createNewOne;
-
     private ImageView btn_back;
+    private TextView tv_forgot_password;
     private ConstraintLayout btn_sign_in;
     private SharedPreferences mPref;
     private SharedPreferences.Editor editor;
     private GoogleSignInClient mGoogleSignInClient;
+
+    private void map() {
+        tv_forgot_password = findViewById(R.id.tv_forgot_password);
+        txt_username = findViewById(R.id.txt_username);
+        txt_password = findViewById(R.id.txt_password);
+        btn_sign_in = findViewById(R.id.btn_sign_in);
+        tv_createNewOne = findViewById(R.id.tv_createNewOne);
+        btn_login_google = findViewById(R.id.btn_login_google);
+        btn_login_facebook = findViewById(R.id.btn_login_facebook);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +88,7 @@ public class SignIn extends AppCompatActivity {
         clickBtnLoginFacebook();
         clickBtnLoginGoogle();
         clickTvCreateNewOne();
+        clickTvForgotPassword();
         clickBtnSignIn();
     }
 
@@ -111,6 +122,16 @@ public class SignIn extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 */
+
+    private void clickTvForgotPassword() {
+        tv_forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignIn.this, ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
+    }
 
     private void clickBtnLoginFacebook() {
         btn_login_facebook.setOnClickListener(new View.OnClickListener() {
@@ -162,15 +183,6 @@ public class SignIn extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void map() {
-        txt_username = findViewById(R.id.txt_username);
-        txt_password = findViewById(R.id.txt_password);
-        btn_sign_in = findViewById(R.id.btn_sign_in);
-        tv_createNewOne = findViewById(R.id.tv_createNewOne);
-        btn_login_google = findViewById(R.id.btn_login_google);
-        btn_login_facebook = findViewById(R.id.btn_login_facebook);
     }
 
     private void registerAccountWithSocial(String username, String name, String email) throws Exception {

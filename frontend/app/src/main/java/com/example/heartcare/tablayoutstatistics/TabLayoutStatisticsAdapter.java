@@ -1,15 +1,23 @@
 package com.example.heartcare.tablayoutstatistics;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class TabLayoutStatisticsAdapter extends FragmentStatePagerAdapter {
+import com.example.heartcare.R;
+import com.example.heartcare.activity.HeartRateStatistics;
+import com.example.heartcare.activity.MeasureHeartRate;
 
-    public TabLayoutStatisticsAdapter(@NonNull FragmentManager fm, int behavior) {
+public class TabLayoutStatisticsAdapter extends FragmentStatePagerAdapter {
+    private Context activity;
+
+    public TabLayoutStatisticsAdapter(@NonNull FragmentManager fm, int behavior, Context activity) {
         super(fm, behavior);
+        this.activity = activity;
     }
 
     @NonNull
@@ -35,11 +43,11 @@ public class TabLayoutStatisticsAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Day";
+                return activity.getResources().getString(R.string.day);
             case 1:
-                return "Week";
+                return activity.getResources().getString(R.string.week);
             default:
-                return "Day";
+                return activity.getResources().getString(R.string.day);
         }
     }
 }

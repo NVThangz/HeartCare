@@ -58,6 +58,15 @@
     <string name="confirm_password">Confirm password</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="time">Time</string>
+    <string name="heart_rate_measurement_guide">Please place your finger \non the device\'s camera, covering the flash.\nThen click the button to measure.</string>
+    <string name="pulse_data">Pulse: 0 \n(0 cycle in 0 second)</string>
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <plurals name="measurement_output_template">
+        <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
+        <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
+        <item quantity="other">Pulse: %2.1f\n(%d cycles in %2.1f seconds)</item>
+    </plurals>
 
 
 </resources>

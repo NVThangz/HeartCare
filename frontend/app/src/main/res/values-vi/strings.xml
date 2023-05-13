@@ -34,9 +34,9 @@
     <string name="noFlashWarning">Phép đo không có đèn flash kém tin cậy hơn</string>
     <string name="camera_not_found">Máy ảnh không khả dụng</string>
     <string name="bpm_statistics">Thống kê BPM</string>
-    <string name="max">Lớn nhất</string>
+    <string name="max">Cao nhất</string>
     <string name="avg">Trung bình</string>
-    <string name="min">Nhỏ nhất</string>
+    <string name="min">Thấp nhất</string>
     <string name="content">Nội dung</string>
     <string name="title">Chủ đề:</string>
     <string name="health_record">Hồ sơ sức khỏe</string>
@@ -58,6 +58,15 @@
     <string name="confirm_password">Xác nhận mật khẩu</string>
     <string name="already_have_an_account">Bạn đã có tài khoản?</string>
     <string name="time">Thời gian</string>
+    <string name="heart_rate_measurement_guide">Vui lòng đặt ngón tay của bạn\nlên camera thiết bị, che kín đèn flash.\nSau đó nhấn nút để đo nhịp tim.</string>
+    <string name="pulse_data">Xung nhịp: 0 \n(0 chu kỳ trong 0 giây)</string>
+    <string name="day">Ngày</string>
+    <string name="week">Tuần</string>
+    <plurals name="measurement_output_template">
+        <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
+        <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
+        <item quantity="other">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
+    </plurals>
 
 
 </resources>

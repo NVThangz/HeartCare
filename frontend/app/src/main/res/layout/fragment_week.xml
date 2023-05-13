@@ -36,7 +36,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="0dp"
                 android:fontFamily="@font/segoeuib"
-                android:text="BPM Statistics"
+                android:text="@string/bpm_statistics"
                 android:textColor="#F45D5D"
                 android:textFontWeight="500"
                 android:textSize="25sp"
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/segoeuib"
-                    android:text="Min"
+                    android:text="@string/min"
                     android:textColor="@color/white"
                     android:textFontWeight="500"
                     android:textSize="22sp" />
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/segoeuib"
-                    android:text="Max"
+                    android:text="@string/max"
                     android:textColor="@color/white"
                     android:textFontWeight="500"
                     android:textSize="22sp" />
@@ -159,7 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/segoeuib"
-                    android:text="Avg"
+                    android:text="@string/avg"
                     android:textColor="@color/white"
                     android:textFontWeight="500"
                     android:textSize="22sp" />

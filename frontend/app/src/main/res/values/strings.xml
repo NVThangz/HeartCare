@@ -65,4 +65,30 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="bpm_statistics">BPM Statistics</string>
+    <string name="max">Max</string>
+    <string name="avg">Avg</string>
+    <string name="min">Min</string>
+    <string name="content">Content</string>
+    <string name="title">Title:</string>
+    <string name="health_record">Health Record</string>
+    <string name="average">Average</string>
+    <string name="healthy">Healthy</string>
+    <string name="maximum">Maximum</string>
+    <string name="danger">Danger</string>
+    <string name="select_language">Select language</string>
+    <string name="welcome">Welcome</string>
+    <string name="before_we_enter_make_sure_n_you_have_selected_the_correct_language">Before we enter make sure \n you have selected the correct language</string>
+    <string name="english">English</string>
+    <string name="confirm">Confirm</string>
+    <string name="or">or</string>
+    <string name="sign_in">Sign In</string>
+    <string name="password">Password</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="create">Create</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="time">Time</string>
 </resources>

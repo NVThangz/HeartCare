@@ -16,7 +16,7 @@
     <string name="add_note">Thêm nhắc nhở</string>
     <string name="save">Lưu</string>
     <string name="cancel">Hủy</string>
-    <string name="full_name">Họ tên</string>
+    <string name="full_name">Họ và tên</string>
     <string name="sex">Giới tính</string>
     <string name="date_of_birth">Ngày sinh</string>
     <string name="phone_number">Số điện thoại</string>
@@ -33,7 +33,31 @@
     <string name="measure">Đo nhịp tim</string>
     <string name="noFlashWarning">Phép đo không có đèn flash kém tin cậy hơn</string>
     <string name="camera_not_found">Máy ảnh không khả dụng</string>
-
+    <string name="bpm_statistics">Thống kê BPM</string>
+    <string name="max">Lớn nhất</string>
+    <string name="avg">Trung bình</string>
+    <string name="min">Nhỏ nhất</string>
+    <string name="content">Nội dung</string>
+    <string name="title">Chủ đề:</string>
+    <string name="health_record">Hồ sơ sức khỏe</string>
+    <string name="average">Trung bình</string>
+    <string name="healthy">Khỏe mạnh</string>
+    <string name="maximum">Tối đa</string>
+    <string name="danger">Nguy hiểm</string>
+    <string name="select_language">Chọn ngôn ngữ</string>
+    <string name="welcome">Chào mừng</string>
+    <string name="before_we_enter_make_sure_n_you_have_selected_the_correct_language">Trước khi chúng tôi nhập, đảm bảo \n bạn đã chọn đúng ngôn ngữ</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="or">hoặc</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="password">Mật khẩu</string>
+    <string name="forgot_your_password">Quên mật khẩu?</string>
+    <string name="don_t_have_an_account">Bạn chưa có tài khoản?</string>
+    <string name="create"> Tạo</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="already_have_an_account">Bạn đã có tài khoản?</string>
+    <string name="time">Thời gian</string>
 
 
 </resources>

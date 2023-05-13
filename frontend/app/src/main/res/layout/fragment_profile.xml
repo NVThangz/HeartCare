@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif"
-                        android:text="Full name"
+                        android:text="@string/full_name"
                         android:textColor="@color/flamingo_pink"
                         android:textFontWeight="700"
                         android:textSize="28sp"

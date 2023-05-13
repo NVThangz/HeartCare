@@ -44,7 +44,7 @@ public class HeartRateStatistics extends AppCompatActivity {
     }
 
     private void setTabLayout() {
-        TabLayoutStatisticsAdapter tabLayoutAdapter = new TabLayoutStatisticsAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        TabLayoutStatisticsAdapter tabLayoutAdapter = new TabLayoutStatisticsAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, this);
         viewPager.setAdapter(tabLayoutAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setSelectedTabIndicatorColor(Color.RED);

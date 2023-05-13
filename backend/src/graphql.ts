@@ -60,17 +60,38 @@ export abstract class IMutation {
 
     abstract confirmForgotPassword(email: string, token: string): boolean | Promise<boolean>;
 
+    abstract resetPasswordConfirmed(email: string, newPassword: string): LoginResponse | Promise<LoginResponse>;
+
+    abstract createHistory(email: string, bpm: number): Nullable<History> | Promise<Nullable<History>>;
+
     abstract updateProfile(updateProfileInput: UpdateProfileInput): Profile | Promise<Profile>;
 
     abstract updateRecord(updateRecordInput: UpdateRecordInput): Record | Promise<Record>;
-
-    abstract resetPasswordConfirmed(email: string, Password: string): User | Promise<User>;
 }
 
 export class LoginResponse {
     access_token: string;
     refresh_token: string;
     user: User;
+}
+
+export class History {
+    id?: Nullable<number>;
+    userId?: Nullable<number>;
+    bpm?: Nullable<number>;
+    createdAt?: Nullable<DateTime>;
+}
+
+export abstract class IQuery {
+    abstract history(email: string): Nullable<Nullable<History>[]> | Promise<Nullable<Nullable<History>[]>>;
+
+    abstract profile(email: string): Nullable<Profile> | Promise<Nullable<Profile>>;
+
+    abstract record(email: string): Nullable<Record> | Promise<Nullable<Record>>;
+
+    abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
+
+    abstract user(email: string): User | Promise<User>;
 }
 
 export class Profile {
@@ -81,16 +102,6 @@ export class Profile {
     address?: Nullable<string>;
     nationalID?: Nullable<string>;
     userId?: Nullable<number>;
-}
-
-export abstract class IQuery {
-    abstract profile(email: string): Nullable<Profile> | Promise<Nullable<Profile>>;
-
-    abstract record(email: string): Nullable<Record> | Promise<Nullable<Record>>;
-
-    abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
-
-    abstract user(email: string): User | Promise<User>;
 }
 
 export class Record {

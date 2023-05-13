@@ -37,6 +37,7 @@
     "googleapis": "^118.0.0",
     "graphql": "^16.6.0",
     "graphql-constraint-directive": "^5.0.0",
+    "graphql-upload": "^16.0.2",
     "handlebars": "^4.7.7",
     "nodemailer": "^6.9.1",
     "openai": "^3.2.1",
@@ -45,7 +46,8 @@
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "ts-morph": "^18.0.0"
+    "ts-morph": "^18.0.0",
+    "uuid4": "^2.0.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -53,6 +55,7 @@
     "@nestjs/testing": "^9.0.0",
     "@types/express": "^4.17.13",
     "@types/jest": "29.5.0",
+    "@types/multer": "^1.4.7",
     "@types/node": "18.15.11",
     "@types/nodemailer": "^6.4.7",
     "@types/passport-jwt": "^3.0.8",

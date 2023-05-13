@@ -22,6 +22,7 @@ export class AuthService {
   ) {}
 
   async login(user: User) {
+    // const user = await this.validateUser(authInput);
     const { password, ...result } = user;
     const token = await this.getToken(user.id, user.email);
     await this.updateRefreshToken(user.id, token.refresh_token);
@@ -114,6 +115,20 @@ export class AuthService {
     return true;
   }
 
+  async resetPasswordConfirmed(email: string, newPassword: string) {
+    const user = await this.userService.changePassword(email, newPassword);
+    if (!user) {
+      throw new ForbiddenError('Email không tồn tại');
+    }
+    const token = await this.getToken(user.id, user.email);
+    await this.updateRefreshToken(user.id, token.refresh_token);
+    return {
+      access_token: token.access_token,
+      refresh_token: token.refresh_token,
+      user,
+    };
+  }
+
   hashData(data: string) {
     return bcrypt.hash(data, 10);
   }
@@ -152,10 +167,14 @@ export class AuthService {
 
   async validateUser(authInput: AuthInput): Promise<any> {
     const user = await this.userService.findOne(authInput.username);
+    if (!user) {
+      throw new ForbiddenError('Email không tồn tại');
+    }
     const valid = await bcrypt.compare(authInput.password, user.password);
-    if (user && valid) {
-      const { password, ...result } = user;
-      return result;
-    } else throw new ForbiddenError('user not found');
+    if (!valid) {
+      throw new ForbiddenError('Mật khẩu không đúng');
+    }
+    const { password, ...result } = user;
+    return result;
   }
 }

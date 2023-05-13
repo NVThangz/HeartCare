@@ -19,28 +19,38 @@ model User {
   refreshToken String?
   profile Profile?
   record Record?
+  history History[]
 }
 
 model Profile {
   id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
   name      String?
   sex       String?
   dob       DateTime?
   phone     String?
   address   String?
   nationalID String?
-  userId    Int      @unique
-  user      User     @relation(fields: [userId], references: [id])
+
 }
 
 model Record {
   id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
   height    Float?
   weight    Float?
   BMI       Float?
   bloodType String?
-  userId    Int      @unique
+}
+
+model History {
+  id        Int      @id @default(autoincrement())
+  userId    Int
   user      User     @relation(fields: [userId], references: [id])
+  bpm       Int
+  createdAt DateTime  @default(now())
 }
 
 // model Doctor {

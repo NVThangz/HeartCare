@@ -79,7 +79,7 @@ export class UserService {
     });
   }
 
-  resetPasswordConfirmed(email: string, password: string) {
+  changePassword(email: string, password: string) {
     const hashPassword = bycrypt.hashSync(password, 10);
     return this.prisma.user.update({
       where: {
@@ -90,6 +90,8 @@ export class UserService {
       },
     });
   }
+  
+
         
 
   // update(id: number, updateUserInput: UpdateUserInput) {

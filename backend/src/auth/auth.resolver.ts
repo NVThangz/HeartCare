@@ -57,5 +57,10 @@ export class AuthResolver {
   confirmForgotPassword(@Args('email') email: string, @Args('token') token: string) {
     return this.authService.confirmForgotPassword(email, token);
   }
+
+  @Mutation('resetPasswordConfirmed')
+  resetPasswordConfirmed(@Args('email') email: string, @Args('newPassword') newPassword: string) {
+    return this.authService.resetPasswordConfirmed(email, newPassword);
+  }
   
 }

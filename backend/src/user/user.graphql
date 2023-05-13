@@ -1,3 +1,5 @@
+scalar DateTime
+
 type User {
   id: Int!
   email: String!
@@ -23,6 +25,3 @@ type Query {
   user(email: String!): User!
 }
 
-type Mutation {
-  resetPasswordConfirmed(email: String!, Password: String!): User!
-}

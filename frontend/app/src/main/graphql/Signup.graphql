@@ -1,0 +1,9 @@
+mutation Signup ($authInput: AuthInput, $updateProfileInput: UpdateProfileInput!) {
+  signup(authInput: $authInput) {
+    access_token
+    refresh_token
+  }
+  updateProfile(updateProfileInput: $updateProfileInput) {
+    name
+  }
+}

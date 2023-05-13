@@ -19,9 +19,6 @@ export class UserResolver {
     return this.userService.findOne(email);
   }
 
-  @Mutation('resetPasswordConfirmed')
-  resetPasswordConfirmed(@Args('email') email: string, @Args('password') password: string) {
-    return this.userService.resetPasswordConfirmed(email, password);
-  }
+
   
 }

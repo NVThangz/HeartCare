@@ -3,7 +3,6 @@ import { AuthService } from './auth.service';
 import { LoginResponse, AuthInput, User } from 'src/graphql';
 import { Req, UseGuards, Headers, HttpCode, HttpStatus } from '@nestjs/common';
 import { GqlAuthGuard } from '../common/guards/gql-auth.guard';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { JwtRefreshAuthGuard } from 'src/common/guards/jwt-refresh-auth.guard';
 import { Public } from 'src/common/decorator/public.decorator';
@@ -15,7 +14,7 @@ export class AuthResolver {
   constructor(private authService: AuthService) {}
 
   @Public()
-  @Mutation(() => LoginResponse)
+  @Mutation('login')
   @UseGuards(GqlAuthGuard)
   @HttpCode(HttpStatus.CREATED)
   login(@Args('authInput') authInput: AuthInput, @Context() context) {
@@ -57,6 +56,11 @@ export class AuthResolver {
   @HttpCode(HttpStatus.OK)
   confirmForgotPassword(@Args('email') email: string, @Args('token') token: string) {
     return this.authService.confirmForgotPassword(email, token);
+  }
+
+  @Mutation('resetPasswordConfirmed')
+  resetPasswordConfirmed(@Args('email') email: string, @Args('newPassword') newPassword: string) {
+    return this.authService.resetPasswordConfirmed(email, newPassword);
   }
   
 }

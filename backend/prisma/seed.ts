@@ -26,6 +26,18 @@ async function main() {
           bloodType: 'A',
         },
       },
+      history: {
+        create: [
+          {
+            createdAt: '2021-04-25T10:48:53.653Z',
+            bpm: 80,
+          },
+          {
+            createdAt: '2021-04-26T10:48:53.653Z',
+            bpm: 90,
+          },
+        ],
+      },
     },
   });
 }

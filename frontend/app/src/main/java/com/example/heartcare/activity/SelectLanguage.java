@@ -3,7 +3,9 @@ package com.example.heartcare.activity;
 import static com.example.heartcare.utilities.Constants.languages;
 import static com.example.heartcare.utilities.Constants.languages_ISO_639;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -32,6 +34,12 @@ public class SelectLanguage extends AppCompatActivity {
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
+        SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("language", languagesISO639);
+        editor.apply();
+
     }
 
     private void map() {

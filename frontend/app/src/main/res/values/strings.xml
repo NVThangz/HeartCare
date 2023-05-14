@@ -115,4 +115,7 @@
     <string name="new_password">New Password</string>
     <string name="notificationResend">Resent verification code</string>
     <string name="logged_in_successfully">Logged in successfully</string>
+    <string name="health_consultation">Health Consultation</string>
+    <string name="welcome_text_health_consultation">Starting Health Consultation\nwith AI ChatGPT Technology</string>
+    <string name="write_here">Write here</string>
 </resources>

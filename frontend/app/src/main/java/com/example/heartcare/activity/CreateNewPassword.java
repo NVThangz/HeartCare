@@ -13,21 +13,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.heartcare.R;
 
-public class ForgotPassword extends AppCompatActivity {
+public class CreateNewPassword extends AppCompatActivity {
     private ImageView icBack;
     private TextView btnSend;
-    private EditText etMail;
+    private EditText etPassword;
+    private EditText etConfirmPassword;
 
     private void map() {
         icBack = findViewById(R.id.ic_back);
-        btnSend = findViewById(R.id.btn_send);
-        etMail = findViewById(R.id.et_mail);
+        btnSend = findViewById(R.id.btn_save);
+        etPassword = findViewById(R.id.et_password);
+        etConfirmPassword = findViewById(R.id.et_confirm_password);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
+        setContentView(R.layout.activity_create_new_password);
         map();
         setFocusChangeListener();
         clickIcBack();
@@ -35,7 +37,16 @@ public class ForgotPassword extends AppCompatActivity {
     }
 
     private void setFocusChangeListener() {
-        etMail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        etConfirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
@@ -54,7 +65,7 @@ public class ForgotPassword extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ForgotPassword.this, VerifyEmail.class);
+                Intent intent = new Intent(CreateNewPassword.this, MainActivity.class);
                 startActivity(intent);
             }
         });

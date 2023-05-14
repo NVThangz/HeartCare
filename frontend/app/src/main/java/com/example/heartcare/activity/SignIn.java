@@ -2,34 +2,24 @@ package com.example.heartcare.activity;
 
 import static android.content.ContentValues.TAG;
 
-import static com.example.heartcare.backend.Constant.refresh;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.apollographql.apollo3.ApolloCall;
-import com.apollographql.apollo3.ApolloClient;
-import com.apollographql.apollo3.api.ApolloResponse;
-import com.apollographql.apollo3.api.Optional;
-import com.apollographql.apollo3.rx3.Rx3Apollo;
-import com.example.heartcare.LoginMutation;
 import com.example.heartcare.R;
 //import com.facebook.AccessToken;
 //import com.facebook.CallbackManager;
@@ -40,25 +30,11 @@ import com.example.heartcare.R;
 //import com.facebook.login.LoginManager;
 //import com.facebook.login.LoginResult;
 import com.example.heartcare.backend.Backend;
-import com.example.heartcare.backend.Constant;
-import com.example.heartcare.type.AuthInput;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
-
-import io.reactivex.rxjava3.core.Single;
 
 public class SignIn extends AppCompatActivity {
     private static final int RC_SIGN_IN = 200;
-    private EditText txt_username = null;
+    private EditText txt_email = null;
     private EditText txt_password = null;
     private ImageButton btn_login_facebook;
 
@@ -74,7 +50,7 @@ public class SignIn extends AppCompatActivity {
 
     private void map() {
         tv_forgot_password = findViewById(R.id.tv_forgot_password);
-        txt_username = findViewById(R.id.txt_username);
+        txt_email = findViewById(R.id.txt_email);
         txt_password = findViewById(R.id.txt_password);
         btn_sign_in = findViewById(R.id.btn_sign_in);
         tv_createNewOne = findViewById(R.id.tv_createNewOne);
@@ -88,6 +64,7 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         map();
 
+        setFocusChangeListener();
         clickBtnLoginFacebook();
         clickBtnLoginGoogle();
         clickTvCreateNewOne();
@@ -107,6 +84,31 @@ public class SignIn extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void setFocusChangeListener() {
+        txt_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        txt_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
     }
 
     /*
@@ -213,12 +215,12 @@ public class SignIn extends AppCompatActivity {
     }
 
     private boolean loginAccount() throws Exception {
-        String username = txt_username.getText().toString().trim();
+        String username = txt_email.getText().toString().trim();
         String password = txt_password.getText().toString().trim();
         SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
 
         if (TextUtils.isEmpty(username)) {
-            throw new Exception("Enter username address!");
+            throw new Exception("Enter email address!");
         }
 
         if (TextUtils.isEmpty(password)) {

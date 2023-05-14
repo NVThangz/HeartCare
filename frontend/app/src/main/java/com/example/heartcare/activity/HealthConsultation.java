@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class HealthConsultation extends AppCompatActivity {
     private TextView textViewEmail;
     private List<Message> messageList = new ArrayList<>();;
     private MessageAdapter messageAdapter;
+    private ImageView icBack;
 
     private void map() {
         recyclerView = findViewById(R.id.recycler_view);
@@ -36,6 +38,7 @@ public class HealthConsultation extends AppCompatActivity {
         sendButton = findViewById(R.id.send_btn);
         textViewFullName = findViewById(R.id.full_name);
         textViewEmail = findViewById(R.id.email);
+        icBack = findViewById(R.id.ic_back);
     }
 
     @Override
@@ -44,11 +47,21 @@ public class HealthConsultation extends AppCompatActivity {
         setContentView(R.layout.activity_health_consultation);
         map();
 
+        clickIcBack();
         setTextView();
         setFocusChangeListener();
         setMessage();
         clickSendButton();
         setTextViewWelcome();
+    }
+
+    private void clickIcBack() {
+        icBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void setTextView() {

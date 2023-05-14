@@ -71,6 +71,7 @@
     <string name="sun">CN</string>
     <string name="forgot_password">Quên Mật Khẩu</string>
     <string name="verify_your_email">Xác Thực Email</string>
+    <string name="create_new_password">Tạo Mật Khẩu Mới</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

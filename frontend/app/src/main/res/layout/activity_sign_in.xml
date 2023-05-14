@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sign_in"
     android:background="@drawable/gradient_background"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -137,7 +140,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/txt_username"
+                    android:id="@+id/txt_email"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
@@ -147,7 +150,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="#AD3F95"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textCursorDrawable="@drawable/custom_cursor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -201,7 +204,7 @@
                     android:padding="10dp"
                     android:text=""
                     android:textColor="#AD3F95"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textCursorDrawable="@drawable/custom_cursor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

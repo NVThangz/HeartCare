@@ -72,6 +72,14 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="verify_your_email">Verify Your Email</string>
     <string name="create_new_password">Create New Password</string>
+    <string name="please_enter_the_4_digit_code_sent_to">Please Enter The 4 Digit Code Sent To</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="verify">Verify</string>
+    <string name="please_enter_your_email_address_to_nrecieve_a_verification_cord">Please Enter Your Email Address To\nRecieve a Verification Cord.</string>
+    <string name="email_address">Email Address</string>
+    <string name="send">Send</string>
+    <string name="your_new_password_must_be_different_nfrom_previously_used_password">Your New Password Must Be Different\nFrom Previously Used Password</string>
+    <string name="new_password">New Password</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
         <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>

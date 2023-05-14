@@ -72,6 +72,14 @@
     <string name="forgot_password">Quên Mật Khẩu</string>
     <string name="verify_your_email">Xác Thực Email</string>
     <string name="create_new_password">Tạo Mật Khẩu Mới</string>
+    <string name="please_enter_the_4_digit_code_sent_to">Vui lòng nhập mã 4 chữ số được gửi đến</string>
+    <string name="resend_code">Gửi lại mã</string>
+    <string name="verify">Xác minh</string>
+    <string name="please_enter_your_email_address_to_nrecieve_a_verification_cord">Vui lòng nhập địa chỉ email của bạn để \n nhận mã xác minh.</string>
+    <string name="email_address">Địa chỉ Email</string>
+    <string name="send">Gửi</string>
+    <string name="your_new_password_must_be_different_nfrom_previously_used_password">Mật khẩu mới của bạn phải khác \n mật khẩu đã sử dụng trước đây</string>
+    <string name="new_password">Mật khẩu mới</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

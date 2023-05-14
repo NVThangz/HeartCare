@@ -3,12 +3,8 @@ package com.example.heartcare.activity;
 import static com.example.heartcare.utilities.Calculations.bpm;
 
 import android.Manifest;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +16,6 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,7 +43,7 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
     private TextView tvPulse;
     private TextureView graphTextureView;
     private TextureView cameraTextureView;
-    private TextView bpm;
+    private TextView textViewBpm;
 
     private ImageView icBack;
 
@@ -63,7 +58,7 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
         tvPulse = findViewById(R.id.tv_pulse);
         graphTextureView = findViewById(R.id.graphTextureView);
         cameraTextureView = findViewById(R.id.textureView2);
-        bpm = findViewById(R.id.bpm);
+        textViewBpm = findViewById(R.id.bpm);
         icBack = findViewById(R.id.ic_back);
     }
 
@@ -128,7 +123,7 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
                 JSONObject obj = (JSONObject) msg.obj;
                 try {
                     int curBpm = bpm((int) obj.get("cycles"), (Double) obj.get("seconds"));
-                    bpm.setText(String.valueOf(curBpm));
+                    textViewBpm.setText(String.valueOf(curBpm));
                     tvPulse.setText(obj.get("pulse").toString());
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -136,6 +131,13 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
             }
 
             if (msg.what == MESSAGE_UPDATE_FINAL) {
+                String bpm = (String) textViewBpm.getText();
+
+                /*
+                    Lưu giá trị bpm vào backend
+                    Ghép backend
+                 */
+
                 setViewState(VIEW_STATE.SHOW_RESULTS);
             }
 

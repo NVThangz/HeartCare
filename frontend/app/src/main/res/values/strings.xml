@@ -103,4 +103,6 @@
     <string name="sat">Sat</string>
     <string name="sun">Sun</string>
     <string name="forgot_password">Forgot Password</string>
+    <string name="verify_your_email">Verify Your Email</string>
+    <string name="create_new_password">Create New Password</string>
 </resources>

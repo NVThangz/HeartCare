@@ -23,11 +23,13 @@ import com.example.heartcare.R;
 public class VerifyEmail extends AppCompatActivity {
     private ImageView icBack;
     private TextView btnVerify;
+    private TextView textViewEmail;
     private PinView pinView;
     private void map() {
         icBack = findViewById(R.id.ic_back);
         btnVerify = findViewById(R.id.btn_verify);
         pinView = findViewById(R.id.pin_view);
+        textViewEmail = findViewById(R.id.email);
     }
 
     @Override
@@ -36,6 +38,9 @@ public class VerifyEmail extends AppCompatActivity {
         setContentView(R.layout.activity_verify_email);
         map();
 
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("Email");
+        textViewEmail.setText(email);
         setFocusChangeListener();
         setPinView();
         clickIcBack();

@@ -55,6 +55,8 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ForgotPassword.this, VerifyEmail.class);
+                String email = String.valueOf(etMail.getText());
+                intent.putExtra("Email", String.valueOf(etMail.getText()));
                 startActivity(intent);
             }
         });

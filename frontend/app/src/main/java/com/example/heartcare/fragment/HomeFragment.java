@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
     private ConstraintLayout btnMeasureHeartRate;
     private ConstraintLayout btnHeartRateStatistics;
     private TextView tvMeasureHeartRate;
+    private TextView textViewFullName;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -76,6 +77,7 @@ public class HomeFragment extends Fragment {
         btnMeasureHeartRate = rootView.findViewById(R.id.btn_measure_heart_rate);
         btnHeartRateStatistics = rootView.findViewById(R.id.btn_heart_rate_statistics);
         tvMeasureHeartRate = rootView.findViewById(R.id.tv_measure_heart_rate);
+        textViewFullName = rootView.findViewById(R.id.tv_full_name);
     }
 
     @Override
@@ -84,6 +86,13 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         map();
+
+        /*
+            Ghép backend
+         */
+        
+        textViewFullName.setText("Bùi Minh Hoạt");
+
         clickBtnMeasureHeartRate();
         clickBtnHeartRateStatistics();
         return rootView;

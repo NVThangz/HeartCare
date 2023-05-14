@@ -76,7 +76,7 @@ public class SignIn extends AppCompatActivity {
         if(refreshToken != null) {
             try {
                 Backend.refresh(refreshToken, sharedPreferences);
-                Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.logged_in_successfully), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SignIn.this, MainActivity.class);
                 startActivity(intent);
                 finish();

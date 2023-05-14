@@ -113,7 +113,10 @@ public class OutputAnalyzer {
 
                         JSONObject obj = new JSONObject();
                         try {
-                            obj.put("pulse", currentValue);
+                            obj.put("pulse_content", currentValue);
+                            obj.put("pulse", (valleys.size() == 1)
+                                    ? (60f * (detectedValleys) / (Math.max(1, (measurementLength - millisUntilFinished - clipLength) / 1000f)))
+                                    : (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f))));
                             obj.put("cycles", detectedValleys);
                             obj.put("seconds", 1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
                         } catch (JSONException e) {
@@ -155,7 +158,8 @@ public class OutputAnalyzer {
 
                 JSONObject obj = new JSONObject();
                 try {
-                    obj.put("pulse", currentValue);
+                    obj.put("pulse_content", currentValue);
+                    obj.put("pulse", 60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f)));
                     obj.put("cycles", detectedValleys - 1);
                     obj.put("seconds", 1f * (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f);
                 } catch (JSONException e) {
@@ -185,34 +189,35 @@ public class OutputAnalyzer {
                 // returnValueSb.append((float) dropCount / ((float) (measurementLength - clipLength) / 1000f / 60f));
                 // returnValueSb.append(activity.getString(R.string.row_separator));
 
-                returnValueSb.append(activity.getString(R.string.raw_values));
-                returnValueSb.append(activity.getString(R.string.row_separator));
+//                returnValueSb.append(activity.getString(R.string.raw_values));
+//                returnValueSb.append(activity.getString(R.string.row_separator));
+//
+//
+//                for (int stdValueIdx = 0; stdValueIdx < stdValues.size(); stdValueIdx++) {
+//                    // stdValues.forEach((value) -> { // would require API level 24 instead of 21.
+//                    Measurement<Float> value = stdValues.get(stdValueIdx);
+//                    String timeStampString =
+//                            new SimpleDateFormat(
+//                                    activity.getString(R.string.dateFormatGranular),
+//                                    Locale.getDefault()
+//                            ).format(value.timestamp);
+//                    returnValueSb.append(timeStampString);
+//                    returnValueSb.append(activity.getString(R.string.separator));
+//                    returnValueSb.append(value.measurement);
+//                    returnValueSb.append(activity.getString(R.string.row_separator));
+//                }
+//
+//                returnValueSb.append(activity.getString(R.string.output_detected_peaks_header));
+//                returnValueSb.append(activity.getString(R.string.row_separator));
+//
+//                // add detected valleys location
+//                for (long tick : valleys) {
+//                    returnValueSb.append(tick);
+//                    returnValueSb.append(activity.getString(R.string.row_separator));
+//                }
 
-
-                for (int stdValueIdx = 0; stdValueIdx < stdValues.size(); stdValueIdx++) {
-                    // stdValues.forEach((value) -> { // would require API level 24 instead of 21.
-                    Measurement<Float> value = stdValues.get(stdValueIdx);
-                    String timeStampString =
-                            new SimpleDateFormat(
-                                    activity.getString(R.string.dateFormatGranular),
-                                    Locale.getDefault()
-                            ).format(value.timestamp);
-                    returnValueSb.append(timeStampString);
-                    returnValueSb.append(activity.getString(R.string.separator));
-                    returnValueSb.append(value.measurement);
-                    returnValueSb.append(activity.getString(R.string.row_separator));
-                }
-
-                returnValueSb.append(activity.getString(R.string.output_detected_peaks_header));
-                returnValueSb.append(activity.getString(R.string.row_separator));
-
-                // add detected valleys location
-                for (long tick : valleys) {
-                    returnValueSb.append(tick);
-                    returnValueSb.append(activity.getString(R.string.row_separator));
-                }
-
-                sendMessage(MeasureHeartRate.MESSAGE_UPDATE_FINAL, returnValueSb.toString());
+//                sendMessage(MeasureHeartRate.MESSAGE_UPDATE_FINAL, returnValueSb.toString());
+                sendMessage(MeasureHeartRate.MESSAGE_UPDATE_FINAL, obj);
 
                 cameraService.stop();
             }

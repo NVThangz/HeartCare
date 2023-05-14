@@ -122,21 +122,31 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
             if (msg.what == MESSAGE_UPDATE_REALTIME) {
                 JSONObject obj = (JSONObject) msg.obj;
                 try {
-                    int curBpm = bpm((int) obj.get("cycles"), (Double) obj.get("seconds"));
+                    int curBpm = (int) Math.round((Double) obj.get("pulse"));
                     textViewBpm.setText(String.valueOf(curBpm));
-                    tvPulse.setText(obj.get("pulse").toString());
+                    tvPulse.setText(obj.get("pulse_content").toString());
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
             }
 
             if (msg.what == MESSAGE_UPDATE_FINAL) {
-                String bpm = (String) textViewBpm.getText();
+
+                JSONObject obj = (JSONObject) msg.obj;
+                try {
+                    int curBpm = (int) Math.round((Double) obj.get("pulse"));
+                    textViewBpm.setText(String.valueOf(curBpm));
+                    tvPulse.setText(obj.get("pulse_content").toString());
+
 
                 /*
-                    Lưu giá trị bpm vào backend
+                    Lưu giá trị bpm trong biến curBpm vào backend
                     Ghép backend
-                 */
+                */
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
 
                 setViewState(VIEW_STATE.SHOW_RESULTS);
             }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Heart Care</string>
-    <string name="measure_heart_rate">Đo nhịp tim</string>
-    <string name="heart_rate_statistics">Thống kê kết quả</string>
+    <string name="measure_heart_rate">Đo Nhịp Tim</string>
+    <string name="heart_rate_statistics">Thống Kê Kết Quả</string>
     <string name="emergency_call">Cuộc gọi khẩn cấp</string>
     <string name="menu_home">Trang chủ</string>
     <string name="menu_calendar">Nhắc nhở</string>
@@ -82,6 +82,9 @@
     <string name="new_password">Mật khẩu mới</string>
     <string name="notificationResend">Đã gửi lại mã xác minh</string>
     <string name="logged_in_successfully">Đăng nhập thành công</string>
+    <string name="health_consultation">Tư Vấn Sức Khỏe</string>
+    <string name="welcome_text_health_consultation">"Bắt đầu tư vấn sức khỏe\nvới công nghệ AI ChatGPT</string>
+    <string name="write_here">Tư vấn ngay</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

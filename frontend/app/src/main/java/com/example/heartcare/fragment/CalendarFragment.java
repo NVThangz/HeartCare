@@ -1,8 +1,6 @@
 package com.example.heartcare.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,21 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CalendarView;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.heartcare.R;
 import com.example.heartcare.activity.CreateTodoActivity;
-import com.example.heartcare.activity.HealthRecord;
 import com.example.heartcare.adapter.TodoCalendarAdapter;
 import com.example.heartcare.object.TodoItem;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -112,10 +111,22 @@ public class CalendarFragment extends Fragment {
     }
 
     private void clickBtnAddTodo() {
+        int day, month, year;
         btnAddTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                long selectedDateInMillis = calendarView.getDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(selectedDateInMillis);
+
+                // Lấy ngày, tháng, năm hiện tại
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int date = calendar.get(Calendar.DATE);
                 Intent intent = new Intent(getActivity(), CreateTodoActivity.class);
+                intent.putExtra("DATE", date);
+                intent.putExtra("MONTH", month);
+                intent.putExtra("YEAR", year);
                 startActivity(intent);
             }
         });
@@ -130,6 +141,10 @@ public class CalendarFragment extends Fragment {
     }
 
     private List<TodoItem> getListUsers() {
+        /*
+            contents: Sự kiện của ngày hôm nay
+            times: Thời gian
+         */
         String[] contents = {"Go to hospital", "Take medicines", "Meet docter"};
         String[] times = {"08:00 AM - 10:00AM","12:00 AM","02:00 PM - 03:00PM"};
 

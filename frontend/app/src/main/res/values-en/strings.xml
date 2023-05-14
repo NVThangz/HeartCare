@@ -80,6 +80,7 @@
     <string name="send">Send</string>
     <string name="your_new_password_must_be_different_nfrom_previously_used_password">Your New Password Must Be Different\nFrom Previously Used Password</string>
     <string name="new_password">New Password</string>
+    <string name="notificationResend">Resent verification code</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
         <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>

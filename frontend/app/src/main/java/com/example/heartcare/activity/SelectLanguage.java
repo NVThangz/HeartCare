@@ -66,7 +66,7 @@ public class SelectLanguage extends AppCompatActivity {
             public void onClick(View view) {
                 String languagesISO639 = languages_ISO_639.get(languages.indexOf((String) tvLanguage.getText()));
                 setLanguage(languagesISO639);
-                Intent intent = new Intent(SelectLanguage.this, MainActivity.class);
+                Intent intent = new Intent(SelectLanguage.this, SignIn.class);
                 startActivity(intent);
                 finish();
             }

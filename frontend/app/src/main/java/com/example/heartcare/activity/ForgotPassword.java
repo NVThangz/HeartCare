@@ -57,6 +57,9 @@ public class ForgotPassword extends AppCompatActivity {
                 Intent intent = new Intent(ForgotPassword.this, VerifyEmail.class);
                 String email = String.valueOf(etMail.getText());
                 intent.putExtra("Email", String.valueOf(etMail.getText()));
+                /*
+                    Lấy giá trị email --> backend --> gửi từ server
+                 */
                 startActivity(intent);
             }
         });

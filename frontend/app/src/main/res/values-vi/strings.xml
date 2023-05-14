@@ -80,6 +80,7 @@
     <string name="send">Gửi</string>
     <string name="your_new_password_must_be_different_nfrom_previously_used_password">Mật khẩu mới của bạn phải khác \n mật khẩu đã sử dụng trước đây</string>
     <string name="new_password">Mật khẩu mới</string>
+    <string name="notificationResend">Đã gửi lại mã xác minh</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

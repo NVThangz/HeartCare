@@ -45,6 +45,10 @@ public class CalendarFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private int chooseDate;
+    private int chooseMonth;
+    private int choosYear;
+
     private View rootView;
 
     private CalendarView calendarView;
@@ -57,6 +61,8 @@ public class CalendarFragment extends Fragment {
     private FrameLayout calendarFragment;
 
     private ConstraintLayout bottomSheet;
+
+    private Calendar calendar;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -103,6 +109,8 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
         map();
+
+        setCalendar();
         clickBtnAddTodo();
         setCalendarView();
         setBottomSheetDialog();
@@ -110,23 +118,38 @@ public class CalendarFragment extends Fragment {
         return rootView;
     }
 
+    private void setCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(calendarView.getDate());
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
+                setDate(date, month + 1, year);
+            }
+        });
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int date = calendar.get(Calendar.DATE);
+        setDate(date, month, year);
+    }
+
+    private void setDate(int date, int month, int year) {
+        chooseDate = date;
+        chooseMonth = month;
+        choosYear = year;
+    }
+
     private void clickBtnAddTodo() {
         int day, month, year;
         btnAddTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long selectedDateInMillis = calendarView.getDate();
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(selectedDateInMillis);
-
-                // Lấy ngày, tháng, năm hiện tại
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH) + 1;
-                int date = calendar.get(Calendar.DATE);
                 Intent intent = new Intent(getActivity(), CreateTodoActivity.class);
-                intent.putExtra("DATE", date);
-                intent.putExtra("MONTH", month);
-                intent.putExtra("YEAR", year);
+                intent.putExtra("DATE", chooseDate);
+                intent.putExtra("MONTH", chooseMonth);
+                intent.putExtra("YEAR", choosYear);
                 startActivity(intent);
             }
         });

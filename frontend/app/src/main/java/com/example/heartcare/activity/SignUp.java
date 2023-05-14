@@ -1,6 +1,8 @@
 package com.example.heartcare.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -88,6 +90,7 @@ public class SignUp extends AppCompatActivity {
         String password = txt_password.getText().toString().trim();
         String confirm_password = txt_confirm_password.getText().toString().trim();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
 
         if (TextUtils.isEmpty(fullname)) {
             throw new Exception("Enter fullname address!");
@@ -117,7 +120,7 @@ public class SignUp extends AppCompatActivity {
             Kết nối backend để đăng ký và throw new Expection("Nội dung lỗi");
             Nếu đăng ký thành công thì không cần phải trả ra gì
          */
-        Backend.signup(email, password);
+        Backend.signup(email, password, sharedPreferences);
     }
 
     @Override

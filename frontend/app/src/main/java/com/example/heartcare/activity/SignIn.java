@@ -2,6 +2,9 @@ package com.example.heartcare.activity;
 
 import static android.content.ContentValues.TAG;
 
+import static com.example.heartcare.backend.Constant.refresh;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -90,6 +93,20 @@ public class SignIn extends AppCompatActivity {
         clickTvCreateNewOne();
         clickTvForgotPassword();
         clickBtnSignIn();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+        String refreshToken = sharedPreferences.getString("refresh_token", null);
+        if(refreshToken != null) {
+            try {
+                Backend.refresh(refreshToken, sharedPreferences);
+                Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SignIn.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     /*
@@ -198,8 +215,7 @@ public class SignIn extends AppCompatActivity {
     private boolean loginAccount() throws Exception {
         String username = txt_username.getText().toString().trim();
         String password = txt_password.getText().toString().trim();
-        mPref = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = mPref.edit();
+        SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
 
         if (TextUtils.isEmpty(username)) {
             throw new Exception("Enter username address!");
@@ -228,8 +244,10 @@ public class SignIn extends AppCompatActivity {
 //                Throwable::printStackTrace
 //        );
 
+
         // Kiểm tra đăng nhập, ghép nốt phần backendSignIn
-        Backend.login(username,password);
+        Backend.login(username,password, sharedPreferences);
+
         return true;
     }
 

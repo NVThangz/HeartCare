@@ -70,6 +70,7 @@
     <string name="sat">Sat</string>
     <string name="sun">Sun</string>
     <string name="forgot_password">Forgot Password</string>
+    <string name="verify_your_email">Verify Your Email</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
         <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>

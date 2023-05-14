@@ -16,18 +16,18 @@
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_forgot_password"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_verify_your_email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_forgot_password"
+        app:layout_constraintTop_toTopOf="@+id/tv_verify_your_email"
         app:srcCompat="@drawable/ic_back_1" />
 
     <TextView
-        android:id="@+id/tv_forgot_password"
+        android:id="@+id/tv_verify_your_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/segoeuib"
-        android:text="@string/forgot_password"
+        android:text="@string/verify_your_email"
         android:textColor="@color/red"
         android:textFontWeight="500"
         android:textSize="30sp"
@@ -36,14 +36,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ic_forgot_password"
+        android:id="@+id/ic_verify_email"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password"
-        app:srcCompat="@drawable/ic_forgot_password" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_verify_your_email"
+        app:srcCompat="@drawable/ic_verify_email" />
 
     <TextView
         android:id="@+id/text_view"
@@ -52,44 +52,68 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/segoeui"
         android:gravity="center"
-        android:text="Please Enter Your Email Address To\nRecieve a Verification Cord."
+        android:text="Please Enter The 4 Digit Code Sent To"
         android:textColor="@color/black"
         android:textFontWeight="700"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ic_forgot_password" />
+        app:layout_constraintTop_toBottomOf="@+id/ic_verify_email" />
 
     <TextView
-        android:id="@+id/tv_email"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/latoblack"
-        android:text="Email Address"
-        android:textColor="@color/light_gray"
-        android:textFontWeight="500"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/et_mail"
-        app:layout_constraintStart_toStartOf="@+id/et_mail" />
-
-    <EditText
-        android:id="@+id/et_mail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="40dp"
-        android:inputType="textEmailAddress"
-        android:textCursorDrawable="@drawable/custom_cursor"
-        android:textSize="18sp"
+        android:layout_marginTop="0dp"
+        android:fontFamily="@font/segoeui"
+        android:gravity="center"
+        android:text="abc@gmail.com"
+        android:textColor="@color/black"
+        android:textFontWeight="700"
+        android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view" />
 
+
+    <com.chaos.view.PinView
+        android:id="@+id/pin_view"
+        style="@style/PinWidget.PinView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:inputType="number"
+        android:itemBackground="@drawable/item_pin_view"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        android:fontFamily="@font/segoeui"
+        android:textFontWeight="800"
+        app:itemHeight="60dp"
+        app:itemSpacing="20dp"
+        app:itemWidth="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:lineColor="@android:color/transparent"
+        app:viewType="rectangle" />
+
     <TextView
-        android:id="@+id/btn_send"
+        android:id="@+id/tv_resend_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/latoregular"
+        android:gravity="center"
+        android:text="Resend Code"
+        android:textColor="#e8802f"
+        android:textFontWeight="700"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pin_view" />
+
+    <TextView
+        android:id="@+id/btn_verify"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
@@ -99,12 +123,12 @@
         android:elevation="7dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
-        android:text="Send"
+        android:text="Verify"
         android:textColor="@color/white"
         android:textFontWeight="700"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_mail" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_resend_code" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

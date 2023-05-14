@@ -162,13 +162,23 @@ public class WeekFragment extends Fragment implements OnChartValueSelectedListen
         ArrayList<Entry> entries = new ArrayList<Entry>();
         entries.add(new Entry(-1, 80));
 
+
+        /*
+            Nhận giá trị trung bình (tuần hiện tại)
+            entries.add(new Entry(giờ + phút / 60, nhịp tim trung bình));
+            0 là thứ 2
+            1 là thứ 3
+            ...
+            5 là thứ 7
+            6 là CN
+         */
+
         entries.add(new Entry(0, 70));
         entries.add(new Entry(2, 70));
         entries.add(new Entry(3, 60));
         entries.add(new Entry(4, 30));
         entries.add(new Entry(5, 40));
         entries.add(new Entry(6, 10));
-
         int maxBpm = 0;
         int minBpm = 300;
         int sumBpm = 0;

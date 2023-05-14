@@ -7,25 +7,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.heartcare.R;
-import com.example.heartcare.fragment.CalendarFragment;
 
 public class CreateTodoActivity extends AppCompatActivity {
-    private EditText content;
+    private EditText editTextContent;
     private ConstraintLayout btnSave;
     private ConstraintLayout btnCancel;
+    private TextView textViewCreateEventTitleDate;
 
     private AlertDialog dialogCancel;
 
+    private TimePicker timePickerStartTime;
+    private TimePicker timePickerEndTime;
+
     private void map() {
-        content = findViewById(R.id.content);
+        editTextContent = findViewById(R.id.content);
         btnSave = findViewById(R.id.btn_save);
         btnCancel = findViewById(R.id.btn_cancel);
+        textViewCreateEventTitleDate = findViewById(R.id.create_event_title_date);
+        timePickerStartTime = findViewById(R.id.start_time);
+        timePickerEndTime = findViewById(R.id.end_time);
     }
 
     @Override
@@ -34,6 +42,17 @@ public class CreateTodoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_todo);
         map();
 
+        Intent intent = getIntent();
+        int date = intent.getIntExtra("DATE", 0);
+        int month = intent.getIntExtra("MONTH", 0);
+        int year = intent.getIntExtra("YEAR", 0);
+
+        String[] months = new String[] {
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+        };
+
+        textViewCreateEventTitleDate.setText(year + ". " + months[month - 1] + " " + date);
         setDialogCancel();
         clickBtnSave();
         clickBtnCancel();
@@ -70,8 +89,27 @@ public class CreateTodoActivity extends AppCompatActivity {
     }
 
     private void clickBtnSave() {
-        
-        
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                int date = intent.getIntExtra("DATE", 0);
+                int month = intent.getIntExtra("MONTH", 0);
+                int year = intent.getIntExtra("YEAR", 0);
+
+                int hourStartTime = timePickerStartTime.getHour();
+                int minuteStartTime = timePickerStartTime.getMinute();
+
+                int hourEndTime = timePickerEndTime.getHour();
+                int minuteEndTime = timePickerEndTime.getMinute();
+
+                String content = String.valueOf(editTextContent.getText());
+
+                /*
+                    Ghép phần lưu ở backend
+                 */
+            }
+        });
     }
 
     public void hideKeyboard(View view) {
@@ -80,7 +118,7 @@ public class CreateTodoActivity extends AppCompatActivity {
     }
 
     private void focusChangeEditTextInput() {
-        content.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editTextContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {

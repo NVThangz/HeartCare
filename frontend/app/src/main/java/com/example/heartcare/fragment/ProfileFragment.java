@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.example.heartcare.R;
@@ -32,6 +33,7 @@ public class ProfileFragment extends Fragment {
 
     private View rootView;
     private LinearLayout btnLogOut;
+    private EditText editTextFullName;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -69,13 +71,23 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+
         map();
+
+        /*
+            Bắt sự kiện
+         */
         clickBtnLogOut();
+        /*
+            Ghép thông tin người dùng backend
+         */
+        editTextFullName.setText("Bùi Minh Hoạt");
         return rootView;
     }
 
     private void map() {
         btnLogOut = rootView.findViewById(R.id.btn_log_out);
+        editTextFullName = rootView.findViewById(R.id.full_name_profile);
     }
 
     private void clickBtnLogOut() {

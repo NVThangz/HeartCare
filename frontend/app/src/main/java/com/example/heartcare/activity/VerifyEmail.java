@@ -25,11 +25,14 @@ public class VerifyEmail extends AppCompatActivity {
     private TextView btnVerify;
     private TextView textViewEmail;
     private PinView pinView;
+    private TextView textViewResendCode;
+
     private void map() {
         icBack = findViewById(R.id.ic_back);
         btnVerify = findViewById(R.id.btn_verify);
         pinView = findViewById(R.id.pin_view);
         textViewEmail = findViewById(R.id.email);
+        textViewResendCode = findViewById(R.id.tv_resend_code);
     }
 
     @Override
@@ -45,6 +48,7 @@ public class VerifyEmail extends AppCompatActivity {
         setPinView();
         clickIcBack();
         clickBtnSend();
+        clickTextViewResendCode();
     }
 
     public void hideKeyboard(View view) {
@@ -69,10 +73,26 @@ public class VerifyEmail extends AppCompatActivity {
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
+    private void clickTextViewResendCode() {
+        textViewResendCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.notificationResend), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void clickBtnSend() {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String code = String.valueOf(pinView.getText());
+
+                /*
+                    Kiểm tra code có đúng không?
+                    Nếu đúng thì chạy tiếp, không thì dùng câu lệnh
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                 */
+
                 Intent intent = new Intent(VerifyEmail.this, CreateNewPassword.class);
                 startActivity(intent);
             }

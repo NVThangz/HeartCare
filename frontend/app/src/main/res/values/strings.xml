@@ -113,4 +113,5 @@
     <string name="send">Send</string>
     <string name="your_new_password_must_be_different_nfrom_previously_used_password">Your New Password Must Be Different\nFrom Previously Used Password</string>
     <string name="new_password">New Password</string>
+    <string name="notificationResend">Resent verification code</string>
 </resources>

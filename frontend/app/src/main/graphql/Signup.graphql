@@ -1,7 +1,10 @@
-mutation Signup ($authInput: AuthInput, $updateProfileInput: UpdateProfileInput!) {
+mutation Signup($authInput: AuthInput, $updateProfileInput: UpdateProfileInput!) {
   signup(authInput: $authInput) {
     access_token
     refresh_token
+    user {
+      email
+    }
   }
   updateProfile(updateProfileInput: $updateProfileInput) {
     name

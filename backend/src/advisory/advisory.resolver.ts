@@ -12,8 +12,8 @@ export class AdvisoryResolver {
   }
 
   @Mutation('getAdvisory')
-  getAdvisory(@Args('question') question: string) {
-    return this.advisoryService.getAdvisory(question);
+  getAdvisory(@Args('email') email: string, @Args('question') question: string) {
+    return this.advisoryService.getAdvisory(email, question);
   }
   
 }

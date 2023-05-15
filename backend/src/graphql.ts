@@ -54,6 +54,7 @@ export class UpdateProfileInput {
     phone?: Nullable<string>;
     address?: Nullable<string>;
     nationalID?: Nullable<string>;
+    avatar?: Nullable<string>;
 }
 
 export class UpdateRecordInput {
@@ -192,6 +193,7 @@ export class Profile {
     address?: Nullable<string>;
     nationalID?: Nullable<string>;
     userId?: Nullable<number>;
+    avatar?: Nullable<string>;
 }
 
 export class Record {

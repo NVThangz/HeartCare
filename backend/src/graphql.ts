@@ -60,7 +60,9 @@ export class UpdateUserInput {
 }
 
 export abstract class IMutation {
-    abstract getAdvisory(advisoryInput: AdvisoryInput): string | Promise<string>;
+    abstract getAdvisoryFirst(email: string): string | Promise<string>;
+
+    abstract getAdvisory(question: string): string | Promise<string>;
 
     abstract login(authInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
 
@@ -75,6 +77,8 @@ export abstract class IMutation {
     abstract confirmForgotPassword(email: string, token: string): boolean | Promise<boolean>;
 
     abstract resetPasswordConfirmed(email: string, newPassword: string): LoginResponse | Promise<LoginResponse>;
+
+    abstract changePassword(email: string, oldPassword: string, newPassword: string): boolean | Promise<boolean>;
 
     abstract createHistory(email: string, bpm: number): Nullable<History> | Promise<Nullable<History>>;
 

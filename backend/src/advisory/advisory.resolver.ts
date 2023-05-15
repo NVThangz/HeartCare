@@ -6,9 +6,14 @@ import { AdvisoryInput } from 'src/graphql';
 export class AdvisoryResolver {
   constructor(private readonly advisoryService: AdvisoryService) {}
 
+  @Mutation('getAdvisoryFirst')
+  getAdvisoryFirst(@Args('email') email: string) {
+    return this.advisoryService.getAdvisoryFirst(email);
+  }
+
   @Mutation('getAdvisory')
-  getAdvisory(@Args('advisoryInput') advisoryInput: AdvisoryInput) {
-    return this.advisoryService.getAdvisory(advisoryInput.email, advisoryInput.question);
+  getAdvisory(@Args('question') question: string) {
+    return this.advisoryService.getAdvisory(question);
   }
   
 }

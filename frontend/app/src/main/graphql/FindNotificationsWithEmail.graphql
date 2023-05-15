@@ -1,0 +1,9 @@
+query FindNotificationsWithEmail($email: String!) {
+  findNotificationsWithEmail(email: $email) {
+    id
+    userId
+    title
+    content
+    createdAt
+  }
+}

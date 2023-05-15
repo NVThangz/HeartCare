@@ -1,0 +1,9 @@
+query FindNotesToday($email: String!) {
+  findNotesToday(email: $email) {
+    id
+    userId
+    content
+    startDate
+    endDate
+  }
+}

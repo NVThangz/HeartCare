@@ -10,8 +10,8 @@ export class NotesService {
     return this.prisma.note.create({
       data: {
         content: noteInput.content,
-        startDate: noteInput.startDate,
-        endDate: noteInput.endDate,
+        startDate: new Date(noteInput.startDate),
+        endDate: new Date(noteInput.endDate),
         user: {
           connect: {
             email: noteInput.email,
@@ -31,6 +31,31 @@ export class NotesService {
       },
     });
   }
+  
+  findNotesToday(email: string) {
+    const now = new Date();
+    const offsetInMs = now.getTimezoneOffset() * 60 * 1000;
+    const startOfDayUtc = new Date(
+      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()),
+    );
+    const endOfDayUtc = new Date(
+      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+    );
+    const startOfDayUtcPlus7 = new Date(startOfDayUtc.getTime() + offsetInMs);
+    const endOfDayUtcPlus7 = new Date(endOfDayUtc.getTime() + offsetInMs);
+
+    return this.prisma.note.findMany({
+      where: {
+        user: {
+          email,
+        },
+        startDate: {
+          gte: startOfDayUtcPlus7,
+          lte: endOfDayUtcPlus7,
+        }
+      },
+    });
+  }
 
   update(noteUpdateInput: NoteUpdateInput) {
     console.log(noteUpdateInput);
@@ -40,8 +65,8 @@ export class NotesService {
       },
       data: {
         content: noteUpdateInput.content,
-        startDate: noteUpdateInput.startDate,
-        endDate: noteUpdateInput.endDate,
+        startDate: new Date(noteUpdateInput.startDate),
+        endDate: new Date(noteUpdateInput.endDate),
       },
     });
   }

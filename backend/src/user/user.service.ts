@@ -110,6 +110,6 @@ export class UserService {
         email,
       },
     });
-    return bycrypt.compareSync(password, user.password);
+    return await bycrypt.compareSync(password, user.password);
   }
 }

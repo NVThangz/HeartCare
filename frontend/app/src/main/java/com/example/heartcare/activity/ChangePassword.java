@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.heartcare.R;
+import com.example.heartcare.backend.Backend;
 
 public class ChangePassword extends AppCompatActivity {
     private EditText editTextCurrentPassword;
@@ -97,9 +98,14 @@ public class ChangePassword extends AppCompatActivity {
                 /*
                  * Đổi mật khẩu ở đây
                  * */
+                try {
+                    Backend.changePassword(currentPassword, newPassword);
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.change_password_successfully), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
 
 
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.change_password_successfully), Toast.LENGTH_SHORT).show();
             }
         });
     }

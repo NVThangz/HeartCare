@@ -109,6 +109,8 @@ type Query {
 
   note(email: String!): [Note]
 
+  findNotesToday(email: String!): [Note]
+
   profile(email: String!): Profile
 
   record(email: String!): Record

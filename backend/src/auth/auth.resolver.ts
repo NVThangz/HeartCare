@@ -69,4 +69,9 @@ export class AuthResolver {
     return this.authService.resetPasswordConfirmed(email, newPassword);
   }
   
+  @Mutation('changePassword')
+
+  changePassword(@Args('email') email: string, @Args('oldPassword') oldPassword: string, @Args('newPassword') newPassword: string) {
+    return this.authService.changePassword(email, oldPassword, newPassword);
+  }
 }

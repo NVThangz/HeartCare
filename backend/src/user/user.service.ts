@@ -103,4 +103,13 @@ export class UserService {
       },
     });
   }
+
+  async checkPassword(email: string, password: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    return bycrypt.compareSync(password, user.password);
+  }
 }

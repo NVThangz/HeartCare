@@ -1,17 +1,20 @@
 import { RecordsService } from './../records/records.service';
 import { Injectable } from '@nestjs/common';
-import { Configuration, CreateChatCompletionRequest, OpenAIApi } from 'openai';
+import { ChatCompletionRequestMessage, Configuration, CreateChatCompletionRequest, OpenAIApi } from 'openai';
 import { ProfilesService } from '../profiles/profiles.service';
 import { Profile } from '../graphql';
 import { HistoriesService } from '../histories/histories.service';
+import { chat } from 'googleapis/build/src/apis/chat';
 
 const DEFAULT_MODEL = 'gpt-3.5-turbo';
 const DEFAULT_SYSTEM_ROLE = "Bạn là bác sĩ tên Thắng chuyên khoa tim mạch, bạn sẽ tư vấn về các vấn đề sức khỏe cho người dùng, bạn sẽ cho câu trả lời dưới 300 từ"
 
 
+
 @Injectable()
 export class AdvisoryService {
   private readonly OpenAIApi: OpenAIApi;
+  private chatHistory:ChatCompletionRequestMessage[] = [];
 
   constructor(
     private profilesService: ProfilesService,
@@ -26,7 +29,8 @@ export class AdvisoryService {
     this.OpenAIApi = new OpenAIApi(configuration);
   }
 
-  async getAdvisory(email: string ,question: string) {
+  async getAdvisoryFirst(email: string) {
+    this.chatHistory = [];
     const [profile, record, history] = await Promise.all([
       await this.profilesService.findOne(email),
       await this.recordsService.findOne(email),
@@ -53,26 +57,45 @@ export class AdvisoryService {
     const userQuestion = `Tôi tên là ${profile.name}, tuổi ${age}, giới tính ${profile.sex}, chiều cao ${record.height}m, cân nặng ${record.weight}kg, nhóm máu ${record.bloodType}, BMI ${record.BMI}kg/m2`
                           // + (', những bệnh tôi mắc phải là ' + record.diseases.map((disease) => disease.name).join(', '))
                           + (history[0].bpm ? `, nhịp tim trung bình của tôi là ${history[0].bpm}bpm`: '')
-                          + (question ? `, cho tôi hỏi ${question}` : '');
 
     console.log(userQuestion);
-
+    this.chatHistory.push({"role": "system", "content": DEFAULT_SYSTEM_ROLE});
+    this.chatHistory.push({"role": "user", "content": userQuestion});
+    
+    console.log(this.chatHistory);
     try {
       const params: CreateChatCompletionRequest = {
         model: DEFAULT_MODEL,
-        messages: [
-          {"role": "system", "content": DEFAULT_SYSTEM_ROLE},
-          {"role": "user", "content": userQuestion},
-        ]
+        messages: this.chatHistory,
       };
 
       const response = await this.OpenAIApi.createChatCompletion(params);
-      response.data.choices.forEach((choice) => console.log(choice.message.content));
+      // response.data.choices.forEach((choice) => console.log(choice.message.content));
+      this.chatHistory.push({"role": "assistant", "content": response.data.choices[0].message.content});
       return response.data.choices[0].message.content;
     } catch (error) {
       throw new Error(error);
     }
   }
+
+  async getAdvisory(question: string) {
+    this.chatHistory.push({"role": "user", "content": question});
+    // console.log(this.chatHistory);
+    try {
+      const params: CreateChatCompletionRequest = {
+        model: DEFAULT_MODEL,
+        messages: this.chatHistory,
+      };
+
+      const response = await this.OpenAIApi.createChatCompletion(params);
+      // response.data.choices.forEach((choice) => console.log(choice.message.content));
+      this.chatHistory.push({"role": "assistant", "content": response.data.choices[0].message.content});
+      return response.data.choices[0].message.content;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
 
   calculateAge(birthday) {
     const ageDifMs = Date.now() - birthday.getTime();

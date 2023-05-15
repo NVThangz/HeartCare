@@ -92,7 +92,7 @@ export class AuthService {
   async forgotPassword(email: string) {
     const user = await this.userService.findOne(email);
     if (!user) {
-      throw new ForbiddenError('Email không tồn tại');
+      throw new ForbiddenError('Email not exist');
     }
     const token = Math.floor(1000 + Math.random() * 9000).toString();
     const expire = new Date();
@@ -124,7 +124,7 @@ export class AuthService {
   async resetPasswordConfirmed(email: string, newPassword: string) {
     const user = await this.userService.changePassword(email, newPassword);
     if (!user) {
-      throw new ForbiddenError('Email không tồn tại');
+      throw new ForbiddenError('Email not exist');
     }
     const token = await this.getToken(user.id, user.email);
     await this.updateRefreshToken(user.id, token.refresh_token);
@@ -133,6 +133,20 @@ export class AuthService {
       refresh_token: token.refresh_token,
       user,
     };
+  }
+
+  async changePassword(email: string, oldPassword: string, newPassword: string) {
+    if(oldPassword === newPassword) {
+      throw new ForbiddenError('New password must be different from old password');
+    }
+    if(!this.userService.checkPassword(email, oldPassword)) {
+      throw new ForbiddenError('Old password is incorrect');
+    }
+    const user = await this.userService.changePassword(email, newPassword);
+    if (!user) {
+      throw new ForbiddenError('Email not exist');
+    }
+    return true;
   }
 
   hashData(data: string) {
@@ -174,13 +188,14 @@ export class AuthService {
   async validateUser(authInput: AuthInput): Promise<any> {
     const user = await this.userService.findOne(authInput.username);
     if (!user) {
-      throw new ForbiddenError('Email không tồn tại');
+      throw new ForbiddenError('Email not exist');
     }
     const valid = await bcrypt.compare(authInput.password, user.password);
     if (!valid) {
-      throw new ForbiddenError('Mật khẩu không đúng');
+      throw new ForbiddenError('Password is incorrect');
     }
     const { password, ...result } = user;
     return result;
   }
+
 }

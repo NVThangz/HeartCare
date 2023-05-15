@@ -21,6 +21,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AdvisoryModule } from './advisory/advisory.module';
 import { HistoriesModule } from './histories/histories.module';
 import { NotesModule } from './notes/notes.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { NotesModule } from './notes/notes.module';
     AdvisoryModule,
     HistoriesModule,
     NotesModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [

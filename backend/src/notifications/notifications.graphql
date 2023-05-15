@@ -1,0 +1,34 @@
+type Notification {
+  id:        Int
+  userId:    Int
+  title:     String
+  content:   String
+  createdAt: DateTime
+}
+
+input CreateNotificationInput {
+  email:     String
+  title:     String
+  content:   String
+  createdAt: DateTime
+}
+
+input UpdateNotificationInput {
+  id:        Int
+  title:     String
+  content:   String
+  createdAt: DateTime
+}
+
+type Query {
+  notifications: [Notification]!
+  findNotificationsWithEmail(email: String!): [Notification]
+  findNotificationsAll: [Notification]
+}
+
+type Mutation {
+  createNotification(createNotificationInput: CreateNotificationInput!): Notification!
+  createNotificationAll(title:String!, content:String!, createdAt: DateTime): Notification!
+  updateNotification(updateNotificationInput: UpdateNotificationInput!): Notification!
+  removeNotification(id: Int!): Notification
+}

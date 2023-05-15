@@ -182,9 +182,15 @@ public class DayFragment extends Fragment implements OnChartValueSelectedListene
 //        entries.add(new Entry(8, 50));
 //        entries.add(new Entry(9, 30));
 
-        int maxBpm = data.todayHistoryStatistics.max;
-        int minBpm = data.todayHistoryStatistics.min;
-        int avgBpm = data.todayHistoryStatistics.average;
+        int maxBpm = 0;
+        int minBpm = 0;
+        int avgBpm = 0;
+        if (data.todayHistoryStatistics.chartData.size() != 0) {
+            maxBpm = data.todayHistoryStatistics.max;
+            minBpm = data.todayHistoryStatistics.min;
+            avgBpm = data.todayHistoryStatistics.average;
+        }
+
 //        int sumBpm = 0;
 
 //        for (int i = 1; i < entries.size(); ++i) {

@@ -187,9 +187,15 @@ public class WeekFragment extends Fragment implements OnChartValueSelectedListen
 //        entries.add(new Entry(4, 30));
 //        entries.add(new Entry(5, 40));
 //        entries.add(new Entry(6, 10));
-        int maxBpm = data.weekHistoryStatistics.max;
-        int minBpm = data.weekHistoryStatistics.min;
-        int avgBpm = data.weekHistoryStatistics.average;
+        int maxBpm = 0;
+        int minBpm = 0;
+        int avgBpm = 0;
+        if (data.weekHistoryStatistics.chartData.size() != 0) {
+            maxBpm = data.weekHistoryStatistics.max;
+            minBpm = data.weekHistoryStatistics.min;
+            avgBpm = data.weekHistoryStatistics.average;
+        }
+
 //        int sumBpm = 0;
 //        for (int i = 1; i < entries.size(); ++i) {
 //            Entry entry = entries.get(i);

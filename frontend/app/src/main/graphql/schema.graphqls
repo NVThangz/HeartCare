@@ -12,7 +12,7 @@ scalar String
 type Mutation {
   getAdvisoryFirst(email: String!): String!
 
-  getAdvisory(question: String!): String!
+  getAdvisory(email: String!, question: String!): String!
 
   login(authInput: AuthInput): LoginResponse!
 
@@ -214,6 +214,8 @@ type Profile {
   nationalID: String
 
   userId: Int
+
+  avatar: String
 }
 
 input UpdateProfileInput {
@@ -230,6 +232,8 @@ input UpdateProfileInput {
   address: String
 
   nationalID: String
+
+  avatar: String
 }
 
 type Record {

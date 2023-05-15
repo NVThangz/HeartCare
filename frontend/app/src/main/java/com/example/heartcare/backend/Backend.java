@@ -15,6 +15,8 @@ import com.example.heartcare.CreateNoteMutation;
 import com.example.heartcare.FindNotesQuery;
 import com.example.heartcare.FindNotificationsWithEmailQuery;
 import com.example.heartcare.ForgotPasswordMutation;
+import com.example.heartcare.GetAdvisoryFirstMutation;
+import com.example.heartcare.GetAdvisoryMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
 import com.example.heartcare.RefreshMutation;
@@ -64,7 +66,7 @@ public class Backend {
     public static void signup(String username, String password,SharedPreferences sharedPreferences) throws Exception {
         AuthInput auth = new AuthInput(username,password) ;
         Optional<AuthInput> NewAuth = Optional.present(auth);
-        UpdateProfileInput updateProfileInput = new UpdateProfileInput(username,Optional.present(username),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent());
+        UpdateProfileInput updateProfileInput = new UpdateProfileInput(username,Optional.present(username),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent());
 
         ApolloCall<SignupMutation.Data> queryCall = apolloClient.mutation(new SignupMutation( NewAuth,updateProfileInput));
         Single<ApolloResponse<SignupMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
@@ -226,5 +228,25 @@ public class Backend {
             System.out.println(response.errors.get(0).getMessage());
         }
         return response.data;
+    }
+
+    public static String getAdvisoryFirst() {
+        ApolloCall<GetAdvisoryFirstMutation.Data> queryCall = apolloClient.mutation(new GetAdvisoryFirstMutation(email));
+        Single<ApolloResponse<GetAdvisoryFirstMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<GetAdvisoryFirstMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+        return response.data.getAdvisoryFirst;
+    }
+
+    public static String getAdvisory(String question) {
+        ApolloCall<GetAdvisoryMutation.Data> queryCall = apolloClient.mutation(new GetAdvisoryMutation(email, question));
+        Single<ApolloResponse<GetAdvisoryMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<GetAdvisoryMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+        return response.data.getAdvisory;
     }
 }

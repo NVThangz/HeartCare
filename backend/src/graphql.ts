@@ -77,7 +77,7 @@ export class UpdateUserInput {
 export abstract class IMutation {
     abstract getAdvisoryFirst(email: string): string | Promise<string>;
 
-    abstract getAdvisory(question: string): string | Promise<string>;
+    abstract getAdvisory(email: string, question: string): string | Promise<string>;
 
     abstract login(authInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
 

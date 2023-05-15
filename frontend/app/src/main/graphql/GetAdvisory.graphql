@@ -1,0 +1,3 @@
+mutation GetAdvisory($email: String!, $question: String!) {
+  getAdvisory(email: $email, question: $question)
+}

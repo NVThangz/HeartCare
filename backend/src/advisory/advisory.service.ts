@@ -10,11 +10,14 @@ const DEFAULT_MODEL = 'gpt-3.5-turbo';
 const DEFAULT_SYSTEM_ROLE = "Bạn là bác sĩ tên Thắng chuyên khoa tim mạch, bạn sẽ tư vấn về các vấn đề sức khỏe cho người dùng, bạn sẽ cho câu trả lời dưới 300 từ"
 
 
+interface ChatHistory {
+  [email: string]: ChatCompletionRequestMessage[];
+}
 
 @Injectable()
 export class AdvisoryService {
   private readonly OpenAIApi: OpenAIApi;
-  private chatHistory:ChatCompletionRequestMessage[] = [];
+  private chatHistory : ChatHistory = {};
 
   constructor(
     private profilesService: ProfilesService,
@@ -30,7 +33,7 @@ export class AdvisoryService {
   }
 
   async getAdvisoryFirst(email: string) {
-    this.chatHistory = [];
+    this.chatHistory[email] = [];
     const [profile, record, history] = await Promise.all([
       await this.profilesService.findOne(email),
       await this.recordsService.findOne(email),
@@ -58,38 +61,38 @@ export class AdvisoryService {
                           // + (', những bệnh tôi mắc phải là ' + record.diseases.map((disease) => disease.name).join(', '))
                           + (history[0].bpm ? `, nhịp tim trung bình của tôi là ${history[0].bpm}bpm`: '')
 
-    console.log(userQuestion);
-    this.chatHistory.push({"role": "system", "content": DEFAULT_SYSTEM_ROLE});
-    this.chatHistory.push({"role": "user", "content": userQuestion});
+    // console.log(userQuestion);
+    this.chatHistory[email].push({"role": "system", "content": DEFAULT_SYSTEM_ROLE});
+    this.chatHistory[email].push({"role": "user", "content": userQuestion});
     
-    console.log(this.chatHistory);
+    // console.log(this.chatHistory);
     try {
       const params: CreateChatCompletionRequest = {
         model: DEFAULT_MODEL,
-        messages: this.chatHistory,
+        messages: this.chatHistory[email],
       };
 
       const response = await this.OpenAIApi.createChatCompletion(params);
       // response.data.choices.forEach((choice) => console.log(choice.message.content));
-      this.chatHistory.push({"role": "assistant", "content": response.data.choices[0].message.content});
+      this.chatHistory[email].push({"role": "assistant", "content": response.data.choices[0].message.content});
       return response.data.choices[0].message.content;
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async getAdvisory(question: string) {
-    this.chatHistory.push({"role": "user", "content": question});
+  async getAdvisory(email: string, question: string) {
+    this.chatHistory[email].push({"role": "user", "content": question});
     // console.log(this.chatHistory);
     try {
       const params: CreateChatCompletionRequest = {
         model: DEFAULT_MODEL,
-        messages: this.chatHistory,
+        messages: this.chatHistory[email],
       };
 
       const response = await this.OpenAIApi.createChatCompletion(params);
       // response.data.choices.forEach((choice) => console.log(choice.message.content));
-      this.chatHistory.push({"role": "assistant", "content": response.data.choices[0].message.content});
+      this.chatHistory[email].push({"role": "assistant", "content": response.data.choices[0].message.content});
       return response.data.choices[0].message.content;
     } catch (error) {
       throw new Error(error);

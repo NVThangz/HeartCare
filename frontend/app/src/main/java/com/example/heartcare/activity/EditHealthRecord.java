@@ -63,6 +63,9 @@ public class EditHealthRecord extends AppCompatActivity {
         saveEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
+                    Ghép backend để lưu thông tin người dùng
+                 */
                 Intent intent = new Intent(EditHealthRecord.this, HealthRecord.class);
                 startActivity(intent);
                 finish();
@@ -71,8 +74,12 @@ public class EditHealthRecord extends AppCompatActivity {
     }
 
     private List<HealthRecordItem> getListUsers() {
-        String[] titles = {"Age:", "Height:", "Weight:"};
-        String[] contents = {"20","170 cm","60 kg"};
+        String[] titles = {"Age:", "Height:", "Weight:", "Health problems:"};
+        Intent intent = getIntent();
+        String[] contents = {intent.getStringExtra("Age"),
+                intent.getStringExtra("Height"),
+                intent.getStringExtra("Weight"),
+                intent.getStringExtra("Problems")};
 
         List <HealthRecordItem> healthRecordItemList = new ArrayList<>();
         for(int i = 0; i < titles.length; i++) {

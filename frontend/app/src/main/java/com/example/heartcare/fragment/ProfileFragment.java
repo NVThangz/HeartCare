@@ -104,11 +104,11 @@ public class ProfileFragment extends Fragment {
             Ghép thông tin người dùng backend
          */
         editTextFullName.setText("Bùi Minh Hoạt");
-        editTextSex.setText("Nữ :v");
-        editTextDateOfBirth.setText("0/0/0");
-        editTextPhoneNumber.setText("09xxx");
-        editTextNationalId.setText("123");
-        editTextAddress.setText("home");
+        editTextSex.setText("Nam");
+        editTextDateOfBirth.setText("06/09/2003");
+        editTextPhoneNumber.setText("094540xxxx");
+        editTextNationalId.setText("025203xxxxxx");
+        editTextAddress.setText("144 Xuân Thủy, Cầu Giấy, Hà Nội");
 
 
         clickBtnSaveModified();
@@ -125,7 +125,9 @@ public class ProfileFragment extends Fragment {
 
                 /*
                     Lấy thông tin người dùng về backend
+                    Ghép backend
                  */
+
                 String fullName = String.valueOf(editTextFullName.getText());
                 String sex = String.valueOf(editTextSex.getText());
                 String dateOfBirth = String.valueOf(editTextDateOfBirth.getText());

@@ -6,9 +6,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -17,20 +18,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.heartcare.R;
-//import com.facebook.AccessToken;
-//import com.facebook.CallbackManager;
-//import com.facebook.FacebookCallback;
-//import com.facebook.FacebookException;
-//import com.facebook.GraphRequest;
-//import com.facebook.GraphResponse;
-//import com.facebook.login.LoginManager;
-//import com.facebook.login.LoginResult;
 import com.example.heartcare.backend.Backend;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class SignIn extends AppCompatActivity {
     private static final int RC_SIGN_IN = 200;
@@ -39,7 +51,7 @@ public class SignIn extends AppCompatActivity {
     private ImageButton btn_login_facebook;
 
     private ImageButton btn_login_google;
-//    private CallbackManager callbackManager;
+    private CallbackManager callbackManager;
     private TextView tv_createNewOne;
     private ImageView btn_back;
     private TextView tv_forgot_password;
@@ -63,6 +75,8 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         map();
+
+        initializationLoginWithSocial();
 
         setFocusChangeListener();
         clickBtnLoginFacebook();
@@ -111,8 +125,8 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
-    /*
     void initializationLoginWithSocial() {
+        callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -140,7 +154,6 @@ public class SignIn extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
-*/
 
     private void clickTvForgotPassword() {
         tv_forgot_password.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +169,7 @@ public class SignIn extends AppCompatActivity {
         btn_login_facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                LoginManager.getInstance().logInWithReadPermissions(SignIn.this, Arrays.asList("public_profile", "email"));
+                LoginManager.getInstance().logInWithReadPermissions(SignIn.this, Arrays.asList("public_profile", "email"));
             }
         });
     }
@@ -204,13 +217,18 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
-    private void registerAccountWithSocial(String username, String name, String email) throws Exception {
-        // Tạo tài khoản trên server của mình từ thông tin username, name, email
-
+    private void registerAccountWithSocial(String email, String name) throws Exception {
+        // Tạo tài khoản trên server của mình từ thông tin email, name
+        /*
+            Ghép backend
+         */
     }
 
-    private boolean loginAccountWithSocial(String username, String name, String email) throws Exception {
-        registerAccountWithSocial(username, name, email);
+    private boolean loginAccountWithSocial(String email, String name) throws Exception {
+        /*
+            Kiểm tra là đã có tài khoản hay chưa?
+         */
+        registerAccountWithSocial(email, name);
         return true;
     }
 
@@ -262,49 +280,48 @@ public class SignIn extends AppCompatActivity {
 //        System.out.println("Co chay den day");
 //    }
 
-//    private void getUserProfileFacebook(AccessToken accessToken) {
-//        /**
-//         Creating the GraphRequest to fetch user details
-//         1st Param - AccessToken
-//         2nd Param - Callback (which will be invoked once the request is successful)
-//         **/
-//        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
-//            //OnCompleted is invoked once the GraphRequest is successful
-//            @Override
-//            public void onCompleted(JSONObject object, GraphResponse response) {
-//                try {
-//                    String id = object.getString("id");
-//                    String name = object.getString("name");
-//                    String email = object.getString("email");
-//                    String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
-//                    try {
-//                        boolean successLogin = loginAccountWithSocial(email.split("@")[0], name, email);
-//                        if (successLogin) {
-//                            Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(SignIn.this, MainActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                        else {
-//                            Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (Exception e) {
-//                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        // We set parameters to the GraphRequest using a Bundle.
-//        Bundle parameters = new Bundle();
-//        parameters.putString("fields", "id,name,email,picture.width(200)");
-//        request.setParameters(parameters);
-//        // Initiate the GraphRequest
-//        request.executeAsync();
-//    }
+    private void getUserProfileFacebook(AccessToken accessToken) {
+        /**
+         Creating the GraphRequest to fetch user details
+         1st Param - AccessToken
+         2nd Param - Callback (which will be invoked once the request is successful)
+         **/
+        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+            //OnCompleted is invoked once the GraphRequest is successful
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                try {
+                    String id = object.getString("id");
+                    String name = object.getString("name");
+                    String email = object.getString("email");
+                    String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                    try {
+                        boolean successLogin = loginAccountWithSocial(email, name);
+                        if (successLogin) {
+                            Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignIn.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        // We set parameters to the GraphRequest using a Bundle.
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,picture.width(200)");
+        request.setParameters(parameters);
+        // Initiate the GraphRequest
+        request.executeAsync();
+    }
 
-/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -327,7 +344,7 @@ public class SignIn extends AppCompatActivity {
             Uri picture = account.getPhotoUrl();
             // Signed in successfully, show authenticated UI.
             try {
-                boolean successLogin = loginAccountWithSocial(email.split("@")[0], name, email);
+                boolean successLogin = loginAccountWithSocial(email, name);
                 if (successLogin) {
                     Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignIn.this, MainActivity.class);
@@ -356,5 +373,4 @@ public class SignIn extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
- */
 }

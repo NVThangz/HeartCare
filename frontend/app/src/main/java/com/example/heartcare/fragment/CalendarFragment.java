@@ -1,5 +1,7 @@
 package com.example.heartcare.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -50,7 +52,7 @@ public class CalendarFragment extends Fragment {
 
     private int chooseDate;
     private int chooseMonth;
-    private int choosYear;
+    private int chooseYear;
 
     private View rootView;
 
@@ -66,6 +68,7 @@ public class CalendarFragment extends Fragment {
     private ConstraintLayout bottomSheet;
 
     private Calendar calendar;
+    private static final int CREATE_TODO_REQUEST_CODE = 1;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -121,6 +124,27 @@ public class CalendarFragment extends Fragment {
         return rootView;
     }
 
+    // Phương thức để tải lại dữ liệu trong Calendar Fragment
+    private void reloadData() {
+        // Thực hiện các thao tác cần thiết để cập nhật giao diện
+        // Ví dụ: clear các items cũ, tạo lại các items mới
+        // ...
+
+        // Gọi phương thức onCreateView() để tạo giao diện mới
+//        onCreateView(LayoutInflater.from(getContext()), null, null);
+        eventTodoCalendarRecycler();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CREATE_TODO_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Thực hiện tải lại dữ liệu trong Calendar Fragment
+            reloadData();
+        }
+    }
+
     private void setCalendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(calendarView.getDate());
@@ -129,6 +153,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int date) {
                 setDate(date, month + 1, year);
+                eventTodoCalendarRecycler();
             }
         });
 
@@ -141,7 +166,7 @@ public class CalendarFragment extends Fragment {
     private void setDate(int date, int month, int year) {
         chooseDate = date;
         chooseMonth = month;
-        choosYear = year;
+        chooseYear = year;
     }
 
     private void clickBtnAddTodo() {
@@ -152,8 +177,9 @@ public class CalendarFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), CreateTodoActivity.class);
                 intent.putExtra("DATE", chooseDate);
                 intent.putExtra("MONTH", chooseMonth);
-                intent.putExtra("YEAR", choosYear);
-                startActivity(intent);
+                intent.putExtra("YEAR", chooseYear);
+//                startActivity(intent);
+                startActivityForResult(intent, CREATE_TODO_REQUEST_CODE);
             }
         });
     }
@@ -174,7 +200,7 @@ public class CalendarFragment extends Fragment {
 
         ArrayList<String> times = new ArrayList<String>();
         ArrayList<String> contents = new ArrayList<String>();
-        Date date = new Date(choosYear-1900,chooseMonth-1,chooseDate);
+        Date date = new Date(chooseYear-1900,chooseMonth-1,chooseDate);
         FindNotesQuery.Data data = Backend.getNotes(date);
         for (int i = 0; i < data.findNotes.size(); i++) {
             Date StartDate = DateFormat.ISO8601toDate(data.findNotes.get(i).startDate.toString());
@@ -197,7 +223,6 @@ public class CalendarFragment extends Fragment {
         }
         return todoItems;
     }
-
 
     private void setBottomSheetDialog() {
         View bottomSheet = rootView.findViewById(R.id.bottom_sheet);
@@ -228,8 +253,6 @@ public class CalendarFragment extends Fragment {
             }
         });
     }
-
-
 
     private void setCalendarView() {
     }

@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.heartcare.R;
 import com.example.heartcare.backend.Backend;
+import com.example.heartcare.fragment.CalendarFragment;
 import com.example.heartcare.utilities.DateFormat;
 
 import java.util.Date;
@@ -115,6 +116,10 @@ public class CreateTodoActivity extends AppCompatActivity {
                 String startTime = DateFormat.ISO8601format(new Date(year-1900, month-1, date, hourStartTime, minuteStartTime));
                 String endTime = DateFormat.ISO8601format(new Date(year-1900, month-1, date, hourEndTime, minuteEndTime));
                 Backend.createNote(content, startTime, endTime);
+
+                intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }

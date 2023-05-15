@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Heart Care</string>
+    <string name="facebook_app_id">1243430879627194</string>
+    <string name="fb_login_protocol_scheme">fb1243430879627194</string>
+    <string name="facebook_client_token">b716ebd6a8162a0d7f1de9c7029fe275</string>
     <string name="measure_heart_rate">Measure Heart Rate</string>
     <string name="heart_rate_statistics">Heart Rate Statistics</string>
     <string name="emergency_call">Emergency Call</string>

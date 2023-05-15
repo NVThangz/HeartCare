@@ -32,6 +32,20 @@ export class NoteUpdateInput {
     endDate?: Nullable<DateTime>;
 }
 
+export class CreateNotificationInput {
+    email?: Nullable<string>;
+    title?: Nullable<string>;
+    content?: Nullable<string>;
+    createdAt?: Nullable<DateTime>;
+}
+
+export class UpdateNotificationInput {
+    id?: Nullable<number>;
+    title?: Nullable<string>;
+    content?: Nullable<string>;
+    createdAt?: Nullable<DateTime>;
+}
+
 export class UpdateProfileInput {
     email: string;
     name?: Nullable<string>;
@@ -90,6 +104,14 @@ export abstract class IMutation {
 
     abstract deleteNote(id: number): Nullable<boolean> | Promise<Nullable<boolean>>;
 
+    abstract createNotification(createNotificationInput: CreateNotificationInput): Notification | Promise<Notification>;
+
+    abstract createNotificationAll(title: string, content: string, createdAt?: Nullable<DateTime>): Notification | Promise<Notification>;
+
+    abstract updateNotification(updateNotificationInput: UpdateNotificationInput): Notification | Promise<Notification>;
+
+    abstract removeNotification(id: number): Nullable<Notification> | Promise<Nullable<Notification>>;
+
     abstract updateProfile(updateProfileInput: UpdateProfileInput): Profile | Promise<Profile>;
 
     abstract updateRecord(updateRecordInput: UpdateRecordInput): Record | Promise<Record>;
@@ -131,6 +153,12 @@ export abstract class IQuery {
 
     abstract findNotes(email: string, date: DateTime): Nullable<Nullable<Note>[]> | Promise<Nullable<Nullable<Note>[]>>;
 
+    abstract notifications(): Nullable<Notification>[] | Promise<Nullable<Notification>[]>;
+
+    abstract findNotificationsWithEmail(email: string): Nullable<Nullable<Notification>[]> | Promise<Nullable<Nullable<Notification>[]>>;
+
+    abstract findNotificationsAll(): Nullable<Nullable<Notification>[]> | Promise<Nullable<Nullable<Notification>[]>>;
+
     abstract profile(email: string): Nullable<Profile> | Promise<Nullable<Profile>>;
 
     abstract record(email: string): Nullable<Record> | Promise<Nullable<Record>>;
@@ -146,6 +174,14 @@ export class Note {
     content?: Nullable<string>;
     startDate?: Nullable<DateTime>;
     endDate?: Nullable<DateTime>;
+}
+
+export class Notification {
+    id?: Nullable<number>;
+    userId?: Nullable<number>;
+    title?: Nullable<string>;
+    content?: Nullable<string>;
+    createdAt?: Nullable<DateTime>;
 }
 
 export class Profile {

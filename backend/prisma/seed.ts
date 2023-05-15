@@ -56,6 +56,24 @@ async function main() {
           },
         ],
       },
+      notification: {
+        create: [
+          {
+            title: 'Thông báo 1',
+            content: 'Nội dung thông báo 1',
+          },
+          {
+            title: 'Thông báo 2',
+            content: 'Nội dung thông báo 2',
+          },
+        ],
+      },
+    },
+  });
+  await prisma.notification.create({
+    data: {
+      title: 'Thông báo toàn bộ 1',
+      content: 'Nội dung thông báo 1',
     },
   });
 }

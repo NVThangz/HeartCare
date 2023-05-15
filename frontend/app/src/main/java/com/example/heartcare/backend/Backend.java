@@ -13,6 +13,7 @@ import com.example.heartcare.ConfirmForgotPasswordMutation;
 import com.example.heartcare.CreateHistoryMutation;
 import com.example.heartcare.CreateNoteMutation;
 import com.example.heartcare.FindNotesQuery;
+import com.example.heartcare.FindNotificationsWithEmailQuery;
 import com.example.heartcare.ForgotPasswordMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
@@ -37,7 +38,7 @@ import okhttp3.Request;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.1.88:3000/graphql")
+            .serverUrl("http://192.168.1.17:3000/graphql")
             .build();
 
     public static String email = "";
@@ -215,5 +216,15 @@ public class Backend {
             editor.putString("refresh_token", response.data.registerWithSocial.refresh_token);
             editor.apply();
         }
+    }
+
+    public static FindNotificationsWithEmailQuery.Data getNotificationsWithEmail() {
+        ApolloCall<FindNotificationsWithEmailQuery.Data> queryCall = apolloClient.query(new FindNotificationsWithEmailQuery(email));
+        Single<ApolloResponse<FindNotificationsWithEmailQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<FindNotificationsWithEmailQuery.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+        return response.data;
     }
 }

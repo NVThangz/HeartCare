@@ -101,7 +101,7 @@ public class HealthConsultation extends AppCompatActivity {
                 return;
             }
 
-            addToChat(question,Message.SENT_BY_ME);
+            addToChat(question, Message.SENT_BY_ME);
             editTextMessage.setText("");
 
             /*

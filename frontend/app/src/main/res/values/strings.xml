@@ -122,4 +122,5 @@
     <string name="current_password">Current password</string>
     <string name="change_password_successfully">Change password successfully</string>
     <string name="confirm_password_does_not_match">Confirm password does not match</string>
+    <string name="save_modified_successfully">Save modified successfully</string>
 </resources>

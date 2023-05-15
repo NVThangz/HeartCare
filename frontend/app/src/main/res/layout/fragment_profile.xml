@@ -126,7 +126,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/sex_profile" />
 
                     <EditText
-                        android:id="@+id/email_profile"
+                        android:id="@+id/phone_number_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -151,7 +151,7 @@
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/email_profile" />
+                        app:layout_constraintTop_toBottomOf="@+id/phone_number_profile" />
 
                     <EditText
                         android:id="@+id/address_profile"

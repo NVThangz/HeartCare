@@ -29,16 +29,20 @@ async function main() {
       history: {
         create: [
           {
-            createdAt: '2023-05-14T22:48:53.653Z',
-            bpm: 80,
+            createdAt: '2023-05-14T10:48:53.653Z',
+            bpm: 40,
           },
           {
-            createdAt: '2023-05-15T16:48:53.653Z',
-            bpm: 90,
+            createdAt: '2023-05-15T06:48:53.653Z',
+            bpm: 30,
           },
           {
-            createdAt: '2023-05-15T17:48:53.653Z',
-            bpm: 100,
+            createdAt: '2023-05-15T11:48:53.653Z',
+            bpm: 60,
+          },
+          {
+            createdAt: '2023-05-16T10:48:53.653Z',
+            bpm: 70,
           },
         ],
       },
@@ -61,10 +65,12 @@ async function main() {
           {
             title: 'Thông báo 1',
             content: 'Nội dung thông báo 1',
+            createdAt:'2023-05-15T16:48:53.653Z',
           },
           {
             title: 'Thông báo 2',
             content: 'Nội dung thông báo 2',
+            createdAt:'2023-05-15T17:48:53.653Z',
           },
         ],
       },

@@ -16,10 +16,13 @@ import android.widget.CalendarView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.example.heartcare.FindNotesTodayQuery;
 import com.example.heartcare.R;
 import com.example.heartcare.activity.CreateTodoActivity;
 import com.example.heartcare.adapter.TodoCalendarAdapter;
+import com.example.heartcare.backend.Backend;
 import com.example.heartcare.object.TodoItem;
+import com.example.heartcare.utilities.DateFormat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.SimpleDateFormat;
@@ -168,12 +171,28 @@ public class CalendarFragment extends Fragment {
             contents: Sự kiện của ngày hôm nay
             times: Thời gian
          */
-        String[] contents = {"Go to hospital", "Take medicines", "Meet docter"};
-        String[] times = {"08:00 AM - 10:00AM","12:00 AM","02:00 PM - 03:00PM"};
+
+        ArrayList<String> times = new ArrayList<String>();
+        ArrayList<String> contents = new ArrayList<String>();
+
+        FindNotesTodayQuery.Data data = Backend.getNotesToday();
+        for (int i = 0; i < data.findNotesToday.size(); i++) {
+            Date StartDate = DateFormat.ISO8601toDate(data.findNotesToday.get(i).startDate.toString());
+            Date EndDate = DateFormat.ISO8601toDate(data.findNotesToday.get(i).endDate.toString());
+            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
+            String startTime = formatter.format(StartDate);
+            String endTime = formatter.format(EndDate);
+            times.add(startTime + " - " + endTime);
+            contents.add(data.findNotesToday.get(i).content);
+        }
+//        String[] contents = {"Go to hospital", "Take medicines", "Meet docter"};
+//        String[] times = {"08:00 AM - 10:00AM","12:00 AM","02:00 PM - 03:00PM"};
+
+
 
         List <TodoItem> todoItems = new ArrayList<>();
-        for(int i = 0; i < contents.length; i++) {
-            TodoItem todoItem = new TodoItem(contents[i],times[i]);
+        for(int i = 0; i < contents.size(); i++) {
+            TodoItem todoItem = new TodoItem(contents.get(i),times.get(i));
             todoItems.add(todoItem);
         }
         return todoItems;

@@ -127,6 +127,8 @@ export abstract class IQuery {
 
     abstract note(email: string): Nullable<Nullable<Note>[]> | Promise<Nullable<Nullable<Note>[]>>;
 
+    abstract findNotesToday(email: string): Nullable<Nullable<Note>[]> | Promise<Nullable<Nullable<Note>[]>>;
+
     abstract profile(email: string): Nullable<Profile> | Promise<Nullable<Profile>>;
 
     abstract record(email: string): Nullable<Record> | Promise<Nullable<Record>>;

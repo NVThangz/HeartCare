@@ -8,8 +8,11 @@ import com.apollographql.apollo3.ApolloClient;
 import com.apollographql.apollo3.api.ApolloResponse;
 import com.apollographql.apollo3.api.Optional;
 import com.apollographql.apollo3.rx3.Rx3Apollo;
+import com.example.heartcare.ChangePasswordMutation;
 import com.example.heartcare.ConfirmForgotPasswordMutation;
 import com.example.heartcare.CreateHistoryMutation;
+import com.example.heartcare.CreateNoteMutation;
+import com.example.heartcare.FindNotesTodayQuery;
 import com.example.heartcare.ForgotPasswordMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
@@ -19,6 +22,7 @@ import com.example.heartcare.SignupMutation;
 import com.example.heartcare.TodayHistoryStatisticsQuery;
 import com.example.heartcare.WeekHistoryStatisticsQuery;
 import com.example.heartcare.type.AuthInput;
+import com.example.heartcare.type.NoteInput;
 import com.example.heartcare.type.UpdateProfileInput;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -160,6 +164,34 @@ public class Backend {
         ApolloCall<WeekHistoryStatisticsQuery.Data> queryCall = apolloClient.query(new WeekHistoryStatisticsQuery(email));
         Single<ApolloResponse<WeekHistoryStatisticsQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<WeekHistoryStatisticsQuery.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+        return response.data;
+    }
+
+    public static void changePassword(String oldPassword, String newPassword) throws Exception {
+        ApolloCall<ChangePasswordMutation.Data> queryCall = apolloClient.mutation(new ChangePasswordMutation(email, oldPassword, newPassword));
+        Single<ApolloResponse<ChangePasswordMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<ChangePasswordMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            throw new Exception(response.errors.get(0).getMessage());
+        }
+    }
+
+    public static void createNote(String content, String startDate, String endDate) {
+        ApolloCall<CreateNoteMutation.Data> queryCall = apolloClient.mutation(new CreateNoteMutation(new NoteInput(Optional.present(email), Optional.present(content), Optional.present(startDate), Optional.present(endDate))));
+        Single<ApolloResponse<CreateNoteMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<CreateNoteMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+    }
+
+    public static FindNotesTodayQuery.Data getNotesToday() {
+        ApolloCall<FindNotesTodayQuery.Data> queryCall = apolloClient.query(new FindNotesTodayQuery(email));
+        Single<ApolloResponse<FindNotesTodayQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<FindNotesTodayQuery.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
             System.out.println(response.errors.get(0).getMessage());
         }

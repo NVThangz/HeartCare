@@ -35,13 +35,13 @@ export class AuthService {
 
   async signup(authInput: AuthInput) {
     if (!this.checkEmailRegex(authInput.username)) {
-      throw new ForbiddenError('Email không hợp lệ');
+      throw new ForbiddenError('Email invalid');
     }
     const password = await this.hashData(authInput.password);
 
     const isEmailExist = await this.userService.findOne(authInput.username);
     if (isEmailExist) {
-      throw new ForbiddenError('Email đã tồn tại');
+      throw new ForbiddenError('Email does exist');
     }
 
     const user = await this.userService.createUser({ ...authInput, password });
@@ -69,15 +69,15 @@ export class AuthService {
   async refresh(userId: number, rt: string) {
     const user = await this.userService.findById(userId);
     if (!user) {
-      throw new ForbiddenError('User không tồn tại');
+      throw new ForbiddenError('User does not exist');
     }
     if (!user.refreshToken) {
-      throw new ForbiddenError('Refresh token không tồn tại');
+      throw new ForbiddenError('Refresh token does not exist');
     }
     const hashRt = createHash('sha256').update(rt).digest('hex');
     const valid = await bcrypt.compare(hashRt, user.refreshToken);
     if (!valid) {
-      throw new ForbiddenError('Refresh token không hợp lệ');
+      throw new ForbiddenError('Refresh token invalid');
     }
     const token = await this.getToken(user.id, user.email);
     await this.updateRefreshToken(user.id, token.refresh_token);
@@ -144,8 +144,8 @@ export class AuthService {
         'New password must be different from old password',
       );
     }
-    if (!this.userService.checkPassword(email, oldPassword)) {
-      throw new ForbiddenError('Old password is incorrect');
+    if (!(await this.userService.checkPassword(email, oldPassword))) {
+      throw new ForbiddenError('Current password is incorrect');
     }
     const user = await this.userService.changePassword(email, newPassword);
     if (!user) {

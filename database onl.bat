@@ -1,0 +1,1 @@
+cd backend && npx prisma studio --port 5000 && cd ..

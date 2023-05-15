@@ -10,7 +10,9 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 scalar String
 
 type Mutation {
-  getAdvisory(advisoryInput: AdvisoryInput!): String!
+  getAdvisoryFirst(email: String!): String!
+
+  getAdvisory(question: String!): String!
 
   login(authInput: AuthInput): LoginResponse!
 
@@ -25,6 +27,8 @@ type Mutation {
   confirmForgotPassword(email: String!, token: String!): Boolean!
 
   resetPasswordConfirmed(email: String!, newPassword: String!): LoginResponse!
+
+  changePassword(email: String!, oldPassword: String!, newPassword: String!): Boolean!
 
   createHistory(email: String!, bpm: Int!): History
 
@@ -75,12 +79,33 @@ type History {
   createdAt: DateTime
 }
 
+type HistoryStatistics {
+  average: Int
+
+  max: Int
+
+  min: Int
+
+  chartData: [ChartData]
+}
+
+type ChartData {
+  value: Float
+
+  bpm: Int
+}
+
+"""
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+"""
+scalar Float
+
 type Query {
   history(email: String!): [History]
 
-  findTodayHistory(email: String!): [History]
+  todayHistoryStatistics(email: String!): HistoryStatistics
 
-  findWeekHistory(email: String!): [History]
+  weekHistoryStatistics(email: String!): HistoryStatistics
 
   note(email: String!): [Note]
 
@@ -168,11 +193,6 @@ type Record {
 
   userId: Int
 }
-
-"""
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
-"""
-scalar Float
 
 input UpdateRecordInput {
   email: String!

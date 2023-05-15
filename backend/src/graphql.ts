@@ -106,12 +106,24 @@ export class History {
     createdAt?: Nullable<DateTime>;
 }
 
+export class HistoryStatistics {
+    average?: Nullable<number>;
+    max?: Nullable<number>;
+    min?: Nullable<number>;
+    chartData?: Nullable<Nullable<ChartData>[]>;
+}
+
+export class ChartData {
+    value?: Nullable<number>;
+    bpm?: Nullable<number>;
+}
+
 export abstract class IQuery {
     abstract history(email: string): Nullable<Nullable<History>[]> | Promise<Nullable<Nullable<History>[]>>;
 
-    abstract findTodayHistory(email: string): Nullable<Nullable<History>[]> | Promise<Nullable<Nullable<History>[]>>;
+    abstract todayHistoryStatistics(email: string): Nullable<HistoryStatistics> | Promise<Nullable<HistoryStatistics>>;
 
-    abstract findWeekHistory(email: string): Nullable<Nullable<History>[]> | Promise<Nullable<Nullable<History>[]>>;
+    abstract weekHistoryStatistics(email: string): Nullable<HistoryStatistics> | Promise<Nullable<HistoryStatistics>>;
 
     abstract note(email: string): Nullable<Nullable<Note>[]> | Promise<Nullable<Nullable<Note>[]>>;
 

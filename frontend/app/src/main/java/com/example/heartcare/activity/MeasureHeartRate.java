@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.heartcare.R;
+import com.example.heartcare.backend.Backend;
 import com.example.heartcare.measure.CameraService;
 import com.example.heartcare.measure.OutputAnalyzer;
 import com.google.android.material.snackbar.Snackbar;
@@ -139,11 +140,12 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
                     tvPulse.setText(obj.get("pulse_content").toString());
 
 
+
                 /*
                     Lưu giá trị bpm trong biến curBpm vào backend
                     Ghép backend
                 */
-
+                    Backend.createHistory(curBpm);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }

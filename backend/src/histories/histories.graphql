@@ -7,10 +7,22 @@ type History {
   createdAt: DateTime
 }
 
+type HistoryStatistics {
+  average: Int
+  max:     Int
+  min:     Int
+  chartData: [ChartData]
+}
+
+type ChartData {
+  value: Float
+  bpm:  Int
+}
+
 type Query {
   history(email: String!): [History]
-  findTodayHistory(email: String!): [History]
-  findWeekHistory(email: String!): [History]
+  todayHistoryStatistics(email: String!): HistoryStatistics
+  weekHistoryStatistics(email: String!): HistoryStatistics
 }
 
 type Mutation {

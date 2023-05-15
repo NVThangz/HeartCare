@@ -16,4 +16,16 @@ export class HistoriesResolver {
   findOne(@Args('email') email: string) {
     return this.historiesService.findOne(email);
   }
+
+  @Query('todayHistoryStatistics')
+  todayHistoryStatistics(@Args('email') email: string) {
+    return this.historiesService.todayHistoryStatistics(email);
+  }
+
+  @Query('weekHistoryStatistics')
+  weekHistoryStatistics(@Args('email') email: string) {
+    return this.historiesService.weekHistoryStatistics(email);
+  }
+
+
 }

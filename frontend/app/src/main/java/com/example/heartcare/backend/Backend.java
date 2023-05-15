@@ -9,12 +9,15 @@ import com.apollographql.apollo3.api.ApolloResponse;
 import com.apollographql.apollo3.api.Optional;
 import com.apollographql.apollo3.rx3.Rx3Apollo;
 import com.example.heartcare.ConfirmForgotPasswordMutation;
+import com.example.heartcare.CreateHistoryMutation;
 import com.example.heartcare.ForgotPasswordMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
 import com.example.heartcare.RefreshMutation;
 import com.example.heartcare.ResetPasswordConfirmedMutation;
 import com.example.heartcare.SignupMutation;
+import com.example.heartcare.TodayHistoryStatisticsQuery;
+import com.example.heartcare.WeekHistoryStatisticsQuery;
 import com.example.heartcare.type.AuthInput;
 import com.example.heartcare.type.UpdateProfileInput;
 
@@ -134,5 +137,32 @@ public class Backend {
         }
     }
 
+    public static void createHistory(int bpm) {
+        ApolloCall<CreateHistoryMutation.Data> queryCall = apolloClient.mutation(new CreateHistoryMutation(email, bpm));
+        Single<ApolloResponse<CreateHistoryMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<CreateHistoryMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+    }
 
+    public static TodayHistoryStatisticsQuery.Data getTodayHistoryStatistics() {
+        ApolloCall<TodayHistoryStatisticsQuery.Data> queryCall = apolloClient.query(new TodayHistoryStatisticsQuery(email));
+        Single<ApolloResponse<TodayHistoryStatisticsQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<TodayHistoryStatisticsQuery.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+        return response.data;
+    }
+
+    public static WeekHistoryStatisticsQuery.Data getWeekHistoryStatistics() {
+        ApolloCall<WeekHistoryStatisticsQuery.Data> queryCall = apolloClient.query(new WeekHistoryStatisticsQuery(email));
+        Single<ApolloResponse<WeekHistoryStatisticsQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<WeekHistoryStatisticsQuery.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+        return response.data;
+    }
 }

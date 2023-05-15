@@ -63,6 +63,7 @@ export class UpdateRecordInput {
     weight?: Nullable<number>;
     BMI?: Nullable<number>;
     bloodType?: Nullable<string>;
+    HealthProblems?: Nullable<string>;
 }
 
 export class CreateUserInput {
@@ -202,6 +203,7 @@ export class Record {
     BMI?: Nullable<number>;
     bloodType?: Nullable<string>;
     userId?: Nullable<number>;
+    HealthProblems?: Nullable<string>;
 }
 
 export class User {

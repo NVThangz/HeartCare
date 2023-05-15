@@ -40,6 +40,14 @@ type Mutation {
 
   deleteNote(id: Int!): Boolean
 
+  createNotification(createNotificationInput: CreateNotificationInput!): Notification!
+
+  createNotificationAll(title: String!, content: String!, createdAt: DateTime): Notification!
+
+  updateNotification(updateNotificationInput: UpdateNotificationInput!): Notification!
+
+  removeNotification(id: Int!): Notification
+
   updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
 
   updateRecord(updateRecordInput: UpdateRecordInput!): Record!
@@ -113,6 +121,12 @@ type Query {
 
   findNotes(email: String!, date: DateTime!): [Note]
 
+  notifications: [Notification]!
+
+  findNotificationsWithEmail(email: String!): [Notification]
+
+  findNotificationsAll: [Notification]
+
   profile(email: String!): Profile
 
   record(email: String!): Record
@@ -152,6 +166,38 @@ input NoteUpdateInput {
   startDate: DateTime
 
   endDate: DateTime
+}
+
+type Notification {
+  id: Int
+
+  userId: Int
+
+  title: String
+
+  content: String
+
+  createdAt: DateTime
+}
+
+input CreateNotificationInput {
+  email: String
+
+  title: String
+
+  content: String
+
+  createdAt: DateTime
+}
+
+input UpdateNotificationInput {
+  id: Int
+
+  title: String
+
+  content: String
+
+  createdAt: DateTime
 }
 
 type Profile {

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.chaos.view.PinView;
 import com.example.heartcare.R;
+import com.example.heartcare.backend.Backend;
 
 public class VerifyEmail extends AppCompatActivity {
     private ImageView icBack;
@@ -77,7 +78,12 @@ public class VerifyEmail extends AppCompatActivity {
         textViewResendCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.notificationResend), Toast.LENGTH_SHORT).show();
+                try {
+                    Backend.forgotPassword(Backend.email);
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.notificationResend), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -92,9 +98,15 @@ public class VerifyEmail extends AppCompatActivity {
                     Nếu đúng thì chạy tiếp, không thì dùng câu lệnh
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                  */
+                try {
+                    Backend.confirmForgotPassword(code);
+                    Intent intent = new Intent(VerifyEmail.this, CreateNewPassword.class);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
 
-                Intent intent = new Intent(VerifyEmail.this, CreateNewPassword.class);
-                startActivity(intent);
             }
         });
     }

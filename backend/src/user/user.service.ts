@@ -56,10 +56,24 @@ export class UserService {
     });
   }
 
-  deleteRefreshToken(id: number) {
+  // deleteRefreshToken(id: number) {
+  //   return this.prisma.user.updateMany({
+  //     where: {
+  //       id,
+  //       refreshToken: {
+  //         not: null,
+  //       },
+  //     },
+  //     data: {
+  //       refreshToken: null,
+  //     },
+  //   });
+  // }
+
+  deleteRefreshToken(email: string) {
     return this.prisma.user.updateMany({
       where: {
-        id,
+        email,
         refreshToken: {
           not: null,
         },

@@ -1,17 +1,21 @@
 package com.example.heartcare.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.heartcare.R;
+import com.example.heartcare.backend.Backend;
 
 public class CreateNewPassword extends AppCompatActivity {
     private ImageView icBack;
@@ -65,8 +69,17 @@ public class CreateNewPassword extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CreateNewPassword.this, MainActivity.class);
-                startActivity(intent);
+                String newPassword = String.valueOf(etPassword.getText());
+                SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+                try {
+                    Backend.resetPasswordConfirmed(Backend.email, newPassword, sharedPreferences);
+                    Intent intent = new Intent(CreateNewPassword.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

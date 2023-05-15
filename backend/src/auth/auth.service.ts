@@ -54,8 +54,14 @@ export class AuthService {
     };
   }
 
-  async logout(userId: number) {
-    const user = await this.userService.deleteRefreshToken(userId);
+  // async logout(userId: number) {
+  //   const user = await this.userService.deleteRefreshToken(userId);
+  //   if (user.count) return true;
+  //   return false;
+  // }
+
+  async logout(email: string) {
+    const user = await this.userService.deleteRefreshToken(email);
     if (user.count) return true;
     return false;
   }
@@ -99,17 +105,17 @@ export class AuthService {
   async confirmForgotPassword(email: string, token: string) {
     const user = await this.userService.findOne(email);
     if (!user) {
-      throw new ForbiddenError('Email không tồn tại');
+      throw new ForbiddenError('Email not exist');
     }
     const tokenStore = this.tokenStore[email];
     if (!tokenStore) {
-      throw new ForbiddenError('Token không tồn tại');
+      throw new ForbiddenError('Code not exist');
     }
     if (tokenStore.value !== token) {
-      throw new ForbiddenError('Token không hợp lệ');
+      throw new ForbiddenError('Invalid code');
     }
     if (tokenStore.expire < new Date()) {
-      throw new ForbiddenError('Token đã hết hạn');
+      throw new ForbiddenError('Code expired');
     }
     delete this.tokenStore[email];
     return true;

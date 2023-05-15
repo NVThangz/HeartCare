@@ -66,7 +66,7 @@ export abstract class IMutation {
 
     abstract signup(authInput?: Nullable<AuthInput>): LoginResponse | Promise<LoginResponse>;
 
-    abstract logout(): boolean | Promise<boolean>;
+    abstract logout(email: string): boolean | Promise<boolean>;
 
     abstract refresh(): LoginResponse | Promise<LoginResponse>;
 

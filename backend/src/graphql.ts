@@ -80,6 +80,8 @@ export abstract class IMutation {
 
     abstract changePassword(email: string, oldPassword: string, newPassword: string): boolean | Promise<boolean>;
 
+    abstract registerWithSocial(email: string, name?: Nullable<string>): LoginResponse | Promise<LoginResponse>;
+
     abstract createHistory(email: string, bpm: number): Nullable<History> | Promise<Nullable<History>>;
 
     abstract createNote(noteInput: NoteInput): Nullable<Note> | Promise<Nullable<Note>>;

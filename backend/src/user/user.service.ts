@@ -19,7 +19,6 @@ export class UserService {
         record: {
           create: {},
         },
-        createdAt: new Date(),
       },
     });
   }
@@ -111,5 +110,21 @@ export class UserService {
       },
     });
     return await bycrypt.compareSync(password, user.password);
+  }
+
+  createUserSocial(email: string, name: string) {
+    return this.prisma.user.create({
+      data: {
+        email,
+        profile: {
+          create: {
+            name,
+          },
+        },
+        record: {
+          create: {},
+        },
+      },
+    });
   }
 }

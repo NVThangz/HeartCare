@@ -1,0 +1,9 @@
+mutation RegisterWithSocial($email: String!, $name: String) {
+  registerWithSocial(email: $email, name: $name) {
+    access_token
+    refresh_token
+    user {
+      email
+    }
+  }
+}

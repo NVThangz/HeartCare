@@ -17,6 +17,7 @@ import com.example.heartcare.ForgotPasswordMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
 import com.example.heartcare.RefreshMutation;
+import com.example.heartcare.RegisterWithSocialMutation;
 import com.example.heartcare.ResetPasswordConfirmedMutation;
 import com.example.heartcare.SignupMutation;
 import com.example.heartcare.TodayHistoryStatisticsQuery;
@@ -199,5 +200,20 @@ public class Backend {
             System.out.println(response.errors.get(0).getMessage());
         }
         return response.data;
+    }
+
+    public static void RegisterWithSocial(String email, String name, SharedPreferences sharedPreferences) throws Exception {
+        ApolloCall<RegisterWithSocialMutation.Data> queryCall = apolloClient.mutation(new RegisterWithSocialMutation(email, Optional.present(name)));
+        Single<ApolloResponse<RegisterWithSocialMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<RegisterWithSocialMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            throw new Exception(response.errors.get(0).getMessage());
+        } else {
+            email = response.data.registerWithSocial.user.email;
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("access_token", response.data.registerWithSocial.access_token);
+            editor.putString("refresh_token", response.data.registerWithSocial.refresh_token);
+            editor.apply();
+        }
     }
 }

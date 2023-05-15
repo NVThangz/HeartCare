@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.backend.Backend;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -124,6 +126,20 @@ public class ProfileFragment extends Fragment {
         editTextPhoneNumber.setText("094540xxxx");
         editTextNationalId.setText("025203xxxxxx");
         editTextAddress.setText("144 Xuân Thủy, Cầu Giấy, Hà Nội");
+
+        // Lấy chuỗi từ SharedPreferences
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+        if (sharedPreferences.contains("image_data")) {
+            String imageDataString = sharedPreferences.getString("image_data", null);
+
+            // Giải mã chuỗi thành mảng byte
+            byte[] imageData = Base64.decode(imageDataString, Base64.DEFAULT);
+
+            // Khôi phục Bitmap từ mảng byte
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+
+            avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 400, false));
+        }
 
         clickAvatarProfile();
         clickBtnSaveModified();
@@ -253,6 +269,16 @@ public class ProfileFragment extends Fragment {
                     InputStream inputStream = getActivity().getContentResolver().openInputStream(resultUri);
                     Bitmap photo = BitmapFactory.decodeStream(inputStream);
                     avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 400, 400, false));
+
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+
+                    // Lưu mảng byte vào SharedPreferences
+                    SharedPreferences sharedPreferences = requireContext().getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("image_data", Base64.encodeToString(byteArray, Base64.DEFAULT));
+                    editor.apply();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

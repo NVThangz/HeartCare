@@ -76,7 +76,6 @@ export class AuthService {
     }
     const hashRt = createHash('sha256').update(rt).digest('hex');
     const valid = await bcrypt.compare(hashRt, user.refreshToken);
-    console.log(valid);
     if (!valid) {
       throw new ForbiddenError('Refresh token không hợp lệ');
     }
@@ -135,11 +134,17 @@ export class AuthService {
     };
   }
 
-  async changePassword(email: string, oldPassword: string, newPassword: string) {
-    if(oldPassword === newPassword) {
-      throw new ForbiddenError('New password must be different from old password');
+  async changePassword(
+    email: string,
+    oldPassword: string,
+    newPassword: string,
+  ) {
+    if (oldPassword === newPassword) {
+      throw new ForbiddenError(
+        'New password must be different from old password',
+      );
     }
-    if(!this.userService.checkPassword(email, oldPassword)) {
+    if (!this.userService.checkPassword(email, oldPassword)) {
       throw new ForbiddenError('Old password is incorrect');
     }
     const user = await this.userService.changePassword(email, newPassword);
@@ -197,5 +202,4 @@ export class AuthService {
     const { password, ...result } = user;
     return result;
   }
-
 }

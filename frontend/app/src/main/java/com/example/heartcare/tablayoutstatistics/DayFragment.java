@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.heartcare.R;
+import com.example.heartcare.TodayHistoryStatisticsQuery;
+import com.example.heartcare.backend.Backend;
 import com.example.heartcare.object.MyMarkerView;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -166,31 +168,37 @@ public class DayFragment extends Fragment implements OnChartValueSelectedListene
             Nhận giá trị (ngày hiện tại)
             entries.add(new Entry(giờ + phút / 60, nhịp tim trung bình));
          */
-        entries.add(new Entry(2, 70));
-        entries.add(new Entry(3.5F, 60));
-        entries.add(new Entry(4, 30));
-        entries.add(new Entry(5, 40));
-        entries.add(new Entry(6, 10));
-        entries.add(new Entry(7, 20));
-        entries.add(new Entry(8, 50));
-        entries.add(new Entry(9, 30));
+        TodayHistoryStatisticsQuery.Data data = Backend.getTodayHistoryStatistics();
 
-        int maxBpm = 0;
-        int minBpm = 300;
-        int sumBpm = 0;
-        int avgBpm;
-        for (int i = 1; i < entries.size(); ++i) {
-            Entry entry = entries.get(i);
-            maxBpm = (int) Math.max(maxBpm, entry.getY());
-            minBpm = (int) Math.min(minBpm, entry.getY());
-            sumBpm += (int) entry.getY();
+        for(int i=0; i<data.todayHistoryStatistics.chartData.size(); i++) {
+            entries.add(new Entry(new Float(data.todayHistoryStatistics.chartData.get(i).value) , data.todayHistoryStatistics.chartData.get(i).bpm));
         }
+//        entries.add(new Entry(2, 70));
+//        entries.add(new Entry(3.5F, 60));
+//        entries.add(new Entry(4, 30));
+//        entries.add(new Entry(5, 40));
+//        entries.add(new Entry(6, 10));
+//        entries.add(new Entry(7, 20));
+//        entries.add(new Entry(8, 50));
+//        entries.add(new Entry(9, 30));
 
-        if (entries.size() - 1 == 0) {
-            avgBpm = 0;
-        } else {
-            avgBpm = Math.round((float) sumBpm / (entries.size() - 1));
-        }
+        int maxBpm = data.todayHistoryStatistics.max;
+        int minBpm = data.todayHistoryStatistics.min;
+        int avgBpm = data.todayHistoryStatistics.average;
+//        int sumBpm = 0;
+
+//        for (int i = 1; i < entries.size(); ++i) {
+//            Entry entry = entries.get(i);
+//            maxBpm = (int) Math.max(maxBpm, entry.getY());
+//            minBpm = (int) Math.min(minBpm, entry.getY());
+//            sumBpm += (int) entry.getY();
+//        }
+//
+//        if (entries.size() - 1 == 0) {
+//            avgBpm = 0;
+//        } else {
+//            avgBpm = Math.round((float) sumBpm / (entries.size() - 1));
+//        }
         tvBpmMin.setText(Integer.toString(minBpm));
         tvBpmMax.setText(Integer.toString(maxBpm));
         tvBpmAvg.setText(Integer.toString(avgBpm));

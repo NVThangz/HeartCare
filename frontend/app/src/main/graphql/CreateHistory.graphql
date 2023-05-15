@@ -1,0 +1,5 @@
+mutation CreateHistory($email: String!, $bpm: Int!) {
+  createHistory(email: $email, bpm: $bpm) {
+    bpm
+  }
+}

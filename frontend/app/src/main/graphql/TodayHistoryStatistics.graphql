@@ -1,0 +1,11 @@
+query TodayHistoryStatistics($email: String!) {
+  todayHistoryStatistics(email: $email) {
+    min
+    max
+    average
+    chartData {
+      value
+      bpm
+    }
+  }
+}

@@ -1,0 +1,11 @@
+query WeekHistoryStatistics($email: String!) {
+  weekHistoryStatistics(email: $email) {
+    max
+    min
+    average
+    chartData {
+      value
+      bpm
+    }
+  }
+}

@@ -1,12 +1,16 @@
 package com.example.heartcare.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +19,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import com.example.heartcare.R;
 import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.backend.Backend;
+import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.io.InputStream;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +60,7 @@ public class ProfileFragment extends Fragment {
     private LinearLayout btnChangePassword;
     private LinearLayout btnLogOut;
     private TextView btnSaveModified;
+    private CircleImageView avatar_profile;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -90,6 +104,7 @@ public class ProfileFragment extends Fragment {
         btnChangePassword = rootView.findViewById(R.id.btn_change_password);
         btnLogOut = rootView.findViewById(R.id.btn_log_out);
         btnSaveModified = rootView.findViewById(R.id.btn_save_modified);
+        avatar_profile = rootView.findViewById(R.id.avatar_profile);
     }
 
 
@@ -110,7 +125,7 @@ public class ProfileFragment extends Fragment {
         editTextNationalId.setText("025203xxxxxx");
         editTextAddress.setText("144 Xuân Thủy, Cầu Giấy, Hà Nội");
 
-
+        clickAvatarProfile();
         clickBtnSaveModified();
         clickBtnAbout();
         clickBtnChangePassword();
@@ -162,7 +177,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void clickBtnLogOut() {
-
         btnLogOut.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -177,5 +191,74 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+    }
+
+    private void clickAvatarProfile() {
+        avatar_profile.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                boolean pick = true;
+                if (pick) {
+                    if(!checkCameraPermission()) {
+                        requestCameraPermission();
+                    } else {
+                        PickImage();
+                    }
+                } else {
+                    if(!checkStoragePermission()) {
+                        requestStoragePermission();
+                    } else {
+                        PickImage();
+                    }
+                }
+            }
+        });
+    }
+
+    private void PickImage() {
+//        CropImage.activity().start(getActivity());
+        CropImage.activity().start(getContext(), this);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestStoragePermission() {
+        requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestCameraPermission() {
+        requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+    }
+
+    private boolean checkStoragePermission() {
+        boolean res2 = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return res2;
+    }
+
+    private boolean checkCameraPermission() {
+        boolean res1 = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        boolean res2 = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return res1 && res2;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println(requestCode);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                try {
+                    InputStream inputStream = getActivity().getContentResolver().openInputStream(resultUri);
+                    Bitmap photo = BitmapFactory.decodeStream(inputStream);
+                    avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 400, 400, false));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 }

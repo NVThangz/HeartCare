@@ -9,6 +9,8 @@ type History {
 
 type Query {
   history(email: String!): [History]
+  findTodayHistory(email: String!): [History]
+  findWeekHistory(email: String!): [History]
 }
 
 type Mutation {

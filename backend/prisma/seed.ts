@@ -29,25 +29,8 @@ async function main() {
       history: {
         create: [
           {
-            createdAt: '2021-04-25T10:48:53.653Z',
+            createdAt: '2023-05-14T22:48:53.653Z',
             bpm: 80,
           },
           {
-            createdAt: '2021-04-26T10:48:53.653Z',
-            bpm: 90,
-          },
-        ],
-      },
-    },
-  });
-}
-
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+            createdAt: '2023-05-15T16:48:53.653Z'

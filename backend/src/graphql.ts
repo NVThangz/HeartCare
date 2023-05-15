@@ -18,6 +18,20 @@ export class AuthInput {
     password: string;
 }
 
+export class NoteInput {
+    email?: Nullable<string>;
+    content?: Nullable<string>;
+    startDate?: Nullable<DateTime>;
+    endDate?: Nullable<DateTime>;
+}
+
+export class NoteUpdateInput {
+    id?: Nullable<number>;
+    content?: Nullable<string>;
+    startDate?: Nullable<DateTime>;
+    endDate?: Nullable<DateTime>;
+}
+
 export class UpdateProfileInput {
     email: string;
     name?: Nullable<string>;
@@ -64,6 +78,12 @@ export abstract class IMutation {
 
     abstract createHistory(email: string, bpm: number): Nullable<History> | Promise<Nullable<History>>;
 
+    abstract createNote(noteInput: NoteInput): Nullable<Note> | Promise<Nullable<Note>>;
+
+    abstract updateNote(noteUpdateInput: NoteUpdateInput): Nullable<Note> | Promise<Nullable<Note>>;
+
+    abstract deleteNote(id: number): Nullable<boolean> | Promise<Nullable<boolean>>;
+
     abstract updateProfile(updateProfileInput: UpdateProfileInput): Profile | Promise<Profile>;
 
     abstract updateRecord(updateRecordInput: UpdateRecordInput): Record | Promise<Record>;
@@ -85,6 +105,12 @@ export class History {
 export abstract class IQuery {
     abstract history(email: string): Nullable<Nullable<History>[]> | Promise<Nullable<Nullable<History>[]>>;
 
+    abstract findTodayHistory(email: string): Nullable<Nullable<History>[]> | Promise<Nullable<Nullable<History>[]>>;
+
+    abstract findWeekHistory(email: string): Nullable<Nullable<History>[]> | Promise<Nullable<Nullable<History>[]>>;
+
+    abstract note(email: string): Nullable<Nullable<Note>[]> | Promise<Nullable<Nullable<Note>[]>>;
+
     abstract profile(email: string): Nullable<Profile> | Promise<Nullable<Profile>>;
 
     abstract record(email: string): Nullable<Record> | Promise<Nullable<Record>>;
@@ -92,6 +118,14 @@ export abstract class IQuery {
     abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
 
     abstract user(email: string): User | Promise<User>;
+}
+
+export class Note {
+    id?: Nullable<number>;
+    userId?: Nullable<number>;
+    content?: Nullable<string>;
+    startDate?: Nullable<DateTime>;
+    endDate?: Nullable<DateTime>;
 }
 
 export class Profile {

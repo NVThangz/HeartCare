@@ -20,6 +20,7 @@ import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
 import { AdvisoryModule } from './advisory/advisory.module';
 import { HistoriesModule } from './histories/histories.module';
+import { NotesModule } from './notes/notes.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { HistoriesModule } from './histories/histories.module';
     MailModule,
     AdvisoryModule,
     HistoriesModule,
+    NotesModule,
   ],
   controllers: [AppController],
   providers: [

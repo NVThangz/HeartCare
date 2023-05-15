@@ -32,14 +32,14 @@ export class NotesService {
     });
   }
   
-  findNotesToday(email: string) {
-    const now = new Date();
-    const offsetInMs = now.getTimezoneOffset() * 60 * 1000;
+  findNotes(email: string, date: string) {
+    const tdate = new Date(date)
+    const offsetInMs = tdate.getTimezoneOffset() * 60 * 1000;
     const startOfDayUtc = new Date(
-      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()),
+      Date.UTC(tdate.getFullYear(), tdate.getMonth(), tdate.getDate()),
     );
     const endOfDayUtc = new Date(
-      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() + 1),
+      Date.UTC(tdate.getFullYear(), tdate.getMonth(), tdate.getDate() + 1),
     );
     const startOfDayUtcPlus7 = new Date(startOfDayUtc.getTime() + offsetInMs);
     const endOfDayUtcPlus7 = new Date(endOfDayUtc.getTime() + offsetInMs);

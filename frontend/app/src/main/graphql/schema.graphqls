@@ -109,7 +109,7 @@ type Query {
 
   note(email: String!): [Note]
 
-  findNotesToday(email: String!): [Note]
+  findNotes(email: String!, date: DateTime!): [Note]
 
   profile(email: String!): Profile
 

@@ -16,7 +16,7 @@ import android.widget.CalendarView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.example.heartcare.FindNotesTodayQuery;
+import com.example.heartcare.FindNotesQuery;
 import com.example.heartcare.R;
 import com.example.heartcare.activity.CreateTodoActivity;
 import com.example.heartcare.adapter.TodoCalendarAdapter;
@@ -174,16 +174,16 @@ public class CalendarFragment extends Fragment {
 
         ArrayList<String> times = new ArrayList<String>();
         ArrayList<String> contents = new ArrayList<String>();
-
-        FindNotesTodayQuery.Data data = Backend.getNotesToday();
-        for (int i = 0; i < data.findNotesToday.size(); i++) {
-            Date StartDate = DateFormat.ISO8601toDate(data.findNotesToday.get(i).startDate.toString());
-            Date EndDate = DateFormat.ISO8601toDate(data.findNotesToday.get(i).endDate.toString());
+        Date date = new Date(choosYear-1900,chooseMonth-1,chooseDate);
+        FindNotesQuery.Data data = Backend.getNotes(date);
+        for (int i = 0; i < data.findNotes.size(); i++) {
+            Date StartDate = DateFormat.ISO8601toDate(data.findNotes.get(i).startDate.toString());
+            Date EndDate = DateFormat.ISO8601toDate(data.findNotes.get(i).endDate.toString());
             SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
             String startTime = formatter.format(StartDate);
             String endTime = formatter.format(EndDate);
             times.add(startTime + " - " + endTime);
-            contents.add(data.findNotesToday.get(i).content);
+            contents.add(data.findNotes.get(i).content);
         }
 //        String[] contents = {"Go to hospital", "Take medicines", "Meet docter"};
 //        String[] times = {"08:00 AM - 10:00AM","12:00 AM","02:00 PM - 03:00PM"};

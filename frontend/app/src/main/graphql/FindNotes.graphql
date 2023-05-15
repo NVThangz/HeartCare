@@ -1,0 +1,9 @@
+query FindNotes($email: String!, $date: DateTime!) {
+  findNotes(email: $email, date: $date) {
+    id
+    userId
+    content
+    startDate
+    endDate
+  }
+}

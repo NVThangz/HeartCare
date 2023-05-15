@@ -8,10 +8,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.heartcare.R;
+import com.example.heartcare.backend.Backend;
 
 public class ForgotPassword extends AppCompatActivity {
     private ImageView icBack;
@@ -54,13 +56,20 @@ public class ForgotPassword extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ForgotPassword.this, VerifyEmail.class);
+
                 String email = String.valueOf(etMail.getText());
-                intent.putExtra("Email", String.valueOf(etMail.getText()));
                 /*
                     Lấy giá trị email --> backend --> gửi từ server
                  */
-                startActivity(intent);
+                try {
+                    Backend.forgotPassword(email);
+                    Intent intent = new Intent(ForgotPassword.this, VerifyEmail.class);
+                    intent.putExtra("Email", String.valueOf(etMail.getText()));
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

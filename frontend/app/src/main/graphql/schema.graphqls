@@ -16,7 +16,7 @@ type Mutation {
 
   signup(authInput: AuthInput): LoginResponse!
 
-  logout: Boolean!
+  logout(email: String!): Boolean!
 
   refresh: LoginResponse!
 
@@ -27,6 +27,12 @@ type Mutation {
   resetPasswordConfirmed(email: String!, newPassword: String!): LoginResponse!
 
   createHistory(email: String!, bpm: Int!): History
+
+  createNote(noteInput: NoteInput!): Note
+
+  updateNote(noteUpdateInput: NoteUpdateInput!): Note
+
+  deleteNote(id: Int!): Boolean
 
   updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
 
@@ -72,6 +78,12 @@ type History {
 type Query {
   history(email: String!): [History]
 
+  findTodayHistory(email: String!): [History]
+
+  findWeekHistory(email: String!): [History]
+
+  note(email: String!): [Note]
+
   profile(email: String!): Profile
 
   record(email: String!): Record
@@ -79,6 +91,38 @@ type Query {
   users: [User]!
 
   user(email: String!): User!
+}
+
+type Note {
+  id: Int
+
+  userId: Int
+
+  content: String
+
+  startDate: DateTime
+
+  endDate: DateTime
+}
+
+input NoteInput {
+  email: String
+
+  content: String
+
+  startDate: DateTime
+
+  endDate: DateTime
+}
+
+input NoteUpdateInput {
+  id: Int
+
+  content: String
+
+  startDate: DateTime
+
+  endDate: DateTime
 }
 
 type Profile {

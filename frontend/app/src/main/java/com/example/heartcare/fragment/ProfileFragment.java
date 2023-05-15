@@ -1,6 +1,8 @@
 package com.example.heartcare.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.example.heartcare.R;
 import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.SignIn;
+import com.example.heartcare.backend.Backend;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,6 +122,7 @@ public class ProfileFragment extends Fragment {
         btnSaveModified.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 /*
                     Lấy thông tin người dùng về backend
                  */
@@ -156,13 +160,16 @@ public class ProfileFragment extends Fragment {
     }
 
     private void clickBtnLogOut() {
+
         btnLogOut.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 /*
                  * Cài đặt phần đăng xuất ở đây
                  * */
-
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+                Backend.logout(sharedPreferences);
                 Intent intent = new Intent(getActivity(), SignIn.class);
                 startActivity(intent);
                 getActivity().finish();

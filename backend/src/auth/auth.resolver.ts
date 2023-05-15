@@ -28,11 +28,17 @@ export class AuthResolver {
     return this.authService.signup(authInput);
   }
 
+  // @Mutation('logout')
+  // @UseGuards(JwtAuthGuard)
+  // @HttpCode(HttpStatus.OK)
+  // logout(@Context() context) {
+  //   return this.authService.logout(context.req.user['sub']);
+  // }
+
   @Mutation('logout')
-  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
-  logout(@Context() context) {
-    return this.authService.logout(context.req.user['sub']);
+  logout(@Args('email') email: string) {
+    return this.authService.logout(email);
   }
 
   @Public()

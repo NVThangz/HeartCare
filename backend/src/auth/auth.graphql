@@ -12,7 +12,7 @@ input AuthInput {
 type Mutation {
   login(authInput: AuthInput): LoginResponse!
   signup(authInput: AuthInput): LoginResponse!
-  logout: Boolean!
+  logout(email: String!): Boolean!
   refresh: LoginResponse!
   forgotPassword(email: String!): Boolean!
   confirmForgotPassword(email: String!, token: String!): Boolean!

@@ -8,9 +8,12 @@ import com.apollographql.apollo3.ApolloClient;
 import com.apollographql.apollo3.api.ApolloResponse;
 import com.apollographql.apollo3.api.Optional;
 import com.apollographql.apollo3.rx3.Rx3Apollo;
+import com.example.heartcare.ConfirmForgotPasswordMutation;
+import com.example.heartcare.ForgotPasswordMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
 import com.example.heartcare.RefreshMutation;
+import com.example.heartcare.ResetPasswordConfirmedMutation;
 import com.example.heartcare.SignupMutation;
 import com.example.heartcare.type.AuthInput;
 import com.example.heartcare.type.UpdateProfileInput;
@@ -27,7 +30,7 @@ public class Backend {
             .serverUrl("http://192.168.1.17:3000/graphql")
             .build();
 
-    private static String email = "";
+    public static String email = "";
 
     public static void login(String username, String password, SharedPreferences sharedPreferences) throws Exception {
         AuthInput auth = new AuthInput(username,password) ;
@@ -41,6 +44,7 @@ public class Backend {
 //            System.out.println(response.data);
             email = response.data.login.user.email;
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("access_token", response.data.login.access_token);
             editor.putString("refresh_token", response.data.login.refresh_token);
             editor.apply();
         }
@@ -59,6 +63,7 @@ public class Backend {
         } else {
             email = response.data.signup.user.email;
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("access_token", response.data.signup.access_token);
             editor.putString("refresh_token", response.data.signup.refresh_token);
             editor.apply();
         }
@@ -78,23 +83,56 @@ public class Backend {
             System.out.println(response.data);
             email = response.data.refresh.user.email;
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("access_token", response.data.refresh.access_token);
             editor.putString("refresh_token", response.data.refresh.refresh_token);
             editor.apply();
         }
     }
 
-    public static void logout(String refreshToken, SharedPreferences sharedPreferences) throws Exception {
-        ApolloCall<LogoutMutation.Data> queryCall = apolloClient.mutation(new LogoutMutation())
-                .addHttpHeader("Authorization", "Bearer " + refreshToken);
+    public static void logout(SharedPreferences sharedPreferences) {
+        ApolloCall<LogoutMutation.Data> queryCall = apolloClient.mutation(new LogoutMutation(email));
         Single<ApolloResponse<LogoutMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<LogoutMutation.Data> response = queryResponse.blockingGet();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("refresh_token", null);
+        editor.putString("access_token", null);
+        editor.apply();
+    }
+
+    public static void forgotPassword(String email) throws Exception {
+        ApolloCall<ForgotPasswordMutation.Data> queryCall = apolloClient.mutation(new ForgotPasswordMutation(email));
+        Single<ApolloResponse<ForgotPasswordMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<ForgotPasswordMutation.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
             throw new Exception(response.errors.get(0).getMessage());
         } else {
+            Backend.email = email;
+        }
+    }
+
+    public static void confirmForgotPassword(String code) throws Exception {
+        ApolloCall<ConfirmForgotPasswordMutation.Data> queryCall = apolloClient.mutation(new ConfirmForgotPasswordMutation(email,code));
+        Single<ApolloResponse<ConfirmForgotPasswordMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<ConfirmForgotPasswordMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            throw new Exception(response.errors.get(0).getMessage());
+        }
+    }
+
+    public static void resetPasswordConfirmed(String email, String newPassword, SharedPreferences sharedPreferences) throws Exception {
+        ApolloCall<ResetPasswordConfirmedMutation.Data> queryCall = apolloClient.mutation(new ResetPasswordConfirmedMutation(email, newPassword));
+        Single<ApolloResponse<ResetPasswordConfirmedMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<ResetPasswordConfirmedMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            throw new Exception(response.errors.get(0).getMessage());
+        } else {
+            email = response.data.resetPasswordConfirmed.user.email;
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("refresh_token", null);
+            editor.putString("access_token", response.data.resetPasswordConfirmed.access_token);
+            editor.putString("refresh_token", response.data.resetPasswordConfirmed.refresh_token);
             editor.apply();
         }
     }
+
 
 }

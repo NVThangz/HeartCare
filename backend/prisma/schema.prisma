@@ -21,6 +21,7 @@ model User {
   record Record?
   history History[]
   note Note[]
+  notification Notification[]
 }
 
 model Profile {
@@ -33,7 +34,7 @@ model Profile {
   phone     String?
   address   String?
   nationalID String?
-
+  avatar String?
 }
 
 model Record {
@@ -61,6 +62,15 @@ model Note {
   content   String
   startDate DateTime
   endDate   DateTime
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  user      User?     @relation(fields: [userId], references: [id])
+  title     String
+  content   String
+  createdAt DateTime  @default(now())
 }
 
 // model Doctor {

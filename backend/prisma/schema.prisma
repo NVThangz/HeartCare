@@ -20,6 +20,7 @@ model User {
   profile Profile?
   record Record?
   history History[]
+  note Note[]
 }
 
 model Profile {
@@ -51,6 +52,15 @@ model History {
   user      User     @relation(fields: [userId], references: [id])
   bpm       Int
   createdAt DateTime  @default(now())
+}
+
+model Note {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  content   String
+  startDate DateTime
+  endDate   DateTime
 }
 
 // model Doctor {
@@ -91,23 +101,4 @@ model History {
 //   doctor    Doctor    @relation(fields: [doctorId], references: [userId])
 //   doctorId  Int
 //   date      DateTime
-//   duration  Int?
-//   status    String?
-//   reason    String?
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
-
-// model MedicalRecord {
-//   id           Int     @id @default(autoincrement())
-//   symptoms     String
-//   diagnosis    String
-//   prescriptions String?
-//   patient      Patient @relation(fields: [patientId], references: [userId])
-//   patientId    Int
-// }
-
-// enum Role {
-//   PATIENT
-//   DOCTOR
-// }
+// 

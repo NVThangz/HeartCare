@@ -19,21 +19,27 @@ export class UserService {
         record: {
           create: {},
         },
+        createdAt: new Date(),
+
       },
     });
   }
 
   async findAll() {
-    const res = await validate('thang.ludveck@gmail.com');
-    console.log(res);
-      return this.prisma.user.findMany({
+    // const user = await this.prisma.user.findUnique({
+    //   where: {
+    //     email: 'user@gmail.com'
+    //   }
+    // })
+    // console.log(new Date(user.createdAt))
+    return this.prisma.user.findMany({
       include: {
         profile: true,
         record: true,
       },
     });
   }
-
+    
   findOne(email: string) {
     return this.prisma.user.findUnique({
       where: {
@@ -63,14 +69,14 @@ export class UserService {
         id,
         refreshToken: {
           not: null,
-        }
+        },
       },
       data: {
         refreshToken: null,
       },
     });
   }
-  
+
   findById(id: number) {
     return this.prisma.user.findUnique({
       where: {
@@ -90,15 +96,6 @@ export class UserService {
       },
     });
   }
-  
-
-        
 
   // update(id: number, updateUserInput: UpdateUserInput) {
-  //   return `This action updates a #${id} user`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} user`;
-  // }
-}
+  //   return `This action updates 

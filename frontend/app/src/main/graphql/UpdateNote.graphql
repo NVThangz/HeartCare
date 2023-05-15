@@ -1,0 +1,9 @@
+mutation UpdateNote($noteUpdateInput: NoteUpdateInput!) {
+  updateNote(noteUpdateInput: $noteUpdateInput) {
+    id
+    userId
+    content
+    startDate
+    endDate
+  }
+}

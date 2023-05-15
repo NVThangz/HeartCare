@@ -12,6 +12,7 @@ import com.example.heartcare.ChangePasswordMutation;
 import com.example.heartcare.ConfirmForgotPasswordMutation;
 import com.example.heartcare.CreateHistoryMutation;
 import com.example.heartcare.CreateNoteMutation;
+import com.example.heartcare.DeleteNoteMutation;
 import com.example.heartcare.FindNotesQuery;
 import com.example.heartcare.FindNotificationsWithEmailQuery;
 import com.example.heartcare.ForgotPasswordMutation;
@@ -24,9 +25,11 @@ import com.example.heartcare.RegisterWithSocialMutation;
 import com.example.heartcare.ResetPasswordConfirmedMutation;
 import com.example.heartcare.SignupMutation;
 import com.example.heartcare.TodayHistoryStatisticsQuery;
+import com.example.heartcare.UpdateNoteMutation;
 import com.example.heartcare.WeekHistoryStatisticsQuery;
 import com.example.heartcare.type.AuthInput;
 import com.example.heartcare.type.NoteInput;
+import com.example.heartcare.type.NoteUpdateInput;
 import com.example.heartcare.type.UpdateProfileInput;
 import com.example.heartcare.utilities.DateFormat;
 
@@ -203,6 +206,24 @@ public class Backend {
             System.out.println(response.errors.get(0).getMessage());
         }
         return response.data;
+    }
+
+    public static void updateNotes(int id, String content, String startDate, String endDate) {
+        ApolloCall<UpdateNoteMutation.Data> queryCall = apolloClient.mutation(new UpdateNoteMutation(new NoteUpdateInput(Optional.present(id), Optional.present(content), Optional.present(startDate), Optional.present(endDate))));
+        Single<ApolloResponse<UpdateNoteMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<UpdateNoteMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+    }
+
+    public static void deleteNote(int id) {
+        ApolloCall<DeleteNoteMutation.Data> queryCall = apolloClient.mutation(new DeleteNoteMutation(id));
+        Single<ApolloResponse<DeleteNoteMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<DeleteNoteMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
     }
 
     public static void RegisterWithSocial(String email, String name, SharedPreferences sharedPreferences) throws Exception {

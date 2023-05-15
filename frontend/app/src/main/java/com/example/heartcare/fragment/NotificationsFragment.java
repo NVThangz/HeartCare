@@ -10,11 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.heartcare.FindNotesQuery;
+import com.example.heartcare.FindNotificationsWithEmailQuery;
 import com.example.heartcare.R;
 import com.example.heartcare.adapter.NotificationsAdapter;
+import com.example.heartcare.backend.Backend;
 import com.example.heartcare.object.NotificationItem;
+import com.example.heartcare.utilities.DateFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -98,13 +104,26 @@ public class NotificationsFragment extends Fragment {
         *
         * */
 
-        String[] time = {"08:00 AM", "11:00 PM", "00:00 AM"};
-        String[] titles = {"Notification", "Notification", "Notification"};
-        String[] contents = {"1234","1234","1234"};
+        ArrayList<String> times = new ArrayList<String>();
+        ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<String> contents = new ArrayList<String>();
+        FindNotificationsWithEmailQuery.Data data = Backend.getNotificationsWithEmail();
+        for (int i = 0; i < data.findNotificationsWithEmail.size(); i++) {
+            Date createdDate = DateFormat.ISO8601toDate(data.findNotificationsWithEmail.get(i).createdAt.toString());
+//            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
+//            String startTime = formatter.format(StartDate);
+            times.add(createdDate.toLocaleString());
+            titles.add(data.findNotificationsWithEmail.get(i).title);
+            contents.add(data.findNotificationsWithEmail.get(i).content);
+        }
+
+//        String[] time = {"08:00 AM", "11:00 PM", "00:00 AM"};
+//        String[] titles = {"Notification", "Notification", "Notification"};
+//        String[] contents = {"1234","1234","1234"};
 
         List <NotificationItem> notificationItems = new ArrayList<>();
-        for(int i = 0; i < titles.length; i++) {
-            NotificationItem notificationItem = new NotificationItem(time[i], titles[i], contents[i]);
+        for(int i = 0; i < data.findNotificationsWithEmail.size(); i++) {
+            NotificationItem notificationItem = new NotificationItem(times.get(i), titles.get(i), contents.get(i));
             notificationItems.add(notificationItem);
         }
         return notificationItems;

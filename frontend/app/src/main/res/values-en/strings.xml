@@ -79,12 +79,16 @@
     <string name="email_address">Email Address</string>
     <string name="send">Send</string>
     <string name="your_new_password_must_be_different_nfrom_previously_used_password">Your New Password Must Be Different\nFrom Previously Used Password</string>
-    <string name="new_password">New Password</string>
+    <string name="new_password">New password</string>
     <string name="notificationResend">Resent verification code</string>
     <string name="logged_in_successfully">Logged in successfully</string>
     <string name="health_consultation">Health Consultation</string>
     <string name="welcome_text_health_consultation">Starting Health Consultation\nwith AI ChatGPT Technology</string>
     <string name="write_here">Write here</string>
+    <string name="change_password">Change password</string>
+    <string name="current_password">Current password</string>
+    <string name="change_password_successfully">Change password successfully</string>
+    <string name="confirm_password_does_not_match">Confirm password does not match</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
         <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>

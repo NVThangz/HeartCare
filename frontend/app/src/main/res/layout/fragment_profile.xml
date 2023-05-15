@@ -187,7 +187,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/log_out_box"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:layout_marginTop="8dp"
@@ -230,7 +229,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/btn_setting"
+                            android:id="@+id/btn_change_password"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
@@ -238,11 +237,11 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:id="@+id/ic_setting"
+                                android:id="@+id/ic_change_password"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:layout_marginEnd="15dp"
-                                android:src="@drawable/ic_setting"
+                                android:src="@drawable/ic_change_password"
                                 app:layout_constraintStart_toStartOf="parent" />
 
                             <TextView
@@ -250,7 +249,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
                                 android:gravity="center"
-                                android:text="@string/setting"
+                                android:text="@string/change_password"
                                 android:textColor="@color/red"
                                 android:textFontWeight="600"
                                 android:textSize="20sp" />

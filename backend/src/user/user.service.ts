@@ -20,18 +20,11 @@ export class UserService {
           create: {},
         },
         createdAt: new Date(),
-
       },
     });
   }
 
   async findAll() {
-    // const user = await this.prisma.user.findUnique({
-    //   where: {
-    //     email: 'user@gmail.com'
-    //   }
-    // })
-    // console.log(new Date(user.createdAt))
     return this.prisma.user.findMany({
       include: {
         profile: true,
@@ -39,7 +32,7 @@ export class UserService {
       },
     });
   }
-    
+
   findOne(email: string) {
     return this.prisma.user.findUnique({
       where: {
@@ -96,6 +89,4 @@ export class UserService {
       },
     });
   }
-
-  // update(id: number, updateUserInput: UpdateUserInput) {
-  //   return `This action updates 
+}

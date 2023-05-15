@@ -85,6 +85,10 @@
     <string name="health_consultation">Tư Vấn Sức Khỏe</string>
     <string name="welcome_text_health_consultation">"Bắt đầu tư vấn sức khỏe\nvới công nghệ AI ChatGPT</string>
     <string name="write_here">Tư vấn ngay</string>
+    <string name="change_password">Đổi mật khẩu</string>
+    <string name="current_password">Mật khẩu hiện tại</string>
+    <string name="change_password_successfully">Đổi mật khẩu thành công</string>
+    <string name="confirm_password_does_not_match">Mật khẩu xác nhận không trùng khớp</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

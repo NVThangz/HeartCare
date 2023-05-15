@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.heartcare.R;
+import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.EditHealthRecord;
 import com.example.heartcare.activity.HealthConsultation;
 import com.example.heartcare.activity.HealthRecord;
@@ -95,6 +97,7 @@ public class HomeFragment extends Fragment {
          */
         
         textViewFullName.setText("Bùi Minh Hoạt");
+
 
         clickBtnHealthConsultation();
         clickBtnMeasureHeartRate();

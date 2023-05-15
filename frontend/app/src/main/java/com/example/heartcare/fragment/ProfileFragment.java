@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.example.heartcare.R;
+import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.MeasureHeartRate;
 import com.example.heartcare.activity.SignIn;
 
@@ -32,8 +33,10 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     private View rootView;
-    private LinearLayout btnLogOut;
     private EditText editTextFullName;
+    private LinearLayout btnAbout;
+    private LinearLayout btnChangePassword;
+    private LinearLayout btnLogOut;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -82,18 +85,47 @@ public class ProfileFragment extends Fragment {
             Ghép thông tin người dùng backend
          */
         editTextFullName.setText("Bùi Minh Hoạt");
+        clickBtnAbout();
+        clickBtnChangePassword();
+        clickBtnLogOut();
         return rootView;
     }
 
     private void map() {
-        btnLogOut = rootView.findViewById(R.id.btn_log_out);
         editTextFullName = rootView.findViewById(R.id.full_name_profile);
+        btnAbout = rootView.findViewById(R.id.btn_about);
+        btnChangePassword = rootView.findViewById(R.id.btn_change_password);
+        btnLogOut = rootView.findViewById(R.id.btn_log_out);
+    }
+
+
+    private void clickBtnAbout() {
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+    }
+
+    private void clickBtnChangePassword() {
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChangePassword.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void clickBtnLogOut() {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
+                 * Cài đặt phần đăng xuất ở đây
+                 * */
+
                 Intent intent = new Intent(getActivity(), SignIn.class);
                 startActivity(intent);
                 getActivity().finish();

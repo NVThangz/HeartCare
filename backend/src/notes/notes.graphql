@@ -22,7 +22,7 @@ input NoteUpdateInput {
 
 type Query {
   note(email: String!): [Note]
-  findNotesToday(email: String!): [Note]
+  findNotes(email: String!, date: DateTime!): [Note]
 }
 
 type Mutation {

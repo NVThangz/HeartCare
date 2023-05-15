@@ -16,9 +16,9 @@ export class NotesResolver {
     return this.notesService.findOne(email);
   }
 
-  @Query('findNotesToday')
-  findNotesToday(@Args('email') email: string) {
-    return this.notesService.findNotesToday(email);
+  @Query('findNotes')
+  findNotesToday(@Args('email') email: string, @Args('date') date: string) {
+    return this.notesService.findNotes(email, date);
   }
 
   @Mutation('updateNote')

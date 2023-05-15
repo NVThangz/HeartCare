@@ -12,7 +12,7 @@ import com.example.heartcare.ChangePasswordMutation;
 import com.example.heartcare.ConfirmForgotPasswordMutation;
 import com.example.heartcare.CreateHistoryMutation;
 import com.example.heartcare.CreateNoteMutation;
-import com.example.heartcare.FindNotesTodayQuery;
+import com.example.heartcare.FindNotesQuery;
 import com.example.heartcare.ForgotPasswordMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
@@ -24,7 +24,9 @@ import com.example.heartcare.WeekHistoryStatisticsQuery;
 import com.example.heartcare.type.AuthInput;
 import com.example.heartcare.type.NoteInput;
 import com.example.heartcare.type.UpdateProfileInput;
+import com.example.heartcare.utilities.DateFormat;
 
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.rxjava3.core.Single;
@@ -34,7 +36,7 @@ import okhttp3.Request;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.1.88:3000/graphql")
+            .serverUrl("http://192.168.1.17:3000/graphql")
             .build();
 
     public static String email = "";
@@ -188,10 +190,11 @@ public class Backend {
         }
     }
 
-    public static FindNotesTodayQuery.Data getNotesToday() {
-        ApolloCall<FindNotesTodayQuery.Data> queryCall = apolloClient.query(new FindNotesTodayQuery(email));
-        Single<ApolloResponse<FindNotesTodayQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
-        ApolloResponse<FindNotesTodayQuery.Data> response = queryResponse.blockingGet();
+    public static FindNotesQuery.Data getNotes(Date date) {
+        String dateIso = DateFormat.ISO8601format(date);
+        ApolloCall<FindNotesQuery.Data> queryCall = apolloClient.query(new FindNotesQuery(email, dateIso));
+        Single<ApolloResponse<FindNotesQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<FindNotesQuery.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
             System.out.println(response.errors.get(0).getMessage());
         }

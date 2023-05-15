@@ -4,6 +4,7 @@ type Record {
   BMI:       Float
   bloodType: String
   userId:  Int
+  HealthProblems: String
 }
 
 input UpdateRecordInput {
@@ -12,6 +13,7 @@ input UpdateRecordInput {
   weight:    Float
   BMI:       Float
   bloodType: String
+  HealthProblems: String
 }
 
 type Query {

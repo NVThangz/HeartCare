@@ -45,6 +45,7 @@ model Record {
   weight    Float?
   BMI       Float?
   bloodType String?
+  HealthProblems String?
 }
 
 model History {

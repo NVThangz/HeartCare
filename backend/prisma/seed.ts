@@ -33,4 +33,39 @@ async function main() {
             bpm: 80,
           },
           {
-            createdAt: '2023-05-15T16:48:53.653Z'
+            createdAt: '2023-05-15T16:48:53.653Z',
+            bpm: 90,
+          },
+          {
+            createdAt: '2023-05-15T17:48:53.653Z',
+            bpm: 100,
+          },
+        ],
+      },
+      note: {
+        create: [
+          {
+            content: 'Nội dung ghi chú 1',
+            startDate: '2023-05-14T22:48:53.653Z',
+            endDate: '2023-05-15T22:48:53.653Z',
+          },
+          {
+            content: 'Nội dung ghi chú 2',
+            startDate: '2023-05-15T16:48:53.653Z',
+            endDate: '2023-05-15T17:48:53.653Z',
+          },
+        ],
+      },
+    },
+  });
+}
+
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

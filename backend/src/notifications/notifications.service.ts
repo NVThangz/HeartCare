@@ -20,6 +20,7 @@ export class NotificationsService {
       },
     });
   }
+  
 
   createNotificationAll(title: string, content: string, createdAt: Date) {
     return this.prisma.notification.create({

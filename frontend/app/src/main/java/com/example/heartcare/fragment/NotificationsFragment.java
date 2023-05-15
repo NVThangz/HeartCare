@@ -3,12 +3,19 @@ package com.example.heartcare.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.heartcare.R;
+import com.example.heartcare.adapter.NotificationsAdapter;
+import com.example.heartcare.object.NotificationItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +32,10 @@ public class NotificationsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootView;
+
+    private RecyclerView recyclerNotifications;
 
     public NotificationsFragment() {
         // Required empty public constructor
@@ -57,10 +68,46 @@ public class NotificationsFragment extends Fragment {
         }
     }
 
+    private void map() {
+        recyclerNotifications = rootView.findViewById(R.id.recycler_notifications);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
+        rootView = inflater.inflate(R.layout.fragment_notifications, container, false);
+        map();
+
+        setRecyclerView();
+        return rootView;
     }
+
+    private void setRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerNotifications.setLayoutManager(linearLayoutManager);
+
+        NotificationsAdapter adapter = new NotificationsAdapter(getListNotification());
+        recyclerNotifications.setAdapter(adapter);
+    }
+
+    private List<NotificationItem> getListNotification() {
+        /*
+        *
+        *   Thêm thông báo
+        *
+        * */
+
+        String[] time = {"08:00 AM", "11:00 PM", "00:00 AM"};
+        String[] titles = {"Notification", "Notification", "Notification"};
+        String[] contents = {"1234","1234","1234"};
+
+        List <NotificationItem> notificationItems = new ArrayList<>();
+        for(int i = 0; i < titles.length; i++) {
+            NotificationItem notificationItem = new NotificationItem(time[i], titles[i], contents[i]);
+            notificationItems.add(notificationItem);
+        }
+        return notificationItems;
+    }
+
 }

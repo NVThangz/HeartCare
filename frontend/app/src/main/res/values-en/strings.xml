@@ -90,6 +90,7 @@
     <string name="change_password_successfully">Change password successfully</string>
     <string name="confirm_password_does_not_match">Confirm password does not match</string>
     <string name="save_modified_successfully">Save modified successfully</string>
+    <string name="notifications">Notifications</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
         <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>

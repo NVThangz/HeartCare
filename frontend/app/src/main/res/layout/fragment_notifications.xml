@@ -10,16 +10,26 @@
     tools:context=".fragment.NotificationsFragment"
     >
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="-180dp"
+        android:background="@drawable/white_gradient_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="sans-serif"
-        android:text="Notifications"
-        android:textColor="#FFFFFF"
-        android:textFontWeight="800"
-        android:textSize="32sp"
+        android:text="@string/notifications"
+        android:textColor="@color/pink"
+        android:textFontWeight="700"
+        android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView9"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/notification_item" />
 

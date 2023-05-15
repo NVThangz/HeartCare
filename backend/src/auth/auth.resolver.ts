@@ -70,8 +70,12 @@ export class AuthResolver {
   }
   
   @Mutation('changePassword')
-
   changePassword(@Args('email') email: string, @Args('oldPassword') oldPassword: string, @Args('newPassword') newPassword: string) {
     return this.authService.changePassword(email, oldPassword, newPassword);
+  }
+
+  @Mutation('registerWithSocial')
+  registerWithSocial(@Args('email') email: string, @Args('name') name: string) {
+    return this.authService.registerWithSocial(email, name);
   }
 }

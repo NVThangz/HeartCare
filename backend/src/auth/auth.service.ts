@@ -154,6 +154,30 @@ export class AuthService {
     return true;
   }
 
+  async registerWithSocial(email: string, name: string) {
+    const emailExist = await this.userService.findOne(email);
+    if (emailExist) {
+      if(emailExist.password) {
+        throw new ForbiddenError('Email does exist');
+      }
+      const token = await this.getToken(emailExist.id, emailExist.email);
+      await this.updateRefreshToken(emailExist.id, token.refresh_token);
+      return {
+        access_token: token.access_token,
+        refresh_token: token.refresh_token,
+        user: emailExist,
+      };
+    }
+    const user = await this.userService.createUserSocial(email, name );
+    const token = await this.getToken(user.id, user.email);
+    await this.updateRefreshToken(user.id, token.refresh_token);
+    return {
+      access_token: token.access_token,
+      refresh_token: token.refresh_token,
+      user: user,
+    };
+  }
+
   hashData(data: string) {
     return bcrypt.hash(data, 10);
   }
@@ -195,6 +219,9 @@ export class AuthService {
     if (!user) {
       throw new ForbiddenError('Email not exist');
     }
+    if(user.password === null) {
+      throw new ForbiddenError('Email is social account, please login with social');
+    }
     const valid = await bcrypt.compare(authInput.password, user.password);
     if (!valid) {
       throw new ForbiddenError('Password is incorrect');
@@ -202,4 +229,5 @@ export class AuthService {
     const { password, ...result } = user;
     return result;
   }
+  
 }

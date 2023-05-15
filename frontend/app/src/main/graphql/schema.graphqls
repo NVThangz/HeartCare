@@ -30,6 +30,8 @@ type Mutation {
 
   changePassword(email: String!, oldPassword: String!, newPassword: String!): Boolean!
 
+  registerWithSocial(email: String!, name: String): LoginResponse!
+
   createHistory(email: String!, bpm: Int!): History
 
   createNote(noteInput: NoteInput!): Note

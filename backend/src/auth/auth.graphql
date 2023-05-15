@@ -18,4 +18,5 @@ type Mutation {
   confirmForgotPassword(email: String!, token: String!): Boolean!
   resetPasswordConfirmed(email: String!, newPassword: String!): LoginResponse!
   changePassword(email: String!, oldPassword: String!, newPassword: String!): Boolean!
+  registerWithSocial(email: String!, name: String): LoginResponse!
 }

@@ -222,6 +222,8 @@ public class SignIn extends AppCompatActivity {
         /*
             Ghép backend
          */
+        SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+        Backend.RegisterWithSocial(email, name, sharedPreferences);
     }
 
     private boolean loginAccountWithSocial(String email, String name) throws Exception {

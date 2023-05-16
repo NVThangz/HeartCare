@@ -4,6 +4,9 @@ mutation Login ($authInput: AuthInput) {
     refresh_token
     user {
       email
+      profile {
+        name
+      }
     }
   }
 }

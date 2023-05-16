@@ -32,12 +32,13 @@ export class NotificationsService {
     });
   }
 
-  findAll() {
-    return this.prisma.notification.findMany();
+  async findAll() {
+    const notifications = await this.prisma.notification.findMany();
+    return notifications.sort((a, b) => {return b.createdAt.getTime() - a.createdAt.getTime()});
   }
 
-  findNotificationsWithEmail(email: string) {
-    return this.prisma.notification.findMany({
+  async findNotificationsWithEmail(email: string) {
+    const notifications = await this.prisma.notification.findMany({
       where: {
         OR: [
           {
@@ -51,14 +52,16 @@ export class NotificationsService {
         ],
       },
     });
+    return notifications.sort((a, b) => {return b.createdAt.getTime() - a.createdAt.getTime()});
   }
 
-  findNotificationsAll() {
-    return this.prisma.notification.findMany({
+  async findNotificationsAll() {
+    const notifications = await this.prisma.notification.findMany({
       where: {
         userId: null,
       },
     });
+    return notifications.sort((a, b) => {return b.createdAt.getTime() - a.createdAt.getTime()});
   }
 
   update(id: number, updateNotificationInput: UpdateNotificationInput) {

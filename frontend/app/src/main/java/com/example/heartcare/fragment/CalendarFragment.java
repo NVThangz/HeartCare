@@ -284,6 +284,7 @@ public class CalendarFragment extends Fragment {
 
                 * */
 
+                Backend.deleteNote(id);
                 Toast.makeText(activity, activity.getResources().getString(R.string.item_deleted),Toast.LENGTH_SHORT).show();
             }
         });

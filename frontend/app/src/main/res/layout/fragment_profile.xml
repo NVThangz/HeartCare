@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     tools:context=".fragment.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,8 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/misty_white"
-        android:clickable="true"
-        android:focusableInTouchMode="true"
         >
 
         <FrameLayout
@@ -38,7 +38,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="70dp"
                 android:orientation="vertical"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
@@ -58,99 +58,159 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/avatar_profile"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_avatar_profile"
+                        android:layout_width="105dp"
+                        android:layout_height="105dp"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/profile_avatar"
+                        android:background="@drawable/circle_stroke_1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <EditText
-                        android:id="@+id/full_name_profile"
-                        android:layout_width="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/avatar_profile"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:src="@drawable/profile_avatar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_full_name_profile"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:ems="12"
+                        android:layout_marginTop="30dp"
                         android:hint="@string/full_name"
                         android:inputType="textPersonName"
-                        android:minHeight="48dp"
-                        android:text=""
-                        android:textSize="16sp"
+                        android:minHeight="40dp"
+                        android:textSize="15sp"
+                        app:counterMaxLength="30"
+                        app:endIconMode="clear_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/avatar_profile" />
+                        app:layout_constraintTop_toBottomOf="@+id/cl_avatar_profile">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/full_name_profile"
+                            android:layout_width="match_parent"
+                            android:maxLength="30"
+                            android:layout_height="match_parent" />
 
-                    <EditText
-                        android:id="@+id/sex_profile"
-                        android:layout_width="wrap_content"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_sex_profile"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="12"
+                        android:layout_marginTop="10dp"
                         android:hint="@string/sex"
-                        android:minHeight="48dp"
-                        android:text=""
-                        android:textSize="16sp"
+                        android:minHeight="40dp"
+                        android:textSize="15sp"
+                        app:counterMaxLength="30"
+                        app:endIconMode="clear_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/full_name_profile" />
+                        app:layout_constraintTop_toBottomOf="@+id/til_full_name_profile" >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/sex_profile"
+                            android:layout_width="match_parent"
+                            android:maxLength="30"
+                            android:layout_height="match_parent" />
 
-                    <EditText
-                        android:id="@+id/date_of_birth_profile"
-                        android:layout_width="wrap_content"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_date_of_birth_profile"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="12"
+                        android:layout_marginTop="10dp"
                         android:hint="@string/date_of_birth"
-                        android:minHeight="48dp"
-                        android:text=""
-                        android:textSize="16sp"
+                        android:minHeight="40dp"
+                        android:textSize="15sp"
+                        app:counterMaxLength="30"
+                        app:endIconMode="clear_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/sex_profile" />
+                        app:layout_constraintTop_toBottomOf="@+id/til_sex_profile" >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/date_of_birth_profile"
+                            android:layout_width="match_parent"
+                            android:maxLength="30"
+                            android:layout_height="match_parent" />
 
-                    <EditText
-                        android:id="@+id/phone_number_profile"
-                        android:layout_width="wrap_content"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_phone_number_profile"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="12"
+                        android:layout_marginTop="10dp"
                         android:hint="@string/phone_number"
-                        android:minHeight="48dp"
-                        android:text=""
-                        android:textSize="16sp"
+                        android:minHeight="40dp"
+                        android:textSize="15sp"
+                        app:counterMaxLength="30"
+                        app:endIconMode="clear_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/date_of_birth_profile" />
+                        app:layout_constraintTop_toBottomOf="@+id/til_date_of_birth_profile" >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phone_number_profile"
+                            android:layout_width="match_parent"
+                            android:maxLength="30"
+                            android:inputType="number"
+                            android:layout_height="match_parent" />
 
-                    <EditText
-                        android:id="@+id/national_id_profile"
-                        android:layout_width="wrap_content"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_national_id_profile"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="12"
+                        android:layout_marginTop="10dp"
                         android:hint="@string/national_id"
-                        android:minHeight="48dp"
-                        android:text=""
-                        android:textSize="16sp"
+                        android:minHeight="40dp"
+                        android:textSize="15sp"
+                        app:counterMaxLength="30"
+                        app:endIconMode="clear_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/phone_number_profile" />
+                        app:layout_constraintTop_toBottomOf="@+id/til_phone_number_profile" >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/national_id_profile"
+                            android:layout_width="match_parent"
+                            android:maxLength="30"
+                            android:inputType="number"
+                            android:layout_height="match_parent" />
 
-                    <EditText
-                        android:id="@+id/address_profile"
-                        android:layout_width="wrap_content"
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_address_profile"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="12"
+                        android:layout_marginTop="10dp"
                         android:hint="@string/address"
-                        android:minHeight="48dp"
-                        android:text=""
-                        android:textSize="16sp"
+                        android:minHeight="40dp"
+                        android:textSize="15sp"
+                        app:counterMaxLength="30"
+                        app:endIconMode="clear_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/national_id_profile" />
+                        app:layout_constraintTop_toBottomOf="@+id/til_national_id_profile" >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/address_profile"
+                            android:layout_width="match_parent"
+                            android:maxLength="30"
+                            android:layout_height="match_parent" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <TextView
                         android:id="@+id/btn_save_modified"
@@ -158,7 +218,6 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="40dp"
                         android:background="@drawable/profile_btn_save_modified"
-
                         android:elevation="7dp"
                         android:fontFamily="sans-serif"
                         android:gravity="center"
@@ -168,7 +227,7 @@
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/address_profile" />
+                        app:layout_constraintTop_toBottomOf="@+id/til_address_profile" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.heartcare.NoteByIdQuery;
 import com.example.heartcare.R;
 import com.example.heartcare.backend.Backend;
 import com.example.heartcare.utilities.DateFormat;
@@ -55,6 +56,18 @@ public class EditTodoActivity extends AppCompatActivity {
                 "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
         };
+        int id = intent.getIntExtra("ID", 0);
+        NoteByIdQuery.Data data = Backend.noteById(id);
+
+        Date startDate = DateFormat.ISO8601toDate(data.noteById.startDate.toString());
+        Date endDate = DateFormat.ISO8601toDate(data.noteById.endDate.toString());
+
+        editTextContent.setText(data.noteById.content);
+        timePickerStartTime.setHour(startDate.getHours());
+        timePickerStartTime.setMinute(startDate.getMinutes());
+
+        timePickerEndTime.setHour(endDate.getHours());
+        timePickerEndTime.setMinute(endDate.getMinutes());
 
         textViewCreateEventTitleDate.setText(year + ". " + months[month - 1] + " " + date);
         setDialogCancel();
@@ -100,12 +113,10 @@ public class EditTodoActivity extends AppCompatActivity {
                 int date = intent.getIntExtra("DATE", 0);
                 int month = intent.getIntExtra("MONTH", 0);
                 int year = intent.getIntExtra("YEAR", 0);
-
                 int id = intent.getIntExtra("ID", 0);
 
-                /*
-                    Ngày, giờ lấy từ  backend
-                 */
+
+
 
                 int hourStartTime = timePickerStartTime.getHour();
                 int minuteStartTime = timePickerStartTime.getMinute();
@@ -115,13 +126,10 @@ public class EditTodoActivity extends AppCompatActivity {
 
                 String content = String.valueOf(editTextContent.getText());
 
-                /*
-                    Ghép phần lưu ở backend
-                 */
                 String startTime = DateFormat.ISO8601format(new Date(year-1900, month-1, date, hourStartTime, minuteStartTime));
                 String endTime = DateFormat.ISO8601format(new Date(year-1900, month-1, date, hourEndTime, minuteEndTime));
 
-                Backend.createNote(content, startTime, endTime);
+                Backend.updateNotes(id, content, startTime, endTime);
 
                 intent = new Intent();
                 setResult(RESULT_OK, intent);

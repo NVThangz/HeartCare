@@ -158,8 +158,8 @@ public class HealthRecord extends AppCompatActivity {
                 intent.putExtra("Age", String.valueOf(getListUsers.get(0).getContent()));
                 intent.putExtra("Height", String.valueOf(getListUsers.get(1).getContent()));
                 intent.putExtra("Weight", String.valueOf(getListUsers.get(2).getContent()));
-                intent.putExtra("BloodType", String.valueOf(getListUsers.get(2).getContent()));
-                intent.putExtra("Problems", String.valueOf(getListUsers.get(3).getContent()));
+                intent.putExtra("BloodType", String.valueOf(getListUsers.get(3).getContent()));
+                intent.putExtra("Problems", String.valueOf(getListUsers.get(4).getContent()));
                 startActivity(intent);
             }
         });

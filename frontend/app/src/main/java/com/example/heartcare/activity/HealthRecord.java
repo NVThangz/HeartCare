@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,9 @@ public class HealthRecord extends AppCompatActivity {
     private RecyclerView healthRecordRecycler;
     private ImageView editHealthRecord;
 
+    private TextView fullName;
+
+    private TextView email;
     private ImageView btnBack;
 
     @Override
@@ -37,9 +41,13 @@ public class HealthRecord extends AppCompatActivity {
         eventHealthRecordRecycler();
         clickBtnEditHealthRecord();
         clickBtnBack();
+        fullName.setText(Backend.name);
+        email.setText(Backend.email);
     }
 
     private void map() {
+        fullName = findViewById(R.id.full_name);
+        email = findViewById(R.id.email);
         healthRecordRecycler = findViewById(R.id.health_record_recycler);
         editHealthRecord = findViewById(R.id.edit_health_record);
         btnBack = findViewById(R.id.ic_arrow_type1);
@@ -96,7 +104,6 @@ public class HealthRecord extends AppCompatActivity {
         String height = Objects.toString(data.user.record.height, "");
         String weight = Objects.toString(data.user.record.weight, "");
         String problems = Objects.toString(data.user.record.HealthProblems, "");
-
         String[] titles = {"Age:", "Height (cm): ", "Weight (kg): ", "Health problems: "};
         String[] contents = {age,height,weight, problems};
 

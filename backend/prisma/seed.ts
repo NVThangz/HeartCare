@@ -12,9 +12,9 @@ async function main() {
         create: {
           name: 'Bùi Minh Hoạt',
           sex: 'Nam',
-          dob: '2002-04-25T10:48:53.653Z',
+          dob: '2003-04-25T10:48:53.653Z',
           phone: '0123456789',
-          address: 'Địa chỉ User',
+          address: '144 xuân thủy cầu giấy hà nội',
           nationalID: '123456789',
         },
       },

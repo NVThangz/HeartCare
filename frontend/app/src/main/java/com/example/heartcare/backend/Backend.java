@@ -1,6 +1,5 @@
 package com.example.heartcare.backend;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.apollographql.apollo3.ApolloCall;
@@ -20,30 +19,31 @@ import com.example.heartcare.GetAdvisoryFirstMutation;
 import com.example.heartcare.GetAdvisoryMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
+import com.example.heartcare.QueryProfileQuery;
+import com.example.heartcare.QueryRecordQuery;
 import com.example.heartcare.RefreshMutation;
 import com.example.heartcare.RegisterWithSocialMutation;
 import com.example.heartcare.ResetPasswordConfirmedMutation;
 import com.example.heartcare.SignupMutation;
 import com.example.heartcare.TodayHistoryStatisticsQuery;
 import com.example.heartcare.UpdateNoteMutation;
+import com.example.heartcare.UpdateProfileMutation;
+import com.example.heartcare.UpdateRecordMutation;
 import com.example.heartcare.WeekHistoryStatisticsQuery;
 import com.example.heartcare.type.AuthInput;
 import com.example.heartcare.type.NoteInput;
 import com.example.heartcare.type.NoteUpdateInput;
 import com.example.heartcare.type.UpdateProfileInput;
+import com.example.heartcare.type.UpdateRecordInput;
 import com.example.heartcare.utilities.DateFormat;
 
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.rxjava3.core.Single;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.1.17:3000/graphql")
+            .serverUrl("http://192.168.1.67:3000/graphql")
             .build();
 
     public static String email = "";
@@ -274,5 +274,49 @@ public class Backend {
             System.out.println(response.errors.get(0).getMessage());
         }
         return response.data.getAdvisory;
+    }
+
+    public static void updateProfile(Optional<String>name,Optional<String>sex,Optional<String>dob,Optional<String>phone,Optional<String>address,Optional<String>national_id) throws Exception {
+        UpdateProfileInput newUpdateProfileInput = new UpdateProfileInput(email,name,sex,dob,phone,address,national_id,Optional.absent());
+        ApolloCall<UpdateProfileMutation.Data> queryCall = apolloClient.mutation(new UpdateProfileMutation( newUpdateProfileInput));
+        Single<ApolloResponse<UpdateProfileMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<UpdateProfileMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            throw new Exception(response.errors.get(0).getMessage());
+        } else {
+            System.out.println(response.data);
+        }
+    }
+
+    public static QueryProfileQuery.Data queryProfile() throws Exception {
+        ApolloCall<QueryProfileQuery.Data> queryCall = apolloClient.query(new QueryProfileQuery( email));
+        Single<ApolloResponse<QueryProfileQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<QueryProfileQuery.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            throw new Exception(response.errors.get(0).getMessage());
+        }
+            return response.data;
+    }
+
+    public static void UpdateRecord(Optional<Double>height,Optional<Double>weight,Optional<Double>BMI,Optional<String>bloodType,Optional<String>HealthProblem) throws Exception {
+        UpdateRecordInput updateRecordInput = new UpdateRecordInput(email,height,weight,BMI,bloodType,HealthProblem);
+        ApolloCall<UpdateRecordMutation.Data> queryCall = apolloClient.mutation(new UpdateRecordMutation( updateRecordInput));
+        Single<ApolloResponse<UpdateRecordMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<UpdateRecordMutation.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            throw new Exception(response.errors.get(0).getMessage());
+        } else {
+            System.out.println(response.data);
+        }
+    }
+    public static QueryRecordQuery.Data queryRecord() throws Exception {
+        ApolloCall<QueryRecordQuery.Data> queryCall = apolloClient.query(new QueryRecordQuery( email));
+        Single<ApolloResponse<QueryRecordQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<QueryRecordQuery.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            throw new Exception(response.errors.get(0).getMessage());
+        }
+        System.out.println("queryRecord() : "+ response.data);
+        return response.data;
     }
 }

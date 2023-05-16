@@ -317,7 +317,7 @@ public class Backend {
         if (response.hasErrors()) {
             System.out.println(response.errors.get(0).getMessage());
         }
-        System.out.println("queryRecord() : "+ response.data);
+        System.out.println("data: " + response.data);
         return response.data;
     }
 }

@@ -2,6 +2,7 @@ package com.example.heartcare.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +34,8 @@ import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.backend.Backend;
 import com.example.heartcare.utilities.DateFormat;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
@@ -59,12 +63,12 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     private View rootView;
-    private EditText editTextFullName;
-    private EditText editTextSex;
-    private EditText editTextDateOfBirth;
-    private EditText editTextPhoneNumber;
-    private EditText editTextNationalId;
-    private EditText editTextAddress;
+    private TextInputEditText editTextFullName;
+    private TextInputEditText editTextSex;
+    private TextInputEditText editTextDateOfBirth;
+    private TextInputEditText editTextPhoneNumber;
+    private TextInputEditText editTextNationalId;
+    private TextInputEditText editTextAddress;
     private LinearLayout btnAbout;
     private LinearLayout btnChangePassword;
     private LinearLayout btnLogOut;
@@ -205,8 +209,65 @@ public class ProfileFragment extends Fragment {
         clickBtnSaveModified();
         clickBtnAbout();
         clickBtnChangePassword();
+        setFocusChangeListener();
         clickBtnLogOut();
         return rootView;
+    }
+
+    private void setFocusChangeListener() {
+        editTextFullName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        editTextSex.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        editTextDateOfBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        editTextPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        editTextNationalId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        editTextAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void clickBtnSaveModified() {

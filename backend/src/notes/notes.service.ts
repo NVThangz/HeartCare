@@ -59,14 +59,15 @@ export class NotesService {
 
   update(noteUpdateInput: NoteUpdateInput) {
     console.log(noteUpdateInput);
+    // const {...update, id}  = noteUpdateInput
     return this.prisma.note.update({
       where: {
         id: noteUpdateInput.id,
       },
       data: {
         content: noteUpdateInput.content,
-        startDate: new Date(noteUpdateInput.startDate),
-        endDate: new Date(noteUpdateInput.endDate),
+        startDate: noteUpdateInput.startDate,
+        endDate: noteUpdateInput.endDate,
       },
     });
   }

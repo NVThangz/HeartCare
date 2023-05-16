@@ -21,6 +21,7 @@ import com.example.heartcare.utilities.DateFormat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HealthRecord extends AppCompatActivity {
     private RecyclerView healthRecordRecycler;
@@ -86,10 +87,18 @@ public class HealthRecord extends AppCompatActivity {
 
         QueryRecordQuery.Data data = Backend.queryRecord();
 
-        String age = String.valueOf(calculateAge(DateFormat.ISO8601toDate(data.user.profile.dob.toString())));
+        String Date = Objects.toString(data.user.profile.dob, "");;
+        if(Date != "") {
+            Date = String.valueOf(calculateAge(DateFormat.ISO8601toDate(data.user.profile.dob.toString())));
+        }
+
+        String age = Date;
+        String height = Objects.toString(data.user.record.height, "");
+        String weight = Objects.toString(data.user.record.weight, "");
+        String problems = Objects.toString(data.user.record.HealthProblems, "");
 
         String[] titles = {"Age:", "Height (cm): ", "Weight (kg): ", "Health problems: "};
-        String[] contents = {age,data.user.record.height.toString(),data.user.record.weight.toString(), data.user.record.HealthProblems};
+        String[] contents = {age,height,weight, problems};
 
 
 

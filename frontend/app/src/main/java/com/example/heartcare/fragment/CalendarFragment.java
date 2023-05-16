@@ -29,6 +29,9 @@ import android.widget.Toast;
 import com.example.heartcare.FindNotesQuery;
 import com.example.heartcare.R;
 import com.example.heartcare.activity.CreateTodoActivity;
+import com.example.heartcare.activity.EditTodoActivity;
+import com.example.heartcare.activity.MainActivity;
+import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.adapter.TodoCalendarAdapter;
 import com.example.heartcare.backend.Backend;
 import com.example.heartcare.object.TodoItem;
@@ -40,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -268,10 +270,10 @@ public class CalendarFragment extends Fragment {
 
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.delete_item_bottom_sheet_layout);
+        dialog.setContentView(R.layout.bottom_sheet_layout_item);
 
-        LinearLayout editLayout = dialog.findViewById(R.id.btn_delete);
-        editLayout.setOnClickListener(new View.OnClickListener() {
+        LinearLayout deleteLayout = dialog.findViewById(R.id.btn_delete);
+        deleteLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -290,6 +292,19 @@ public class CalendarFragment extends Fragment {
             }
         });
 
+        LinearLayout editLayout = dialog.findViewById(R.id.btn_edit);
+        editLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditTodoActivity.class);
+                intent.putExtra("DATE", chooseDate);
+                intent.putExtra("MONTH", chooseMonth);
+                intent.putExtra("YEAR", chooseYear);
+                intent.putExtra("ID", id);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

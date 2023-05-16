@@ -111,7 +111,7 @@
                 app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/im_scale"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="20dp"
@@ -124,18 +124,6 @@
                 app:srcCompat="@drawable/img_level_scale" />
 
             <TextView
-                android:id="@+id/tv_average"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/average"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/imageView6"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-            <TextView
                 android:id="@+id/tv_healthy"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
@@ -144,8 +132,20 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/tv_average"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintStart_toStartOf="@+id/im_scale"
+                app:layout_constraintTop_toBottomOf="@+id/im_scale" />
+
+            <TextView
+                android:id="@+id/tv_average"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/average"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tv_healthy"
+                app:layout_constraintTop_toBottomOf="@+id/im_scale" />
 
             <TextView
                 android:id="@+id/tv_maximum"
@@ -156,8 +156,8 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/tv_healthy"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintStart_toEndOf="@+id/tv_average"
+                app:layout_constraintTop_toBottomOf="@+id/im_scale" />
 
 
             <TextView
@@ -170,7 +170,7 @@
                 android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/tv_maximum"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintTop_toBottomOf="@+id/im_scale" />
 
 
             <LinearLayout
@@ -201,6 +201,17 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/ic_arrow"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/im_scale"
+                app:layout_constraintStart_toStartOf="@+id/im_scale"
+                app:layout_constraintTop_toTopOf="@+id/im_scale"
+                app:srcCompat="@drawable/ic_arrow_1" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

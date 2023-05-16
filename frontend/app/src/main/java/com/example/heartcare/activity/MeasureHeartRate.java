@@ -47,6 +47,8 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
     private TextView textViewBpm;
 
     private ImageView icBack;
+    private ImageView icArrow;
+    private ImageView imScale;
 
     private Animation animationHeart;
     public enum VIEW_STATE {
@@ -55,6 +57,8 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
     }
 
     private void map() {
+        imScale = findViewById(R.id.im_scale);
+        icArrow = findViewById(R.id.ic_arrow);
         measureCircleHeart = findViewById(R.id.measure_circle_heart);
         tvPulse = findViewById(R.id.tv_pulse);
         graphTextureView = findViewById(R.id.graphTextureView);
@@ -139,6 +143,22 @@ public class MeasureHeartRate extends AppCompatActivity implements ActivityCompa
                     textViewBpm.setText(String.valueOf(curBpm));
                     tvPulse.setText(obj.get("pulse_content").toString());
 
+                    // Di chuyển icArrow
+                    int widthImScale = imScale.getWidth() - icArrow.getWidth();
+                    double cur = (curBpm - 40.0) / (150.0 - 40.0) * widthImScale;
+
+                    int currentX = icArrow.getLeft();
+                    int currentY = icArrow.getTop();
+                    int tmp = imScale.getLeft();
+                    int newX = imScale.getLeft() + (int) cur;
+                    int newY = currentY;
+
+                    icArrow.animate()
+                            .x(newX)
+                            .y(newY)
+                            .setDuration(1000)
+                            .start();
+                    icArrow.layout(newX, newY, newX + icArrow.getWidth(), newY + icArrow.getHeight());
 
 
                 /*

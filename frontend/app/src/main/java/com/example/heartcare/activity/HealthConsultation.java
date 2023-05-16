@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +28,6 @@ import java.util.TimerTask;
 
 public class HealthConsultation extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private TextView textViewWelcome;
     private EditText editTextMessage;
     private ImageButton sendButton;
     private TextView textViewFullName;
@@ -35,15 +35,18 @@ public class HealthConsultation extends AppCompatActivity {
     private List<Message> messageList = new ArrayList<>();;
     private MessageAdapter messageAdapter;
     private ImageView icBack;
+    private TextView textViewConsultNow;
+    private FrameLayout shadow;
 
     private void map() {
         recyclerView = findViewById(R.id.recycler_view);
-        textViewWelcome = findViewById(R.id.welcome_text);
         editTextMessage = findViewById(R.id.edit_text_message);
         sendButton = findViewById(R.id.send_btn);
         textViewFullName = findViewById(R.id.full_name);
         textViewEmail = findViewById(R.id.email);
         icBack = findViewById(R.id.ic_back);
+        textViewConsultNow = findViewById(R.id.text_view_consult_now);
+        shadow = findViewById(R.id.shadow);
     }
 
     @Override
@@ -52,37 +55,59 @@ public class HealthConsultation extends AppCompatActivity {
         setContentView(R.layout.activity_health_consultation);
         map();
 
+        setConsultNow();
         clickIcBack();
         setTextView();
         setFocusChangeListener();
         setMessage();
         clickSendButton();
-        setTextViewWelcome();
-        addResponse("...");
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String FirstMessage = Backend.getAdvisoryFirst();
-                    messageList.get(0).setMessage(FirstMessage);
-                    textViewWelcome.setVisibility(View.GONE);
-                } catch (Exception e) {
-                    messageList.get(0).setMessage(e.getMessage());
-                    editTextMessage.setEnabled(false);
-                    sendButton.setEnabled(false);
-                    messageAdapter.notifyDataSetChanged();
-                }
+    private void setConsultNow() {
+        textViewConsultNow.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  textViewConsultNow.setVisibility(View.GONE);
+                  shadow.setVisibility(View.GONE);
 
-
-
-            }
-        }, 1000);
+                  addResponse("...");
+                  new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String FirstMessage = Backend.getAdvisoryFirst();
+                                messageList.get(0).setMessage(FirstMessage);
+                            } catch (Exception e) {
+                                messageList.get(0).setMessage(e.getMessage());
+                                editTextMessage.setEnabled(false);
+                                sendButton.setEnabled(false);
+                                messageAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }, 1000);
+              }
+        });
     }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    String FirstMessage = Backend.getAdvisoryFirst();
+//                    messageList.get(0).setMessage(FirstMessage);
+////                    textViewWelcome.setVisibility(View.GONE);
+//                } catch (Exception e) {
+//                    messageList.get(0).setMessage(e.getMessage());
+//                    editTextMessage.setEnabled(false);
+//                    sendButton.setEnabled(false);
+//                    messageAdapter.notifyDataSetChanged();
+//                }
+//            }
+//        }, 1000);
+//    }
 
     private void clickIcBack() {
         icBack.setOnClickListener(new View.OnClickListener() {
@@ -117,12 +142,6 @@ public class HealthConsultation extends AppCompatActivity {
         });
     }
 
-    private void setTextViewWelcome() {
-        if (!messageList.isEmpty()) {
-            textViewWelcome.setVisibility(View.GONE);
-        }
-    }
-
     private void clickSendButton() {
         sendButton.setOnClickListener((v)->{
             String question = editTextMessage.getText().toString().trim();
@@ -139,7 +158,7 @@ public class HealthConsultation extends AppCompatActivity {
             * */
             addResponse(answer);
 
-            textViewWelcome.setVisibility(View.GONE);
+//            textViewWelcome.setVisibility(View.GONE);
         });
     }
 

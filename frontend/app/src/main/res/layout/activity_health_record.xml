@@ -10,68 +10,56 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation">
+        android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/box_sign_up"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-25dp"
-            android:background="@color/dark_sienna"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-
-        </FrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/dark_sienna"
+            android:paddingBottom="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/ic_arrow_type1"
+                android:id="@+id/ic_back"
                 android:layout_width="27dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="25dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_health_record"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_health_consultation"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_health_record"
+                app:layout_constraintTop_toTopOf="@+id/tv_health_consultation"
                 app:srcCompat="@drawable/ic_arrow_type1" />
 
             <TextView
-                android:id="@+id/tv_health_record"
+                android:id="@+id/tv_health_consultation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="30dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/health_record"
                 android:textColor="@color/white"
                 android:textFontWeight="700"
                 android:textSize="27sp"
-                app:layout_constraintStart_toEndOf="@+id/ic_arrow_type1"
+                app:layout_constraintStart_toEndOf="@+id/ic_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/circle_stroke"
-                app:layout_constraintStart_toStartOf="@+id/ic_arrow_type1"
-                app:layout_constraintTop_toBottomOf="@+id/tv_health_record"
-                >
+                app:layout_constraintStart_toStartOf="@+id/ic_back"
+                app:layout_constraintTop_toBottomOf="@+id/tv_health_consultation">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/avatar_profile"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/profile_avatar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +70,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="20dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/avatar"
                 app:layout_constraintStart_toEndOf="@+id/avatar"
@@ -93,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:text="Bùi Minh Hoạt"
+                    android:text="Full name"
                     android:textColor="@color/white"
                     android:textFontWeight="700"
                     android:textSize="22sp" />
@@ -104,19 +92,33 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/segoeui"
                     android:text="official.buiminhhoat@gmail.com"
-                    android:textColor="@color/gunmetal_gray"
-                    android:textFontWeight="700"
-                    android:textSize="12sp" />
-                <TextView
-                    android:id="@+id/registered_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/segoeui"
-                    android:text="Registered Since Dec 202X"
                     android:textColor="@color/forest_green"
                     android:textFontWeight="700"
-                    android:textSize="12sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/health_record_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                tools:listitem="@layout/health_record_item" />
+
+            <ImageView
+                android:id="@+id/ic_chatbot"
+                android:layout_width="146dp"
+                android:layout_height="139dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_chatbot" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
@@ -126,29 +128,9 @@
             android:layout_marginTop="-53dp"
             android:layout_marginEnd="25dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/box_sign_up"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
             app:srcCompat="@drawable/btn_edit_health_record" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/health_record_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/box_sign_up"
-            app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/health_record_item" />
-
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="146dp"
-            android:layout_height="139dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_chatbot" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

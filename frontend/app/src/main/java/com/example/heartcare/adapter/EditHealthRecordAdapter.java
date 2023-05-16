@@ -78,8 +78,8 @@ public class EditHealthRecordAdapter extends RecyclerView.Adapter<EditHealthReco
     }
 
     public class HealthRecordViewHolder extends RecyclerView.ViewHolder {
-        private TextView title;
-        private EditText content;
+        public TextView title;
+        public EditText content;
 
         public HealthRecordViewHolder(@NonNull View convertView) {
             super(convertView);

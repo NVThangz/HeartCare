@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +32,9 @@ public class HealthRecord extends AppCompatActivity {
     private RecyclerView healthRecordRecycler;
     private ImageView editHealthRecord;
 
+    private TextView fullName;
+
+    private TextView email;
     private ImageView btnBack;
     private ImageView icChatbot;
 
@@ -43,6 +47,8 @@ public class HealthRecord extends AppCompatActivity {
         setIcChatBot();
         clickBtnEditHealthRecord();
         clickBtnBack();
+        fullName.setText(Backend.name);
+        email.setText(Backend.email);
     }
 
     private void setIcChatBot() {
@@ -135,6 +141,8 @@ public class HealthRecord extends AppCompatActivity {
 
 
     private void map() {
+        fullName = findViewById(R.id.full_name);
+        email = findViewById(R.id.email);
         healthRecordRecycler = findViewById(R.id.health_record_recycler);
         editHealthRecord = findViewById(R.id.edit_health_record);
         btnBack = findViewById(R.id.ic_back);
@@ -150,6 +158,7 @@ public class HealthRecord extends AppCompatActivity {
                 intent.putExtra("Age", String.valueOf(getListUsers.get(0).getContent()));
                 intent.putExtra("Height", String.valueOf(getListUsers.get(1).getContent()));
                 intent.putExtra("Weight", String.valueOf(getListUsers.get(2).getContent()));
+                intent.putExtra("BloodType", String.valueOf(getListUsers.get(2).getContent()));
                 intent.putExtra("Problems", String.valueOf(getListUsers.get(3).getContent()));
                 startActivity(intent);
             }
@@ -191,10 +200,11 @@ public class HealthRecord extends AppCompatActivity {
         String age = Date;
         String height = Objects.toString(data.user.record.height, "");
         String weight = Objects.toString(data.user.record.weight, "");
+        String bloodType = Objects.toString(data.user.record.bloodType, "");
         String problems = Objects.toString(data.user.record.HealthProblems, "");
 
-        String[] titles = {"Age:", "Height (cm): ", "Weight (kg): ", "Health problems: "};
-        String[] contents = {age,height,weight, problems};
+        String[] titles = {"Age:", "Height (cm): ", "Weight (kg): ", "Blood Type", "Health problems: "};
+        String[] contents = {age,height,weight, bloodType, problems};
 
 
 

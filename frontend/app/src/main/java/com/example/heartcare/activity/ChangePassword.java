@@ -90,6 +90,10 @@ public class ChangePassword extends AppCompatActivity {
                 String newPassword = String.valueOf(editTextNewPassword.getText());
                 String confirmPassword = String.valueOf(editTextConfirmPassword.getText());
 
+                if(currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!newPassword.equals(confirmPassword)) {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.confirm_password_does_not_match), Toast.LENGTH_SHORT).show();
                     return;

@@ -70,8 +70,16 @@ public class CreateNewPassword extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String newPassword = String.valueOf(etPassword.getText());
+                String confirmPassword = String.valueOf(etConfirmPassword.getText());
                 SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
                 try {
+                    if(newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (!newPassword.equals(confirmPassword)) {
+                        throw new Exception(getResources().getString(R.string.confirm_password_does_not_match));
+                    }
                     Backend.resetPasswordConfirmed(Backend.email, newPassword, sharedPreferences);
                     Intent intent = new Intent(CreateNewPassword.this, MainActivity.class);
                     startActivity(intent);

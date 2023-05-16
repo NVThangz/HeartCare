@@ -10,7 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -78,6 +80,7 @@ public class SignIn extends AppCompatActivity {
 
         initializationLoginWithSocial();
 
+        setListenerTxtPassword();
         setFocusChangeListener();
         clickBtnLoginFacebook();
         clickBtnLoginGoogle();
@@ -98,6 +101,32 @@ public class SignIn extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void setListenerTxtPassword() {
+        txt_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
+                    try {
+                        boolean successLogin = loginAccount();
+                        if (successLogin) {
+                            Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignIn.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void hideKeyboard(View view) {

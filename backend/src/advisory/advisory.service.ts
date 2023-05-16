@@ -50,16 +50,18 @@ export class AdvisoryService {
     if(!record.weight) need += ' Cân nặng,';
     if(!record.BMI) need += ' BMI,';
     if(!record.bloodType) need += ' Nhóm máu,';
-    if(!history[0].bpm) need += ' Nhịp tim,';
+    if(!history) need += ' Đo nhịp tim,';
     
     
-    if(need) return `Bạn chưa cung cấp đủ thông tin:${need.slice(0, -1)}.\n\n Vui lòng cung cấp thông tin trên để tôi có thể tư vấn cho bạn.`;
+    if(need) throw new Error(`Bạn chưa cung cấp đủ thông tin:${need.slice(0, -1)}.\n\n Vui lòng cung cấp thông tin trên để tôi có thể tư vấn cho bạn.`);
+
+    
 
     const age = this.calculateAge(profile.dob)
     
     const userQuestion = `Tôi tên là ${profile.name}, tuổi ${age}, giới tính ${profile.sex}, chiều cao ${record.height}m, cân nặng ${record.weight}kg, nhóm máu ${record.bloodType}, BMI ${record.BMI}kg/m2`
-                          // + (', những bệnh tôi mắc phải là ' + record.diseases.map((disease) => disease.name).join(', '))
-                          + (history[0].bpm ? `, nhịp tim trung bình của tôi là ${history[0].bpm}bpm`: '')
+                          + (record.HealthProblems ? ', những bệnh tôi mắc phải là ' + record.HealthProblems : '')
+                          + (history.bpm ? `, nhịp tim trung bình của tôi là ${history[0].bpm}bpm`: '')
 
     // console.log(userQuestion);
     this.chatHistory[email].push({"role": "system", "content": DEFAULT_SYSTEM_ROLE});

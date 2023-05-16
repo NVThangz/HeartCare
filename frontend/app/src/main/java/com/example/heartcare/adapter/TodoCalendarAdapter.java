@@ -1,13 +1,18 @@
 package com.example.heartcare.adapter;
 
+import static com.example.heartcare.fragment.CalendarFragment.showDialogDelete;
+
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heartcare.R;
@@ -17,12 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TodoCalendarAdapter extends RecyclerView.Adapter<TodoCalendarAdapter.TodoCalendarViewHolder> implements Filterable {
-    private List<TodoItem> todoList;
-    private List<TodoItem> todoListOld;
+    private List<TodoItem> todoList = new ArrayList<>();
+    private List<TodoItem> todoListOld = new ArrayList<>();
 
-    public TodoCalendarAdapter(List<TodoItem> todoList) {
+    private Activity activity;
+    public TodoCalendarAdapter(List<TodoItem> todoList, Activity activity) {
         this.todoList = todoList;
         this.todoListOld = todoList;
+        this.activity = activity;
     }
 
     @NonNull
@@ -34,10 +41,24 @@ public class TodoCalendarAdapter extends RecyclerView.Adapter<TodoCalendarAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TodoCalendarViewHolder holder, int position) {
-        TodoItem TodoItem = todoList.get(position);
-        if (TodoItem == null) return;
-        holder.content.setText(TodoItem.getContent());
-        holder.time.setText(TodoItem.getTime());
+        TodoItem todoItem = todoList.get(position);
+        if (todoItem == null) return;
+        holder.content.setText(todoItem.getContent());
+        holder.time.setText(todoItem.getTime());
+
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                if (isLongClick) {
+                    System.out.println(todoItem.getContent() + "long" + ' ' + todoItem.getId());
+
+                    showDialogDelete(activity, todoItem.getId());
+                }
+                else {
+                    System.out.println(todoItem.getContent() + "click");
+                }
+            }
+        });
     }
 
     @Override
@@ -76,14 +97,35 @@ public class TodoCalendarAdapter extends RecyclerView.Adapter<TodoCalendarAdapte
         };
     }
 
-    public class TodoCalendarViewHolder extends RecyclerView.ViewHolder {
+    public class TodoCalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
+        private ItemClickListener itemClickListener;
+        public ConstraintLayout item;
         private TextView content;
         private TextView time;
 
         public TodoCalendarViewHolder(@NonNull View convertView) {
             super(convertView);
             content = (TextView) convertView.findViewById(R.id.tv_content);
-            time = (TextView) convertView.findViewById(R.id.tv_time);
+            time    = (TextView) convertView.findViewById(R.id.tv_time);
+            item    = (ConstraintLayout) convertView.findViewById(R.id.recyclerview_todo_item);
+            convertView.setOnClickListener(this);
+            convertView.setOnLongClickListener(this);
+        }
+
+        public void setItemClickListener(ItemClickListener itemClickListener)
+        {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),false);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),true);
+            return true;
         }
     }
 }

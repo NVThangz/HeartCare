@@ -36,11 +36,11 @@
             android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tc_calendar"
+            app:layout_constraintTop_toBottomOf="@+id/tv_measure_heart_rate"
              />
 
         <TextView
-            android:id="@+id/tc_calendar"
+            android:id="@+id/tv_measure_heart_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
@@ -269,9 +269,9 @@
             android:layout_height="45dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tc_calendar"
-            app:layout_constraintEnd_toStartOf="@+id/tc_calendar"
-            app:layout_constraintTop_toTopOf="@+id/tc_calendar"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_measure_heart_rate"
+            app:layout_constraintEnd_toStartOf="@+id/tv_measure_heart_rate"
+            app:layout_constraintTop_toTopOf="@+id/tv_measure_heart_rate"
             app:srcCompat="@drawable/ic_back" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

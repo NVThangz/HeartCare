@@ -4,7 +4,11 @@ import static com.example.heartcare.utilities.Calculations.calculateAge;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +32,7 @@ public class HealthRecord extends AppCompatActivity {
     private ImageView editHealthRecord;
 
     private ImageView btnBack;
+    private ImageView icChatbot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +40,105 @@ public class HealthRecord extends AppCompatActivity {
         setContentView(R.layout.activity_health_record);
         map();
         eventHealthRecordRecycler();
+        setIcChatBot();
         clickBtnEditHealthRecord();
         clickBtnBack();
     }
 
+    private void setIcChatBot() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidth = displayMetrics.widthPixels;
+        int screenHeight = displayMetrics.heightPixels;
+        icChatbot.setOnTouchListener(new View.OnTouchListener() {
+            private int lastX, lastY;
+            private int dx, dy;
+            private static final int CLICK_DRAG_TOLERANCE = 10;
+            private boolean isOnClick;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int parentWidth = ((ViewGroup)v.getParent()).getWidth();
+                int parentHeight = ((ViewGroup)v.getParent()).getHeight();
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        lastX = (int) event.getRawX();
+                        lastY = (int) event.getRawY();
+                        isOnClick = true;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        dx = (int) event.getRawX() - lastX;
+                        dy = (int) event.getRawY() - lastY;
+                        int newX = v.getLeft() + dx;
+                        int newY = v.getTop() + dy;
+
+                        // Giới hạn vùng di chuyển của nút trong phạm vi màn hình
+                        if (newX < 0) {
+                            newX = 0;
+                        } else if (newX + v.getWidth() > parentWidth) {
+                            newX = parentWidth - v.getWidth();
+                        }
+
+                        if (newY < 0) {
+                            newY = 0;
+                        } else if (newY + v.getHeight() > parentHeight) {
+                            newY = parentHeight - v.getHeight();
+                        }
+
+                        v.layout(newX, newY, newX + v.getWidth(), newY + v.getHeight());
+                        lastX = (int) event.getRawX();
+                        lastY = (int) event.getRawY();
+                        if (Math.abs(dx) > CLICK_DRAG_TOLERANCE || Math.abs(dy) > CLICK_DRAG_TOLERANCE) {
+                            isOnClick = false;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (isOnClick) {
+                            // Sự kiện Click được thực hiện
+                            Intent intent = new Intent(HealthRecord.this, HealthConsultation.class);
+                            startActivity(intent);
+                        } else {
+                            // Di chuyển nút đến vị trí gần sát màn hình
+                            int currentX = v.getLeft();
+                            int currentY = v.getTop();
+                            int targetX, targetY;
+
+                            if (currentX + v.getWidth() / 2 < screenWidth / 2) {
+                                // Di chuyển về bên trái màn hình
+                                targetX = 0;
+                            } else {
+                                // Di chuyển về bên phải màn hình
+                                targetX = screenWidth - v.getWidth();
+                            }
+
+                            targetY = currentY;
+
+                            // Animation di chuyển nút đến vị trí mới
+                            v.animate()
+                                    .x(targetX)
+                                    .y(targetY)
+                                    .setDuration(200)
+                                    .start();
+
+                            v.layout(targetX, targetY, targetX + v.getWidth(), targetY + v.getHeight());
+                            lastX = (int) event.getRawX();
+                            lastY = (int) event.getRawY();
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
+
+    }
+
+
     private void map() {
         healthRecordRecycler = findViewById(R.id.health_record_recycler);
         editHealthRecord = findViewById(R.id.edit_health_record);
-        btnBack = findViewById(R.id.ic_arrow_type1);
+        btnBack = findViewById(R.id.ic_back);
+        icChatbot = findViewById(R.id.ic_chatbot);
     }
 
     private void clickBtnEditHealthRecord() {

@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:fontFamily="sans-serif"
-                android:text="@string/health_consultation"
+                android:text="@string/health_record"
                 android:textColor="@color/white"
                 android:textFontWeight="900"
                 android:textSize="25sp"
@@ -192,8 +192,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,6 +8,7 @@
     android:focusableInTouchMode="true"
     tools:context=".activity.HealthConsultation">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
@@ -111,21 +112,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
-    <TextView
-        android:id="@+id/welcome_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="@string/welcome_text_health_consultation"
-        android:textSize="25dp"
-        android:fontFamily="sans-serif"
-        android:textColor="@color/dark_sienna"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
@@ -137,6 +123,8 @@
 
         <EditText
             android:id="@+id/edit_text_message"
+            android:clickable="false"
+            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -159,4 +147,35 @@
             android:padding="8dp"
             android:src="@drawable/ic_baseline_send_24" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_view_consult_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="45dp"
+        android:paddingEnd="45dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/bot_chat_item"
+        android:elevation="7dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/consult_now"
+        android:textColor="@color/dark_sienna"
+        android:textFontWeight="700"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+    <FrameLayout
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_layout"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

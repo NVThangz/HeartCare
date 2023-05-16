@@ -91,6 +91,7 @@
     <string name="confirm_password_does_not_match">Mật khẩu xác nhận không trùng khớp</string>
     <string name="save_modified_successfully">Đã lưu thay đổi</string>
     <string name="notifications">Thông báo</string>
+    <string name="consult_now">Tư vấn ngay</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

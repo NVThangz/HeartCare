@@ -1,7 +1,5 @@
 package com.example.heartcare.adapter;
 
-import static com.example.heartcare.fragment.CalendarFragment.showDialogDelete;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heartcare.R;
+import com.example.heartcare.fragment.CalendarFragment;
 import com.example.heartcare.object.TodoItem;
 
 import java.util.ArrayList;
@@ -26,7 +25,10 @@ public class TodoCalendarAdapter extends RecyclerView.Adapter<TodoCalendarAdapte
     private List<TodoItem> todoListOld = new ArrayList<>();
 
     private Activity activity;
-    public TodoCalendarAdapter(List<TodoItem> todoList, Activity activity) {
+
+    CalendarFragment calendarFragment;
+    public TodoCalendarAdapter(CalendarFragment calendarFragment, List<TodoItem> todoList, Activity activity) {
+        this.calendarFragment = calendarFragment;
         this.todoList = todoList;
         this.todoListOld = todoList;
         this.activity = activity;
@@ -52,7 +54,7 @@ public class TodoCalendarAdapter extends RecyclerView.Adapter<TodoCalendarAdapte
                 if (isLongClick) {
                     System.out.println(todoItem.getContent() + "long" + ' ' + todoItem.getId());
 
-                    showDialogDelete(activity, todoItem.getId());
+                    calendarFragment.showDialogDelete(activity, todoItem.getId());
                 }
                 else {
                     System.out.println(todoItem.getContent() + "click");

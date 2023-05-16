@@ -195,7 +195,7 @@ public class CalendarFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         todoCalendarRecycler.setLayoutManager(linearLayoutManager);
 
-        TodoCalendarAdapter todoCalendarAdapter = new TodoCalendarAdapter(getListUsers(), getActivity());
+        TodoCalendarAdapter todoCalendarAdapter = new TodoCalendarAdapter(this, getListUsers(), getActivity());
         todoCalendarRecycler.setAdapter(todoCalendarAdapter);
     }
 
@@ -264,7 +264,7 @@ public class CalendarFragment extends Fragment {
     private void setCalendarView() {
     }
 
-    public static void showDialogDelete(Activity activity, int id) {
+    public void showDialogDelete(Activity activity, int id) {
 
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -286,6 +286,7 @@ public class CalendarFragment extends Fragment {
 
                 Backend.deleteNote(id);
                 Toast.makeText(activity, activity.getResources().getString(R.string.item_deleted),Toast.LENGTH_SHORT).show();
+                reloadData();
             }
         });
 

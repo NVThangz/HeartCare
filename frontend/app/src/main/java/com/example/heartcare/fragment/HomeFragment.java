@@ -19,6 +19,7 @@ import com.example.heartcare.activity.HealthConsultation;
 import com.example.heartcare.activity.HealthRecord;
 import com.example.heartcare.activity.HeartRateStatistics;
 import com.example.heartcare.activity.MeasureHeartRate;
+import com.example.heartcare.backend.Backend;
 
 import java.util.Locale;
 
@@ -96,7 +97,7 @@ public class HomeFragment extends Fragment {
             Ghép backend
          */
         
-        textViewFullName.setText("Bùi Minh Hoạt");
+        textViewFullName.setText(Backend.name);
 
 
         clickBtnHealthConsultation();

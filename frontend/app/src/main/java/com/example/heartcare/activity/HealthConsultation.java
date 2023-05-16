@@ -77,6 +77,7 @@ public class HealthConsultation extends AppCompatActivity {
                             try {
                                 String FirstMessage = Backend.getAdvisoryFirst();
                                 messageList.get(0).setMessage(FirstMessage);
+                                messageAdapter.notifyDataSetChanged();
                             } catch (Exception e) {
                                 messageList.get(0).setMessage(e.getMessage());
                                 editTextMessage.setEnabled(false);

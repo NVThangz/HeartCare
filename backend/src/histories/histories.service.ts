@@ -36,8 +36,8 @@ export class HistoriesService {
     });
   }
 
-  findLatest(email: string) {
-    return this.prisma.history.findMany({
+  async findLatest(email: string) {
+    const history = await this.prisma.history.findMany({
       where: {
         user: {
           email,
@@ -48,6 +48,7 @@ export class HistoriesService {
       },
       take: 1,
     });
+    return history? history[0] : null;
   }
 
   async todayHistoryStatistics(email: string) {

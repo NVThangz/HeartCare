@@ -1,7 +1,9 @@
 package com.example.heartcare.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -20,6 +22,8 @@ import com.example.heartcare.message.MessageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HealthConsultation extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -54,6 +58,30 @@ public class HealthConsultation extends AppCompatActivity {
         setMessage();
         clickSendButton();
         setTextViewWelcome();
+        addResponse("...");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String FirstMessage = Backend.getAdvisoryFirst();
+                    messageList.get(0).setMessage(FirstMessage);
+                    textViewWelcome.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    messageList.get(0).setMessage(e.getMessage());
+                    editTextMessage.setEnabled(false);
+                    sendButton.setEnabled(false);
+                    messageAdapter.notifyDataSetChanged();
+                }
+
+
+
+            }
+        }, 1000);
     }
 
     private void clickIcBack() {
@@ -104,11 +132,12 @@ public class HealthConsultation extends AppCompatActivity {
 
             addToChat(question, Message.SENT_BY_ME);
             editTextMessage.setText("");
+            String answer = Backend.getAdvisory(question);
 
             /*
             * Ghép câu trả lời của ChatGPT vào đây
             * */
-            addResponse("Hello World");
+            addResponse(answer);
 
             textViewWelcome.setVisibility(View.GONE);
         });

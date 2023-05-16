@@ -1,11 +1,16 @@
 package com.example.heartcare.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +27,8 @@ import com.example.heartcare.activity.MeasureHeartRate;
 import com.example.heartcare.backend.Backend;
 
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +53,8 @@ public class HomeFragment extends Fragment {
     private ConstraintLayout btnHealthConsultation;
     private TextView tvMeasureHeartRate;
     private TextView textViewFullName;
+
+    private CircleImageView avatar_profile;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -84,6 +93,7 @@ public class HomeFragment extends Fragment {
         btnHeartRateStatistics = rootView.findViewById(R.id.btn_heart_rate_statistics);
         tvMeasureHeartRate = rootView.findViewById(R.id.tv_measure_heart_rate);
         textViewFullName = rootView.findViewById(R.id.tv_full_name);
+        avatar_profile = rootView.findViewById(R.id.avatar_profile);
     }
 
     @Override
@@ -99,6 +109,19 @@ public class HomeFragment extends Fragment {
         
         textViewFullName.setText(Backend.name);
 
+
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+        if (sharedPreferences.contains("image_data")) {
+            String imageDataString = sharedPreferences.getString("image_data", null);
+
+            // Giải mã chuỗi thành mảng byte
+            byte[] imageData = Base64.decode(imageDataString, Base64.DEFAULT);
+
+            // Khôi phục Bitmap từ mảng byte
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+
+            avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 400, false));
+        }
 
         clickBtnHealthConsultation();
         clickBtnMeasureHeartRate();

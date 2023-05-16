@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:text="Full name"
+                    android:text="Bùi Minh Hoạt"
                     android:textColor="@color/white"
                     android:textFontWeight="700"
                     android:textSize="22sp" />
@@ -139,17 +139,18 @@
             app:layout_constraintTop_toBottomOf="@+id/box_sign_up"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/health_record_item" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="146dp"
+            android:layout_height="139dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_chatbot" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:itemTextColor="@color/custom_navigation"
-        app:itemIconTint="@color/custom_navigation"
-        app:menu="@menu/bottom_navigation_menu"
-        />
+
 
 </RelativeLayout>

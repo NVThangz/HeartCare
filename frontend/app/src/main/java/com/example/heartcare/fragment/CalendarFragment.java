@@ -2,7 +2,11 @@ package com.example.heartcare.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,12 +15,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CalendarView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.heartcare.FindNotesQuery;
 import com.example.heartcare.R;
@@ -115,7 +123,6 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
         map();
-
         setCalendar();
         clickBtnAddTodo();
         setCalendarView();
@@ -188,7 +195,7 @@ public class CalendarFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         todoCalendarRecycler.setLayoutManager(linearLayoutManager);
 
-        TodoCalendarAdapter todoCalendarAdapter = new TodoCalendarAdapter(getListUsers());
+        TodoCalendarAdapter todoCalendarAdapter = new TodoCalendarAdapter(getListUsers(), getActivity());
         todoCalendarRecycler.setAdapter(todoCalendarAdapter);
     }
 
@@ -198,6 +205,7 @@ public class CalendarFragment extends Fragment {
             times: Thời gian
          */
 
+        ArrayList<Integer> ids = new ArrayList<Integer>();
         ArrayList<String> times = new ArrayList<String>();
         ArrayList<String> contents = new ArrayList<String>();
         Date date = new Date(chooseYear-1900,chooseMonth-1,chooseDate);
@@ -210,15 +218,14 @@ public class CalendarFragment extends Fragment {
             String endTime = formatter.format(EndDate);
             times.add(startTime + " - " + endTime);
             contents.add(data.findNotes.get(i).content);
+            ids.add(data.findNotes.get(i).id);
         }
 //        String[] contents = {"Go to hospital", "Take medicines", "Meet docter"};
 //        String[] times = {"08:00 AM - 10:00AM","12:00 AM","02:00 PM - 03:00PM"};
 
-
-
         List <TodoItem> todoItems = new ArrayList<>();
         for(int i = 0; i < contents.size(); i++) {
-            TodoItem todoItem = new TodoItem(contents.get(i),times.get(i));
+            TodoItem todoItem = new TodoItem(ids.get(i), contents.get(i),times.get(i));
             todoItems.add(todoItem);
         }
         return todoItems;
@@ -255,5 +262,37 @@ public class CalendarFragment extends Fragment {
     }
 
     private void setCalendarView() {
+    }
+
+    public static void showDialogDelete(Activity activity, int id) {
+
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.delete_item_bottom_sheet_layout);
+
+        LinearLayout editLayout = dialog.findViewById(R.id.btn_delete);
+        editLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+
+
+                /*
+                *  Xóa todo item ở đây
+                *
+
+                * */
+
+                Toast.makeText(activity, activity.getResources().getString(R.string.item_deleted),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
     }
 }

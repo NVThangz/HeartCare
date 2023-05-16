@@ -112,7 +112,7 @@ public class EditHealthRecord extends AppCompatActivity {
 
                 Double BMI = null;
                 if (height != null && weight != null) {
-                    BMI = Math.round(Calculations.calculateBMI(weight, height/100) * 100.0)/ 100.0;
+                    BMI = Math.round(Calculations.calculateBMI(weight, height/100) * 100.0) / 100.0;
                 }
                 Backend.updateRecord(height, weight, BMI, bloodType, healthProblems);
                 Intent intent = new Intent(EditHealthRecord.this, HealthRecord.class);

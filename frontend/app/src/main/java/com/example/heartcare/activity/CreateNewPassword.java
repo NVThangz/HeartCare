@@ -73,6 +73,10 @@ public class CreateNewPassword extends AppCompatActivity {
                 String confirmPassword = String.valueOf(etConfirmPassword.getText());
                 SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
                 try {
+                    if(newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (!newPassword.equals(confirmPassword)) {
                         throw new Exception(getResources().getString(R.string.confirm_password_does_not_match));
                     }

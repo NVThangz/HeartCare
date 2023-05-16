@@ -31,6 +31,14 @@ export class NotesService {
       },
     });
   }
+
+  noteById(id: number) {
+    return this.prisma.note.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
   
   findNotes(email: string, date: string) {
     const tdate = new Date(date)

@@ -153,6 +153,8 @@ export abstract class IQuery {
 
     abstract note(email: string): Nullable<Nullable<Note>[]> | Promise<Nullable<Nullable<Note>[]>>;
 
+    abstract noteById(id: number): Nullable<Note> | Promise<Nullable<Note>>;
+
     abstract findNotes(email: string, date: DateTime): Nullable<Nullable<Note>[]> | Promise<Nullable<Nullable<Note>[]>>;
 
     abstract notifications(): Nullable<Notification>[] | Promise<Nullable<Notification>[]>;

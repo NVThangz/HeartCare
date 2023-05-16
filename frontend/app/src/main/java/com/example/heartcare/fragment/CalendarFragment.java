@@ -55,6 +55,9 @@ public class CalendarFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int CREATE_TODO_REQUEST_CODE = 1;
+
+    private static final int EDIT_TODO_REQUEST_CODE = 2;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,7 +81,6 @@ public class CalendarFragment extends Fragment {
     private ConstraintLayout bottomSheet;
 
     private Calendar calendar;
-    private static final int CREATE_TODO_REQUEST_CODE = 1;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -148,8 +150,13 @@ public class CalendarFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CREATE_TODO_REQUEST_CODE && resultCode == RESULT_OK) {
-            // Thực hiện tải lại dữ liệu trong Calendar Fragment
+        if (requestCode == CREATE_TODO_REQUEST_CODE &&
+                resultCode == RESULT_OK) {
+            reloadData();
+        }
+
+        if (requestCode == EDIT_TODO_REQUEST_CODE &&
+                resultCode == RESULT_OK) {
             reloadData();
         }
     }
@@ -296,13 +303,16 @@ public class CalendarFragment extends Fragment {
         editLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
+
                 Intent intent = new Intent(getActivity(), EditTodoActivity.class);
                 intent.putExtra("DATE", chooseDate);
                 intent.putExtra("MONTH", chooseMonth);
                 intent.putExtra("YEAR", chooseYear);
                 intent.putExtra("ID", id);
-                startActivity(intent);
-                getActivity().finish();
+//                startActivity(intent);
+                startActivityForResult(intent, EDIT_TODO_REQUEST_CODE);
+//                getActivity().finish();
             }
         });
         dialog.show();

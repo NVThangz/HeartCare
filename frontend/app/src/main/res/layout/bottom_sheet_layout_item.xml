@@ -7,6 +7,35 @@
 
 
     <LinearLayout
+        android:id="@+id/btn_edit"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="14dp"
+        android:paddingTop="3dp"
+        >
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_trash"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/segoeuib"
+            android:text="Edit"
+            android:textColor="@color/dark_red"
+            android:textFontWeight="500"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/btn_delete"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -34,6 +63,5 @@
             android:textSize="25sp"/>
 
     </LinearLayout>
-
 
 </LinearLayout>

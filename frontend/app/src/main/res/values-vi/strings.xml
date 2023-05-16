@@ -93,6 +93,7 @@
     <string name="notifications">Thông báo</string>
     <string name="consult_now">Tư vấn ngay</string>
     <string name="item_deleted">Đã xóa</string>
+    <string name="edit_note">Chỉnh sửa</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

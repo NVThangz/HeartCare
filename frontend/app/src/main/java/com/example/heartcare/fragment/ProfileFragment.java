@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,12 +19,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -33,9 +34,7 @@ import com.example.heartcare.R;
 import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.backend.Backend;
-import com.example.heartcare.utilities.DateFormat;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
@@ -74,6 +73,7 @@ public class ProfileFragment extends Fragment {
     private LinearLayout btnLogOut;
     private TextView btnSaveModified;
     private CircleImageView avatar_profile;
+    private AlertDialog dialogLogOut;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -205,6 +205,7 @@ public class ProfileFragment extends Fragment {
             avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 400, false));
         }
 
+        setDialogLogOut();
         clickAvatarProfile();
         clickBtnSaveModified();
         clickBtnAbout();
@@ -359,6 +360,19 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+                dialogLogOut.show();
+            }
+        });
+    }
+
+    private void setDialogLogOut() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getResources().getString(R.string.alert));
+        builder.setMessage(getResources().getString(R.string.are_you_sure_you_want_to_log_out));
+
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 /*
                  * Cài đặt phần đăng xuất ở đây
                  * */
@@ -369,6 +383,13 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        dialogLogOut = builder.create();
     }
 
     private void clickAvatarProfile() {

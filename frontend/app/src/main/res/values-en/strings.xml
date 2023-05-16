@@ -94,6 +94,8 @@
     <string name="consult_now">Consult Now</string>
     <string name="item_deleted">Item deleted</string>
     <string name="edit_note">Edit note</string>
+    <string name="alert">Alert</string>
+    <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
         <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>

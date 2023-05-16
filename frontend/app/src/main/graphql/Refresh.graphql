@@ -4,6 +4,9 @@ mutation Refresh {
     refresh_token
     user {
       email
+      profile {
+        name
+      }
     }
   }
 }

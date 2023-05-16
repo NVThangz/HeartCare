@@ -88,6 +88,10 @@ export class UserService {
       where: {
         id,
       },
+      include: {
+        profile: true,
+        record: true,
+      },
     });
   }
 
@@ -99,6 +103,10 @@ export class UserService {
       },
       data: {
         password: hashPassword,
+      },
+      include: {
+        profile: true,
+        record: true,
       },
     });
   }

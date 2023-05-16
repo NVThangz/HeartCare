@@ -47,6 +47,7 @@ public class Backend {
             .build();
 
     public static String email = "";
+    public static String name = "";
 
     public static void login(String username, String password, SharedPreferences sharedPreferences) throws Exception {
         AuthInput auth = new AuthInput(username,password) ;
@@ -59,6 +60,7 @@ public class Backend {
         } else {
 //            System.out.println(response.data);
             email = response.data.login.user.email;
+            name = response.data.login.user.profile.name;
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("access_token", response.data.login.access_token);
             editor.putString("refresh_token", response.data.login.refresh_token);
@@ -78,6 +80,7 @@ public class Backend {
             throw new Exception(response.errors.get(0).getMessage());
         } else {
             email = response.data.signup.user.email;
+            name = response.data.updateProfile.name;
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("access_token", response.data.signup.access_token);
             editor.putString("refresh_token", response.data.signup.refresh_token);
@@ -98,6 +101,7 @@ public class Backend {
         } else {
             System.out.println(response.data);
             email = response.data.refresh.user.email;
+            name = response.data.refresh.user.profile.name;
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("access_token", response.data.refresh.access_token);
             editor.putString("refresh_token", response.data.refresh.refresh_token);
@@ -143,6 +147,7 @@ public class Backend {
             throw new Exception(response.errors.get(0).getMessage());
         } else {
             email = response.data.resetPasswordConfirmed.user.email;
+            name = response.data.resetPasswordConfirmed.user.profile.name;
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("access_token", response.data.resetPasswordConfirmed.access_token);
             editor.putString("refresh_token", response.data.resetPasswordConfirmed.refresh_token);

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.heartcare.R;
+import com.example.heartcare.backend.Backend;
 import com.example.heartcare.message.Message;
 import com.example.heartcare.message.MessageAdapter;
 
@@ -68,8 +69,8 @@ public class HealthConsultation extends AppCompatActivity {
         /*
             Ghép backend
          */
-        textViewFullName.setText("Bùi Minh Hoạt");
-        textViewEmail.setText("official.buiminhhoat@gmail.com");
+        textViewFullName.setText(Backend.name);
+        textViewEmail.setText(Backend.email);
     }
 
     public void hideKeyboard(View view) {

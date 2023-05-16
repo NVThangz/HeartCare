@@ -53,7 +53,7 @@ export class AdvisoryService {
     if(!history) need += ' Đo nhịp tim,';
     
     
-    if(need) throw new Error(`Bạn chưa cung cấp đủ thông tin:${need.slice(0, -1)}.\n\n Vui lòng cung cấp thông tin trên để tôi có thể tư vấn cho bạn.`);
+    if(need) throw new Error(`Bạn chưa cung cấp đủ thông tin:${need.slice(0, -1)}.\n\nVui lòng cung cấp thông tin trên để tôi có thể tư vấn cho bạn.`);
 
     
 

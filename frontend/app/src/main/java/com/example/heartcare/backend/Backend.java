@@ -43,7 +43,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.1.88:3000/graphql")
+            .serverUrl("http://192.168.1.17:3000/graphql")
             .build();
 
     public static String email = "";
@@ -305,9 +305,7 @@ public class Backend {
         Single<ApolloResponse<UpdateRecordMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<UpdateRecordMutation.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
-            throw new Exception(response.errors.get(0).getMessage());
-        } else {
-            System.out.println(response.data);
+            System.out.println(response.errors.get(0).getMessage());
         }
     }
     public static QueryRecordQuery.Data queryRecord(){

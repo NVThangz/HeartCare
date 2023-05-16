@@ -96,6 +96,10 @@
     <string name="edit_note">Chỉnh sửa</string>
     <string name="alert">Thông báo</string>
     <string name="are_you_sure_you_want_to_log_out">Bạn có chắc chắn muốn đăng xuất không?</string>
+    <string name="select_gender">Chọn giới tính</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="other">Khác</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

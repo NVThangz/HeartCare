@@ -120,6 +120,7 @@
                             android:id="@+id/sex_profile"
                             android:layout_width="match_parent"
                             android:maxLength="30"
+                            android:focusableInTouchMode="false"
                             android:layout_height="match_parent" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -141,6 +142,7 @@
                             android:id="@+id/date_of_birth_profile"
                             android:layout_width="match_parent"
                             android:maxLength="30"
+                            android:focusableInTouchMode="false"
                             android:layout_height="match_parent" />
 
                     </com.google.android.material.textfield.TextInputLayout>

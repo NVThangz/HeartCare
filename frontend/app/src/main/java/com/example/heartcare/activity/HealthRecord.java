@@ -1,5 +1,7 @@
 package com.example.heartcare.activity;
 
+import static com.example.heartcare.utilities.Calculations.calculateAge;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.example.heartcare.adapter.HealthRecordAdapter;
 import com.example.heartcare.backend.Backend;
 import com.example.heartcare.fragment.HomeFragment;
 import com.example.heartcare.object.HealthRecordItem;
+import com.example.heartcare.utilities.DateFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,15 +84,13 @@ public class HealthRecord extends AppCompatActivity {
 //            Ghép backend lấy giá trị để hiển thị thông tin người dùng
 //         */
 
-        QueryRecordQuery.Data data = null;
-        try {
-            data = Backend.queryRecord();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-// tinsh tuooi nuax
+        QueryRecordQuery.Data data = Backend.queryRecord();
+
+        String age = String.valueOf(calculateAge(DateFormat.ISO8601toDate(data.user.profile.dob.toString())));
+
         String[] titles = {"Age:", "Height (cm): ", "Weight (kg): ", "Health problems: "};
-        String[] contents = {"22",data.record.height.toString(),data.record.weight.toString(), data.record.HealthProblems};
+        String[] contents = {age,data.user.record.height.toString(),data.user.record.weight.toString(), data.user.record.HealthProblems};
+
 
 
         List <HealthRecordItem> healthRecordItemList = new ArrayList<>();

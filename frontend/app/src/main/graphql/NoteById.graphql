@@ -1,0 +1,9 @@
+query NoteById($id: Int!) {
+  noteById(id: $id) {
+    id
+    userId
+    content
+    startDate
+    endDate
+  }
+}

@@ -95,7 +95,7 @@ public class ProfileFragment extends Fragment {
 
     /*2 hàm chuyển đổi ngày tháng*/
     public static String convertISODateToShortDate(String isoDate) {
-        SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat shortDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
@@ -157,32 +157,35 @@ public class ProfileFragment extends Fragment {
             Ghép thông tin người dùng backend
          */
 
-
-        QueryProfileQuery.Data Profile = null;
-        try {
-            Profile = Backend.queryProfile();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-//        String dob = convertISODateToShortDate("2002-12-11T00:00:00.000Z");
-//
-//        Date date = DateFormat.ISO8601toDate(Profile.profile.dob.toString());
-//        // cai dob nay dang bi null , kiem tra lai ham convert
-//            editTextFullName.setText(Profile.profile.name);
-//            editTextSex.setText(Profile.profile.sex);
-//            editTextDateOfBirth.setText(date.toString());
-//            editTextPhoneNumber.setText(Profile.profile.phone);
-//            editTextNationalId.setText(Profile.profile.nationalID);
-//            editTextAddress.setText(Profile.profile.address);
-
-
 //        editTextFullName.setText("Bùi Minh Hoạt");
 //        editTextSex.setText("Nam");
 //        editTextDateOfBirth.setText("06/09/2003");
 //        editTextPhoneNumber.setText("094540xxxx");
 //        editTextNationalId.setText("025203xxxxxx");
 //        editTextAddress.setText("144 Xuân Thủy, Cầu Giấy, Hà Nội");
+
+        QueryProfileQuery.Data Profile = null;
+        try {
+            Profile = Backend.queryProfile();
+            if (Profile == null) throw new Exception();
+            Object obj = Profile.profile.dob;
+            if (obj != null) {
+                String dob = convertISODateToShortDate(obj.toString());
+                editTextDateOfBirth.setText(dob);
+            }
+            editTextFullName.setText(Profile.profile.name);
+            editTextSex.setText(Profile.profile.sex);
+
+            editTextPhoneNumber.setText(Profile.profile.phone);
+            editTextNationalId.setText(Profile.profile.nationalID);
+            editTextAddress.setText(Profile.profile.address);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+//
+//        // cai dob nay dang bi null , kiem tra lai ham convert
+
 
         // Lấy chuỗi từ SharedPreferences
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("HeartCare", Context.MODE_PRIVATE);

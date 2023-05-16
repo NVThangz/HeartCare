@@ -2,8 +2,13 @@ package com.example.heartcare.activity;
 
 import static com.example.heartcare.utilities.Calculations.calculateAge;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HealthRecord extends AppCompatActivity {
     private RecyclerView healthRecordRecycler;
     private ImageView editHealthRecord;
@@ -37,6 +44,8 @@ public class HealthRecord extends AppCompatActivity {
     private TextView email;
     private ImageView btnBack;
     private ImageView icChatbot;
+
+    private CircleImageView avatar_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,19 @@ public class HealthRecord extends AppCompatActivity {
         clickBtnBack();
         fullName.setText(Backend.name);
         email.setText(Backend.email);
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+        if (sharedPreferences.contains("image_data")) {
+            String imageDataString = sharedPreferences.getString("image_data", null);
+
+            // Giải mã chuỗi thành mảng byte
+            byte[] imageData = Base64.decode(imageDataString, Base64.DEFAULT);
+
+            // Khôi phục Bitmap từ mảng byte
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+
+            avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 400, false));
+        }
     }
 
     private void setIcChatBot() {
@@ -147,6 +169,7 @@ public class HealthRecord extends AppCompatActivity {
         editHealthRecord = findViewById(R.id.edit_health_record);
         btnBack = findViewById(R.id.ic_back);
         icChatbot = findViewById(R.id.ic_chatbot);
+        avatar_profile = findViewById(R.id.avatar_profile);
     }
 
     private void clickBtnEditHealthRecord() {

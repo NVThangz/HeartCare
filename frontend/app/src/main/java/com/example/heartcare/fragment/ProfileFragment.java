@@ -3,6 +3,7 @@ package com.example.heartcare.fragment;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +43,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -205,6 +210,8 @@ public class ProfileFragment extends Fragment {
             avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 400, false));
         }
 
+        setSex();
+        setDateOfBirth();
         setDialogLogOut();
         clickAvatarProfile();
         clickBtnSaveModified();
@@ -213,6 +220,58 @@ public class ProfileFragment extends Fragment {
         setFocusChangeListener();
         clickBtnLogOut();
         return rootView;
+    }
+
+    private void setSex() {
+        editTextSex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> genderList = new ArrayList<>();
+                genderList.add(getActivity().getResources().getString(R.string.male));
+                genderList.add(getActivity().getResources().getString(R.string.female));
+                genderList.add(getActivity().getResources().getString(R.string.other));
+
+                CharSequence[] genderArray = genderList.toArray(new CharSequence[genderList.size()]);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(getActivity().getResources().getString(R.string.select_gender))
+                        .setItems(genderArray, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String selectedGender = genderList.get(which);
+                                editTextSex.setText(selectedGender);
+                            }
+                        })
+                        .show();
+            }
+        });
+    }
+
+    private void setDateOfBirth() {
+        editTextDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                // Lấy ngày hiện tại
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Tạo DatePickerDialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        // Xử lý ngày được chọn
+                        // Ví dụ: Hiển thị ngày tháng năm trong TextInputLayout
+                        String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%d", day, month + 1, year);
+                        editTextDateOfBirth.setText(selectedDate);
+                    }
+                }, year, month, dayOfMonth);
+
+                // Hiển thị DatePickerDialog
+                datePickerDialog.show();
+            }
+        });
     }
 
     private void setFocusChangeListener() {

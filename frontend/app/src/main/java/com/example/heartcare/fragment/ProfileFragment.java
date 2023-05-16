@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +25,20 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.apollographql.apollo3.api.Optional;
+import com.example.heartcare.QueryProfileQuery;
 import com.example.heartcare.R;
 import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.backend.Backend;
+import com.example.heartcare.utilities.DateFormat;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -86,6 +93,35 @@ public class ProfileFragment extends Fragment {
         return fragment;
     }
 
+    /*2 hàm chuyển đổi ngày tháng*/
+    public static String convertISODateToShortDate(String isoDate) {
+        SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            System.out.println("cos chayj ham nay");
+            Date date = isoDateFormat.parse(isoDate);
+            return shortDateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String convertShortDateToISODate(String shortDate) {
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+        try {
+            Date date = shortDateFormat.parse(shortDate);
+            return isoDateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    /**/
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,12 +156,36 @@ public class ProfileFragment extends Fragment {
         /*
             Ghép thông tin người dùng backend
          */
-        editTextFullName.setText("Bùi Minh Hoạt");
-        editTextSex.setText("Nam");
-        editTextDateOfBirth.setText("06/09/2003");
-        editTextPhoneNumber.setText("094540xxxx");
-        editTextNationalId.setText("025203xxxxxx");
-        editTextAddress.setText("144 Xuân Thủy, Cầu Giấy, Hà Nội");
+
+
+        QueryProfileQuery.Data Profile = null;
+        try {
+            Profile = Backend.queryProfile();
+            System.out.println("data la : "+ Profile.profile.dob.toString());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+//        String dob = convertISODateToShortDate(Profile.profile.dob.toString());
+        String dob = convertISODateToShortDate("2002-12-11T00:00:00.000Z");
+        System.out.println("Profile.profile.dob.toString() : "+ Profile.profile.dob.toString());
+        System.out.println("dob la : "+ dob);
+        Date date = DateFormat.ISO8601toDate(Profile.profile.dob.toString());
+        // cai dob nay dang bi null , kiem tra lai ham convert
+            editTextFullName.setText(Profile.profile.name);
+            editTextSex.setText(Profile.profile.sex);
+            editTextDateOfBirth.setText(date.toString());
+            editTextPhoneNumber.setText(Profile.profile.phone);
+            editTextNationalId.setText(Profile.profile.nationalID);
+            editTextAddress.setText(Profile.profile.address);
+
+
+//        editTextFullName.setText("Bùi Minh Hoạt");
+//        editTextSex.setText("Nam");
+//        editTextDateOfBirth.setText("06/09/2003");
+//        editTextPhoneNumber.setText("094540xxxx");
+//        editTextNationalId.setText("025203xxxxxx");
+//        editTextAddress.setText("144 Xuân Thủy, Cầu Giấy, Hà Nội");
 
         // Lấy chuỗi từ SharedPreferences
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
@@ -159,12 +219,53 @@ public class ProfileFragment extends Fragment {
                     Ghép backend
                  */
 
-                String fullName = String.valueOf(editTextFullName.getText());
-                String sex = String.valueOf(editTextSex.getText());
-                String dateOfBirth = String.valueOf(editTextDateOfBirth.getText());
-                String phoneNumber = String.valueOf(editTextPhoneNumber.getText());
-                String nationalId = String.valueOf(editTextNationalId.getText());
-                String address = String.valueOf(editTextAddress.getText());
+                String fullName = String.valueOf(editTextFullName.getText()).trim();
+                String sex = String.valueOf(editTextSex.getText()).trim();
+                String dateOfBirth = String.valueOf(editTextDateOfBirth.getText()).trim();
+                String phoneNumber = String.valueOf(editTextPhoneNumber.getText()).trim();
+                String nationalId = String.valueOf(editTextNationalId.getText()).trim();
+                String address = String.valueOf(editTextAddress.getText()).trim();
+                /*
+                Cua Son
+                */
+                Optional<String> newfullname1,newsex1,newdate_of_birth1,newphone_number1,newaddress1,newnational_id1;
+                if (TextUtils.isEmpty(fullName)) {
+                    newfullname1 = Optional.absent();
+                } else {
+                    newfullname1 = Optional.present(fullName);
+                }
+                if (TextUtils.isEmpty(sex)) {
+                    newsex1=Optional.absent();
+                } else {
+                    newsex1=Optional.present(sex);
+                }
+                if (TextUtils.isEmpty(dateOfBirth)) {
+                    newdate_of_birth1 = Optional.absent();
+                } else {
+                    newdate_of_birth1 = Optional.present(convertShortDateToISODate(dateOfBirth));
+                }
+                if (TextUtils.isEmpty(address)) {
+                    newaddress1 = Optional.absent();
+                } else {
+                    newaddress1 = Optional.present(address);
+                }
+                if (TextUtils.isEmpty(nationalId)) {
+                    newnational_id1 = Optional.absent();
+                } else {
+                    newnational_id1 = Optional.present(nationalId);
+                }
+                if (TextUtils.isEmpty(phoneNumber)) {
+                    newphone_number1 = Optional.absent();
+                } else {
+                    newphone_number1 = Optional.present(phoneNumber);
+                }
+
+                try {
+                    Backend.updateProfile(newfullname1,newsex1,newdate_of_birth1,newphone_number1,newaddress1,newnational_id1);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
 
 
                 Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.save_modified_successfully), Toast.LENGTH_SHORT).show();

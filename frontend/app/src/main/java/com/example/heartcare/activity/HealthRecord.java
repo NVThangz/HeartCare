@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.heartcare.QueryRecordQuery;
 import com.example.heartcare.R;
 import com.example.heartcare.adapter.HealthRecordAdapter;
+import com.example.heartcare.backend.Backend;
 import com.example.heartcare.fragment.HomeFragment;
 import com.example.heartcare.object.HealthRecordItem;
 
@@ -74,11 +76,21 @@ public class HealthRecord extends AppCompatActivity {
     }
 
     private List<HealthRecordItem> getListUsers() {
+
+//        /*
+//            Ghép backend lấy giá trị để hiển thị thông tin người dùng
+//         */
+
+        QueryRecordQuery.Data data = null;
+        try {
+            data = Backend.queryRecord();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+// tinsh tuooi nuax
         String[] titles = {"Age:", "Height (cm): ", "Weight (kg): ", "Health problems: "};
-        /*
-            Ghép backend lấy giá trị để hiển thị thông tin người dùng
-         */
-        String[] contents = {"20", "178", "75", "Bình thường"};
+        String[] contents = {"22",data.record.height.toString(),data.record.weight.toString(), data.record.HealthProblems};
+
 
         List <HealthRecordItem> healthRecordItemList = new ArrayList<>();
         for(int i = 0; i < titles.length; i++) {

@@ -1,0 +1,7 @@
+mutation UpdateRecord($updateRecordInput: UpdateRecordInput!) {
+  updateRecord(updateRecordInput: $updateRecordInput) {
+    height
+    userId
+    weight
+  }
+}

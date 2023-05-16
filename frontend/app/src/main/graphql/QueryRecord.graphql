@@ -1,0 +1,7 @@
+query QueryRecord($email: String!) {
+  record(email: $email) {
+    height
+    weight
+    HealthProblems
+  }
+}

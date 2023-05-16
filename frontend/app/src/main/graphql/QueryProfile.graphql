@@ -1,0 +1,10 @@
+query QueryProfile($email: String!) {
+  profile(email: $email) {
+    name
+    nationalID
+    phone
+    sex
+    dob
+    address
+  }
+}

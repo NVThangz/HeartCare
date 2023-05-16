@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.heartcare.R;
 import com.example.heartcare.adapter.EditHealthRecordAdapter;
 import com.example.heartcare.adapter.HealthRecordAdapter;
+import com.example.heartcare.backend.Backend;
 import com.example.heartcare.object.HealthRecordItem;
 
 import java.util.ArrayList;
@@ -66,6 +67,8 @@ public class EditHealthRecord extends AppCompatActivity {
                 /*
                     Ghép backend để lưu thông tin người dùng
                  */
+
+
                 Intent intent = new Intent(EditHealthRecord.this, HealthRecord.class);
                 startActivity(intent);
                 finish();

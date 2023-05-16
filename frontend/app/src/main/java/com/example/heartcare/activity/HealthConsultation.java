@@ -1,9 +1,14 @@
 package com.example.heartcare.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -26,6 +31,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HealthConsultation extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EditText editTextMessage;
@@ -38,6 +45,8 @@ public class HealthConsultation extends AppCompatActivity {
     private TextView textViewConsultNow;
     private FrameLayout shadow;
 
+    private CircleImageView avatar_profile;
+
     private void map() {
         recyclerView = findViewById(R.id.recycler_view);
         editTextMessage = findViewById(R.id.edit_text_message);
@@ -47,6 +56,7 @@ public class HealthConsultation extends AppCompatActivity {
         icBack = findViewById(R.id.ic_back);
         textViewConsultNow = findViewById(R.id.text_view_consult_now);
         shadow = findViewById(R.id.shadow);
+        avatar_profile = findViewById(R.id.avatar_profile);
     }
 
     @Override
@@ -61,6 +71,19 @@ public class HealthConsultation extends AppCompatActivity {
         setFocusChangeListener();
         setMessage();
         clickSendButton();
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+        if (sharedPreferences.contains("image_data")) {
+            String imageDataString = sharedPreferences.getString("image_data", null);
+
+            // Giải mã chuỗi thành mảng byte
+            byte[] imageData = Base64.decode(imageDataString, Base64.DEFAULT);
+
+            // Khôi phục Bitmap từ mảng byte
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+
+            avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 400, false));
+        }
     }
 
     private void setConsultNow() {

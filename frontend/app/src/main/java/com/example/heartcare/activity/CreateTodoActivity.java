@@ -1,9 +1,17 @@
 package com.example.heartcare.activity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -13,15 +21,19 @@ import android.widget.TimePicker;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
 
 import com.example.heartcare.R;
 import com.example.heartcare.backend.Backend;
 import com.example.heartcare.fragment.CalendarFragment;
+import com.example.heartcare.notification.NotificationReceiver;
 import com.example.heartcare.utilities.DateFormat;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class CreateTodoActivity extends AppCompatActivity {
+    private final static String DEFAULT_NOTIFICATION_CHANNEL_ID = "Heart Care";
     private EditText editTextContent;
     private ConstraintLayout btnSave;
     private ConstraintLayout btnCancel;
@@ -62,6 +74,24 @@ public class CreateTodoActivity extends AppCompatActivity {
         clickBtnSave();
         clickBtnCancel();
         focusChangeEditTextInput();
+        createNotificationChannel();
+
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is not in the Support Library.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Heart Care";
+            String description = "Heart Care";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("Heart Care", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system. You can't change the importance
+            // or other notification behaviors after this.
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void setDialogCancel() {
@@ -110,6 +140,21 @@ public class CreateTodoActivity extends AppCompatActivity {
 
                 String content = String.valueOf(editTextContent.getText());
 
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, year);      // Năm
+                calendar.set(Calendar.MONTH, month - 1);  // Tháng (0-11)
+                calendar.set(Calendar.DAY_OF_MONTH, date);  // Ngày
+                calendar.set(Calendar.HOUR_OF_DAY, hourStartTime);  // Giờ (24h format)
+                calendar.set(Calendar.MINUTE, minuteStartTime);       // Phút
+                calendar.set(Calendar.SECOND, 0);        // Giây
+
+                long currentTimeMillis = System.currentTimeMillis();
+                long desiredTimeMillis = calendar.getTimeInMillis();
+
+                long delay = desiredTimeMillis - currentTimeMillis;
+
+                scheduleNotification(getNotification("Heart Care", content), delay);
+
                 /*
                     Ghép phần lưu ở backend
                  */
@@ -144,5 +189,27 @@ public class CreateTodoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    private void scheduleNotification(Notification notification, long minisecondsDelay) {
+        Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long futureInMillis = SystemClock.elapsedRealtime() + minisecondsDelay;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification(String contentTitle, String contentText) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, DEFAULT_NOTIFICATION_CHANNEL_ID);
+        builder.setContentTitle(contentTitle);
+        builder.setContentText(contentText);
+        builder.setSmallIcon(R.drawable.ic_heart);
+        builder.setPriority(NotificationManager.IMPORTANCE_MAX);
+        builder.setAutoCancel(true);
+        builder.setChannelId("Goldfish Dictionary");
+        return builder.build();
     }
 }

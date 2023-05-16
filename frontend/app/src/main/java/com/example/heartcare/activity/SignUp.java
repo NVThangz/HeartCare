@@ -165,7 +165,7 @@ public class SignUp extends AppCompatActivity {
             Kết nối backend để đăng ký và throw new Expection("Nội dung lỗi");
             Nếu đăng ký thành công thì không cần phải trả ra gì
          */
-        Backend.signup(email, password, sharedPreferences);
+        Backend.signup(fullname, email, password, sharedPreferences);
     }
 
     @Override

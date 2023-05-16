@@ -68,10 +68,10 @@ public class Backend {
         }
     }
 
-    public static void signup(String username, String password,SharedPreferences sharedPreferences) throws Exception {
+    public static void signup(String fullName, String username, String password,SharedPreferences sharedPreferences) throws Exception {
         AuthInput auth = new AuthInput(username,password) ;
         Optional<AuthInput> NewAuth = Optional.present(auth);
-        UpdateProfileInput updateProfileInput = new UpdateProfileInput(username,Optional.present(username),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent());
+        UpdateProfileInput updateProfileInput = new UpdateProfileInput(username,Optional.present(fullName),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent(),Optional.absent());
 
         ApolloCall<SignupMutation.Data> queryCall = apolloClient.mutation(new SignupMutation( NewAuth,updateProfileInput));
         Single<ApolloResponse<SignupMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);

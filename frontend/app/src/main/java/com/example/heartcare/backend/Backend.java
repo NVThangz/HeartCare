@@ -43,7 +43,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.1.67:3000/graphql")
+            .serverUrl("http://192.168.1.17:3000/graphql")
             .build();
 
     public static String email = "";
@@ -146,7 +146,7 @@ public class Backend {
         if (response.hasErrors()) {
             throw new Exception(response.errors.get(0).getMessage());
         } else {
-            email = response.data.resetPasswordConfirmed.user.email;
+            Backend.email = response.data.resetPasswordConfirmed.user.email;
             name = response.data.resetPasswordConfirmed.user.profile.name;
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("access_token", response.data.resetPasswordConfirmed.access_token);
@@ -238,7 +238,8 @@ public class Backend {
         if (response.hasErrors()) {
             throw new Exception(response.errors.get(0).getMessage());
         } else {
-            email = response.data.registerWithSocial.user.email;
+            Backend.email = response.data.registerWithSocial.user.email;
+            Backend.name = response.data.registerWithSocial.user.profile.name;
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("access_token", response.data.registerWithSocial.access_token);
             editor.putString("refresh_token", response.data.registerWithSocial.refresh_token);
@@ -309,12 +310,12 @@ public class Backend {
             System.out.println(response.data);
         }
     }
-    public static QueryRecordQuery.Data queryRecord() throws Exception {
+    public static QueryRecordQuery.Data queryRecord(){
         ApolloCall<QueryRecordQuery.Data> queryCall = apolloClient.query(new QueryRecordQuery( email));
         Single<ApolloResponse<QueryRecordQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<QueryRecordQuery.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
-            throw new Exception(response.errors.get(0).getMessage());
+            System.out.println(response.errors.get(0).getMessage());
         }
         System.out.println("queryRecord() : "+ response.data);
         return response.data;

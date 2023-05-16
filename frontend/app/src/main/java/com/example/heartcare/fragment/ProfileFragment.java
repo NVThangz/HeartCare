@@ -161,23 +161,20 @@ public class ProfileFragment extends Fragment {
         QueryProfileQuery.Data Profile = null;
         try {
             Profile = Backend.queryProfile();
-            System.out.println("data la : "+ Profile.profile.dob.toString());
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-//        String dob = convertISODateToShortDate(Profile.profile.dob.toString());
-        String dob = convertISODateToShortDate("2002-12-11T00:00:00.000Z");
-        System.out.println("Profile.profile.dob.toString() : "+ Profile.profile.dob.toString());
-        System.out.println("dob la : "+ dob);
-        Date date = DateFormat.ISO8601toDate(Profile.profile.dob.toString());
-        // cai dob nay dang bi null , kiem tra lai ham convert
-            editTextFullName.setText(Profile.profile.name);
-            editTextSex.setText(Profile.profile.sex);
-            editTextDateOfBirth.setText(date.toString());
-            editTextPhoneNumber.setText(Profile.profile.phone);
-            editTextNationalId.setText(Profile.profile.nationalID);
-            editTextAddress.setText(Profile.profile.address);
+//        String dob = convertISODateToShortDate("2002-12-11T00:00:00.000Z");
+//
+//        Date date = DateFormat.ISO8601toDate(Profile.profile.dob.toString());
+//        // cai dob nay dang bi null , kiem tra lai ham convert
+//            editTextFullName.setText(Profile.profile.name);
+//            editTextSex.setText(Profile.profile.sex);
+//            editTextDateOfBirth.setText(date.toString());
+//            editTextPhoneNumber.setText(Profile.profile.phone);
+//            editTextNationalId.setText(Profile.profile.nationalID);
+//            editTextAddress.setText(Profile.profile.address);
 
 
 //        editTextFullName.setText("Bùi Minh Hoạt");

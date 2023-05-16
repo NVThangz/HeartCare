@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
 import com.apollographql.apollo3.api.Optional;
 import com.example.heartcare.QueryProfileQuery;
 import com.example.heartcare.R;
+import com.example.heartcare.activity.About;
 import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.backend.Backend;
@@ -399,6 +400,8 @@ public class ProfileFragment extends Fragment {
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), About.class);
+                startActivity(intent);
             }
         });
     }

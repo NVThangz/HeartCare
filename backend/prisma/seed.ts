@@ -24,6 +24,7 @@ async function main() {
           weight: 60,
           BMI: 22.5,
           bloodType: 'A',
+          HealthProblems:'huyết áp cao, thừa cân, rối loạn nhịp tim, Suy tim',
         },
       },
       history: {
@@ -41,8 +42,20 @@ async function main() {
             bpm: 60,
           },
           {
-            createdAt: '2023-05-16T10:48:53.653Z',
+            createdAt: '2023-05-16T01:48:53.653Z',
             bpm: 70,
+          },
+          {
+            createdAt: '2023-05-16T03:48:53.653Z',
+            bpm: 30,
+          },
+          {
+            createdAt: '2023-05-16T05:48:53.653Z',
+            bpm: 40,
+          },
+          {
+            createdAt: '2023-05-16T07:48:53.653Z',
+            bpm: 50,
           },
         ],
       },

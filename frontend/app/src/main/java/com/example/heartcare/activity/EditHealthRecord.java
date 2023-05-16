@@ -9,14 +9,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.apollographql.apollo3.api.Optional;
 import com.example.heartcare.R;
 import com.example.heartcare.adapter.EditHealthRecordAdapter;
 import com.example.heartcare.adapter.HealthRecordAdapter;
 import com.example.heartcare.backend.Backend;
 import com.example.heartcare.object.HealthRecordItem;
+import com.example.heartcare.utilities.Calculations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EditHealthRecord extends AppCompatActivity {
     private ConstraintLayout cancelEdit;
@@ -69,6 +72,49 @@ public class EditHealthRecord extends AppCompatActivity {
                  */
 
 
+
+
+                Double height = null;
+                Double weight = null;
+                String bloodType = null;
+                String healthProblems = null;
+
+                List<HealthRecordItem> healthRecordItemList = new ArrayList<>();
+
+                for (int i = 0; i < healthRecordRecycler.getAdapter().getItemCount(); i++) {
+                    EditHealthRecordAdapter.HealthRecordViewHolder viewHolder = (EditHealthRecordAdapter.HealthRecordViewHolder) healthRecordRecycler.findViewHolderForAdapterPosition(i);
+
+                    if (viewHolder != null) {
+                        String title = viewHolder.title.getText().toString();
+                        String content = viewHolder.content.getText().toString();
+
+                        if (i == 1) {
+                            if(content != null && !content.isEmpty()) height = Double.parseDouble(content);
+                        }
+                        if (i == 2) {
+                            if(content != null && !content.isEmpty()) weight = Double.parseDouble(content);
+                        }
+                        if (i == 3) {
+                            if(content != null && !content.isEmpty()) bloodType = content;
+                        }
+                        if (i == 4) {
+                            if(content != null && !content.isEmpty()) healthProblems = content;
+                        }
+
+                        System.out.println("title: " + height + " content: " + weight);
+
+
+//                        // Tạo một đối tượng HealthRecordItem từ giá trị lấy được
+//                        HealthRecordItem healthRecordItem = new HealthRecordItem(title, content);
+//                        healthRecordItemList.add(healthRecordItem);
+                    }
+                }
+
+                Double BMI = null;
+                if (height != null && weight != null) {
+                    BMI = Math.round(Calculations.calculateBMI(weight, height) * 100.0)/ 100.0;
+                }
+                Backend.updateRecord(height, weight, BMI, bloodType, healthProblems);
                 Intent intent = new Intent(EditHealthRecord.this, HealthRecord.class);
                 startActivity(intent);
                 finish();
@@ -77,11 +123,12 @@ public class EditHealthRecord extends AppCompatActivity {
     }
 
     private List<HealthRecordItem> getListUsers() {
-        String[] titles = {"Age:", "Height:", "Weight:", "Health problems:"};
+        String[] titles = {"Age:", "Height (cm):", "Weight (kg):", "Blood Type: ", "Health problems:"};
         Intent intent = getIntent();
         String[] contents = {intent.getStringExtra("Age"),
                 intent.getStringExtra("Height"),
                 intent.getStringExtra("Weight"),
+                intent.getStringExtra("BloodType"),
                 intent.getStringExtra("Problems")};
 
         List <HealthRecordItem> healthRecordItemList = new ArrayList<>();

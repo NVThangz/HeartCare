@@ -108,18 +108,20 @@ public class NotificationsFragment extends Fragment {
         ArrayList<String> titles = new ArrayList<String>();
         ArrayList<String> contents = new ArrayList<String>();
         FindNotificationsWithEmailQuery.Data data = Backend.getNotificationsWithEmail();
-        for (int i = 0; i < data.findNotificationsWithEmail.size(); i++) {
-            Date createdDate = DateFormat.ISO8601toDate(data.findNotificationsWithEmail.get(i).createdAt.toString());
+        if(data.findNotificationsWithEmail.size() != 0) {
+            for (int i = 0; i < data.findNotificationsWithEmail.size(); i++) {
+                Date createdDate = DateFormat.ISO8601toDate(data.findNotificationsWithEmail.get(i).createdAt.toString());
 //            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
 //            String startTime = formatter.format(StartDate);
-            times.add(createdDate.toLocaleString());
-            titles.add(data.findNotificationsWithEmail.get(i).title);
-            contents.add(data.findNotificationsWithEmail.get(i).content);
+                times.add(createdDate.toLocaleString());
+                titles.add(data.findNotificationsWithEmail.get(i).title);
+                contents.add(data.findNotificationsWithEmail.get(i).content);
+            }
+        } else {
+            times.add("");
+            titles.add("No notification");
+            contents.add("No notification");
         }
-
-//        String[] time = {"08:00 AM", "11:00 PM", "00:00 AM"};
-//        String[] titles = {"Notification", "Notification", "Notification"};
-//        String[] contents = {"1234","1234","1234"};
 
         List <NotificationItem> notificationItems = new ArrayList<>();
         for(int i = 0; i < data.findNotificationsWithEmail.size(); i++) {

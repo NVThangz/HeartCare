@@ -43,7 +43,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.1.88:3000/graphql")
+            .serverUrl("http://192.168.1.17:3000/graphql")
             .build();
 
     public static String email = "";
@@ -299,15 +299,13 @@ public class Backend {
             return response.data;
     }
 
-    public static void UpdateRecord(Optional<Double>height,Optional<Double>weight,Optional<Double>BMI,Optional<String>bloodType,Optional<String>HealthProblem) throws Exception {
-        UpdateRecordInput updateRecordInput = new UpdateRecordInput(email,height,weight,BMI,bloodType,HealthProblem);
+    public static void updateRecord(Double height,Double weight,Double BMI,String bloodType,String healthProblem){
+        UpdateRecordInput updateRecordInput = new UpdateRecordInput(email,Optional.present(height),Optional.present(weight),Optional.present(BMI),Optional.present(bloodType),Optional.present(healthProblem));
         ApolloCall<UpdateRecordMutation.Data> queryCall = apolloClient.mutation(new UpdateRecordMutation( updateRecordInput));
         Single<ApolloResponse<UpdateRecordMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<UpdateRecordMutation.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
-            throw new Exception(response.errors.get(0).getMessage());
-        } else {
-            System.out.println(response.data);
+            System.out.println(response.errors.get(0).getMessage());
         }
     }
     public static QueryRecordQuery.Data queryRecord(){

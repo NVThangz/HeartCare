@@ -16,6 +16,11 @@ export class NotesResolver {
     return this.notesService.findOne(email);
   }
 
+  @Query('noteById')
+  noteById(@Args('id') id: number) {
+    return this.notesService.noteById(id);
+  }
+
   @Query('findNotes')
   findNotesToday(@Args('email') email: string, @Args('date') date: string) {
     return this.notesService.findNotes(email, date);

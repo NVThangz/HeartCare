@@ -19,6 +19,7 @@ import com.example.heartcare.GetAdvisoryFirstMutation;
 import com.example.heartcare.GetAdvisoryMutation;
 import com.example.heartcare.LoginMutation;
 import com.example.heartcare.LogoutMutation;
+import com.example.heartcare.NoteByIdQuery;
 import com.example.heartcare.QueryProfileQuery;
 import com.example.heartcare.QueryRecordQuery;
 import com.example.heartcare.RefreshMutation;
@@ -43,7 +44,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.0.5:3000/graphql")
+            .serverUrl("http://192.168.1.88:3000/graphql")
             .build();
 
     public static String email = "";
@@ -207,6 +208,16 @@ public class Backend {
         ApolloCall<FindNotesQuery.Data> queryCall = apolloClient.query(new FindNotesQuery(email, dateIso));
         Single<ApolloResponse<FindNotesQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<FindNotesQuery.Data> response = queryResponse.blockingGet();
+        if (response.hasErrors()) {
+            System.out.println(response.errors.get(0).getMessage());
+        }
+        return response.data;
+    }
+
+    public static NoteByIdQuery.Data noteById(int id) {
+        ApolloCall<NoteByIdQuery.Data> queryCall = apolloClient.query(new NoteByIdQuery(id));
+        Single<ApolloResponse<NoteByIdQuery.Data>> queryResponse = Rx3Apollo.single(queryCall);
+        ApolloResponse<NoteByIdQuery.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
             System.out.println(response.errors.get(0).getMessage());
         }

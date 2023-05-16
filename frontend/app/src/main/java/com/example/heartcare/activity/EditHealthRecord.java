@@ -67,6 +67,21 @@ public class EditHealthRecord extends AppCompatActivity {
                 /*
                     Ghép backend để lưu thông tin người dùng
                  */
+                RecyclerView.Adapter adapter = healthRecordRecycler.getAdapter();
+
+                if (adapter instanceof EditHealthRecordAdapter) {
+                    EditHealthRecordAdapter editHealthRecordAdapter = (EditHealthRecordAdapter) adapter;
+
+                    // Lấy danh sách dữ liệu từ adapter
+                    List<HealthRecordItem> healthRecordItems = editHealthRecordAdapter.getHealthRecordItems;
+
+                    // Thực hiện các thao tác với danh sách dữ liệu
+                    for (HealthRecordItem item : healthRecordItems) {
+                        String title = item.getTitle();
+                        String content = item.getContent();
+                        // Thực hiện các thao tác khác với dữ liệu
+                    }
+                }
 
 
                 Intent intent = new Intent(EditHealthRecord.this, HealthRecord.class);

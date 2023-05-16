@@ -22,6 +22,7 @@ input NoteUpdateInput {
 
 type Query {
   note(email: String!): [Note]
+  noteById(id: Int!): Note
   findNotes(email: String!, date: DateTime!): [Note]
 }
 

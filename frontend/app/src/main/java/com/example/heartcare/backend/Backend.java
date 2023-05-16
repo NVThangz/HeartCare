@@ -299,8 +299,8 @@ public class Backend {
             return response.data;
     }
 
-    public static void UpdateRecord(Optional<Double>height,Optional<Double>weight,Optional<Double>BMI,Optional<String>bloodType,Optional<String>HealthProblem) throws Exception {
-        UpdateRecordInput updateRecordInput = new UpdateRecordInput(email,height,weight,BMI,bloodType,HealthProblem);
+    public static void updateRecord(Double height,Double weight,Double BMI,String bloodType,String healthProblem){
+        UpdateRecordInput updateRecordInput = new UpdateRecordInput(email,Optional.present(height),Optional.present(weight),Optional.present(BMI),Optional.present(bloodType),Optional.present(healthProblem));
         ApolloCall<UpdateRecordMutation.Data> queryCall = apolloClient.mutation(new UpdateRecordMutation( updateRecordInput));
         Single<ApolloResponse<UpdateRecordMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<UpdateRecordMutation.Data> response = queryResponse.blockingGet();

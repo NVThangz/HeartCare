@@ -256,12 +256,12 @@ public class Backend {
         return response.data;
     }
 
-    public static String getAdvisoryFirst() {
+    public static String getAdvisoryFirst() throws Exception {
         ApolloCall<GetAdvisoryFirstMutation.Data> queryCall = apolloClient.mutation(new GetAdvisoryFirstMutation(email));
         Single<ApolloResponse<GetAdvisoryFirstMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<GetAdvisoryFirstMutation.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
-            System.out.println(response.errors.get(0).getMessage());
+            throw new Exception(response.errors.get(0).getMessage());
         }
         return response.data.getAdvisoryFirst;
     }

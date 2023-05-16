@@ -43,7 +43,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.1.17:3000/graphql")
+            .serverUrl("http://192.168.1.88:3000/graphql")
             .build();
 
     public static String email = "";

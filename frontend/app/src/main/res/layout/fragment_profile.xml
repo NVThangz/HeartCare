@@ -68,25 +68,10 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_full_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/full_name"
-                        android:textColor="@color/flamingo_pink"
-                        android:textFontWeight="700"
-                        android:textSize="28sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/avatar_profile" />
-
                     <EditText
                         android:id="@+id/full_name_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:ems="12"
                         android:hint="@string/full_name"
                         android:inputType="textPersonName"
@@ -95,7 +80,7 @@
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_full_name" />
+                        tools:layout_editor_absoluteY="198dp" />
 
                     <EditText
                         android:id="@+id/sex_profile"

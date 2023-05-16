@@ -54,6 +54,7 @@ public class HealthRecord extends AppCompatActivity {
                 intent.putExtra("Age", String.valueOf(getListUsers.get(0).getContent()));
                 intent.putExtra("Height", String.valueOf(getListUsers.get(1).getContent()));
                 intent.putExtra("Weight", String.valueOf(getListUsers.get(2).getContent()));
+                intent.putExtra("BloodType", String.valueOf(getListUsers.get(2).getContent()));
                 intent.putExtra("Problems", String.valueOf(getListUsers.get(3).getContent()));
                 startActivity(intent);
             }
@@ -95,10 +96,11 @@ public class HealthRecord extends AppCompatActivity {
         String age = Date;
         String height = Objects.toString(data.user.record.height, "");
         String weight = Objects.toString(data.user.record.weight, "");
+        String bloodType = Objects.toString(data.user.record.bloodType, "");
         String problems = Objects.toString(data.user.record.HealthProblems, "");
 
-        String[] titles = {"Age:", "Height (cm): ", "Weight (kg): ", "Health problems: "};
-        String[] contents = {age,height,weight, problems};
+        String[] titles = {"Age:", "Height (cm): ", "Weight (kg): ", "Blood Type", "Health problems: "};
+        String[] contents = {age,height,weight, bloodType, problems};
 
 
 

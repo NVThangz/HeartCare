@@ -71,17 +71,43 @@ public class EditHealthRecord extends AppCompatActivity {
 
                 Intent intent = new Intent(EditHealthRecord.this, HealthRecord.class);
                 startActivity(intent);
+
+                String height = "";
+                String weight = "";
+                String bloodType = "";
+                String healthProblems = "";
+
+                List<HealthRecordItem> healthRecordItemList = new ArrayList<>();
+
+                for (int i = 0; i < healthRecordRecycler.getAdapter().getItemCount(); i++) {
+                    EditHealthRecordAdapter.HealthRecordViewHolder viewHolder = (EditHealthRecordAdapter.HealthRecordViewHolder) healthRecordRecycler.findViewHolderForAdapterPosition(i);
+
+                    if (viewHolder != null) {
+                        String title = viewHolder.title.getText().toString();
+                        String content = viewHolder.content.getText().toString();
+
+                        if (i == 1) height = content;
+                        if (i == 2) weight = content;
+                        if (i == 3) bloodType = content;
+                        if (i == 4) healthProblems = content;
+
+                        // Tạo một đối tượng HealthRecordItem từ giá trị lấy được
+                        HealthRecordItem healthRecordItem = new HealthRecordItem(title, content);
+                        healthRecordItemList.add(healthRecordItem);
+                    }
+                }
                 finish();
             }
         });
     }
 
     private List<HealthRecordItem> getListUsers() {
-        String[] titles = {"Age:", "Height:", "Weight:", "Health problems:"};
+        String[] titles = {"Age:", "Height (cm):", "Weight (kg):", "Blood Type: ", "Health problems:"};
         Intent intent = getIntent();
         String[] contents = {intent.getStringExtra("Age"),
                 intent.getStringExtra("Height"),
                 intent.getStringExtra("Weight"),
+                intent.getStringExtra("BloodType"),
                 intent.getStringExtra("Problems")};
 
         List <HealthRecordItem> healthRecordItemList = new ArrayList<>();

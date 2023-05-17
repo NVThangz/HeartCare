@@ -157,9 +157,6 @@ export class AuthService {
   async registerWithSocial(email: string, name: string) {
     const emailExist = await this.userService.findOne(email);
     if (emailExist) {
-      if(emailExist.password) {
-        throw new ForbiddenError('Email does exist');
-      }
       const token = await this.getToken(emailExist.id, emailExist.email);
       await this.updateRefreshToken(emailExist.id, token.refresh_token);
       return {

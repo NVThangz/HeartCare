@@ -101,6 +101,8 @@
     <string name="female">Female</string>
     <string name="other">Other</string>
     <string name="about_content">Heart Care - Your Heart Rate Monitoring Companion. Track and monitor your heart rate with ease. Stay informed about your heart health and make informed decisions.</string>
+    <string name="change_language">Change language</string>
+    <string name="are_you_sure_you_want_to_change_language">Are you sure you want to change language?</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
         <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>

@@ -101,6 +101,8 @@
     <string name="female">Nữ</string>
     <string name="other">Khác</string>
     <string name="about_content">Heart Care - Người bạn đồng hành theo dõi nhịp tim của bạn. Theo dõi và giám sát nhịp tim của bạn một cách dễ dàng. Cập nhật thông tin về sức khỏe tim của bạn và đưa ra quyết định thông thái.</string>
+    <string name="change_language">Đổi ngôn ngữ</string>
+    <string name="are_you_sure_you_want_to_change_language">Bạn có chắc chắn muốn đổi ngôn ngữ không?</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>
         <item quantity="one">Xung nhịp: %2.1f\n(%d chu kỳ trong %2.1f giây)</item>

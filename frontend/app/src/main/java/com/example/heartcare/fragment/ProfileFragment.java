@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -35,6 +37,7 @@ import com.example.heartcare.QueryProfileQuery;
 import com.example.heartcare.R;
 import com.example.heartcare.activity.About;
 import com.example.heartcare.activity.ChangePassword;
+import com.example.heartcare.activity.MainActivity;
 import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.backend.Backend;
 import com.google.android.material.textfield.TextInputEditText;
@@ -75,6 +78,7 @@ public class ProfileFragment extends Fragment {
     private TextInputEditText editTextNationalId;
     private TextInputEditText editTextAddress;
     private LinearLayout btnAbout;
+    private LinearLayout btnChangeLanguage;
     private LinearLayout btnChangePassword;
     private LinearLayout btnLogOut;
     private TextView btnSaveModified;
@@ -149,6 +153,7 @@ public class ProfileFragment extends Fragment {
         editTextNationalId = rootView.findViewById(R.id.national_id_profile);
         editTextAddress = rootView.findViewById(R.id.address_profile);
         btnAbout = rootView.findViewById(R.id.btn_about);
+        btnChangeLanguage = rootView.findViewById(R.id.btn_change_language);
         btnChangePassword = rootView.findViewById(R.id.btn_change_password);
         btnLogOut = rootView.findViewById(R.id.btn_log_out);
         btnSaveModified = rootView.findViewById(R.id.btn_save_modified);
@@ -217,10 +222,61 @@ public class ProfileFragment extends Fragment {
         clickAvatarProfile();
         clickBtnSaveModified();
         clickBtnAbout();
+        clickBtnChangeLanguage();
         clickBtnChangePassword();
         setFocusChangeListener();
         clickBtnLogOut();
         return rootView;
+    }
+
+//    private void setLanguage(String languagesISO639) {
+//        Locale locale = new Locale(languagesISO639);
+//        Resources resources = getResources();
+//        Configuration configuration = resources.getConfiguration();
+//        configuration.setLocale(locale);
+//        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+//
+//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("language", languagesISO639);
+//        editor.apply();
+//
+//    }
+
+    private void clickBtnChangeLanguage() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setTitle(getResources().getString(R.string.alert));
+//        builder.setMessage(getResources().getString(R.string.are_you_sure_you_want_to_change_language));
+//
+//        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                String currentLanguage = Locale.getDefault().getLanguage();
+//                if (currentLanguage.equals("vn")) {
+//                    setLanguage("en");
+//                } else {
+//                    setLanguage("vn");
+//                }
+//
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                startActivity(intent);
+//                getActivity().finish();
+//            }
+//        });
+
+//        builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//            }
+//        });
+//        AlertDialog dialog = builder.create();
+
+        btnChangeLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void setSex() {

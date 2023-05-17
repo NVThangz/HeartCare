@@ -38,7 +38,9 @@ import com.example.heartcare.R;
 import com.example.heartcare.activity.About;
 import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.MainActivity;
+import com.example.heartcare.activity.SelectLanguage;
 import com.example.heartcare.activity.SignIn;
+import com.example.heartcare.activity.Welcome;
 import com.example.heartcare.backend.Backend;
 import com.google.android.material.textfield.TextInputEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -274,7 +276,9 @@ public class ProfileFragment extends Fragment {
         btnChangeLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), SelectLanguage.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
     }

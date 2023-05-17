@@ -3,7 +3,9 @@ package com.example.heartcare.fragment;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,31 +20,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.apollographql.apollo3.api.Optional;
 import com.example.heartcare.QueryProfileQuery;
 import com.example.heartcare.R;
+import com.example.heartcare.activity.About;
 import com.example.heartcare.activity.ChangePassword;
 import com.example.heartcare.activity.SignIn;
 import com.example.heartcare.backend.Backend;
-import com.example.heartcare.utilities.DateFormat;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -74,6 +79,7 @@ public class ProfileFragment extends Fragment {
     private LinearLayout btnLogOut;
     private TextView btnSaveModified;
     private CircleImageView avatar_profile;
+    private AlertDialog dialogLogOut;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -205,6 +211,9 @@ public class ProfileFragment extends Fragment {
             avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 400, 400, false));
         }
 
+        setSex();
+        setDateOfBirth();
+        setDialogLogOut();
         clickAvatarProfile();
         clickBtnSaveModified();
         clickBtnAbout();
@@ -212,6 +221,58 @@ public class ProfileFragment extends Fragment {
         setFocusChangeListener();
         clickBtnLogOut();
         return rootView;
+    }
+
+    private void setSex() {
+        editTextSex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> genderList = new ArrayList<>();
+                genderList.add(getActivity().getResources().getString(R.string.male));
+                genderList.add(getActivity().getResources().getString(R.string.female));
+                genderList.add(getActivity().getResources().getString(R.string.other));
+
+                CharSequence[] genderArray = genderList.toArray(new CharSequence[genderList.size()]);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(getActivity().getResources().getString(R.string.select_gender))
+                        .setItems(genderArray, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String selectedGender = genderList.get(which);
+                                editTextSex.setText(selectedGender);
+                            }
+                        })
+                        .show();
+            }
+        });
+    }
+
+    private void setDateOfBirth() {
+        editTextDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                // Lấy ngày hiện tại
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Tạo DatePickerDialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        // Xử lý ngày được chọn
+                        // Ví dụ: Hiển thị ngày tháng năm trong TextInputLayout
+                        String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%d", day, month + 1, year);
+                        editTextDateOfBirth.setText(selectedDate);
+                    }
+                }, year, month, dayOfMonth);
+
+                // Hiển thị DatePickerDialog
+                datePickerDialog.show();
+            }
+        });
     }
 
     private void setFocusChangeListener() {
@@ -339,6 +400,8 @@ public class ProfileFragment extends Fragment {
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), About.class);
+                startActivity(intent);
             }
         });
     }
@@ -359,6 +422,19 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+                dialogLogOut.show();
+            }
+        });
+    }
+
+    private void setDialogLogOut() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getResources().getString(R.string.alert));
+        builder.setMessage(getResources().getString(R.string.are_you_sure_you_want_to_log_out));
+
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 /*
                  * Cài đặt phần đăng xuất ở đây
                  * */
@@ -369,6 +445,13 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        dialogLogOut = builder.create();
     }
 
     private void clickAvatarProfile() {

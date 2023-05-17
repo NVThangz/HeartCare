@@ -94,6 +94,13 @@
     <string name="consult_now">Consult Now</string>
     <string name="item_deleted">Item deleted</string>
     <string name="edit_note">Edit note</string>
+    <string name="alert">Alert</string>
+    <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
+    <string name="select_gender">Select gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="about_content">Heart Care - Your Heart Rate Monitoring Companion. Track and monitor your heart rate with ease. Stay informed about your heart health and make informed decisions.</string>
     <plurals name="measurement_output_template">
         <item quantity="zero">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>
         <item quantity="one">Pulse: %2.1f\n(%d cycle in %2.1f seconds)</item>

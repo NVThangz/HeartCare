@@ -96,6 +96,16 @@
                     android:textFontWeight="700"
                     android:textSize="15sp" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/edit_health_record"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_edit_health_record" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,16 +130,6 @@
                 app:srcCompat="@drawable/ic_chatbot" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/edit_health_record"
-            android:layout_width="73dp"
-            android:layout_height="73dp"
-            android:layout_marginTop="-53dp"
-            android:layout_marginEnd="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-            app:srcCompat="@drawable/btn_edit_health_record" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

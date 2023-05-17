@@ -44,7 +44,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Backend {
     private static ApolloClient apolloClient = new ApolloClient.Builder()
-            .serverUrl("http://192.168.1.88:3000/graphql")
+            .serverUrl("http://192.168.0.5:3000/graphql")
             .build();
 
     public static String email = "";
@@ -91,7 +91,7 @@ public class Backend {
 
     public static void refresh(String refreshToken, SharedPreferences sharedPreferences) throws Exception {
         ApolloCall<RefreshMutation.Data> queryCall = apolloClient.mutation(new RefreshMutation())
-                                    .addHttpHeader("Authorization", "Bearer " + refreshToken);
+                .addHttpHeader("Authorization", "Bearer " + refreshToken);
         Single<ApolloResponse<RefreshMutation.Data>> queryResponse = Rx3Apollo.single(queryCall);
         ApolloResponse<RefreshMutation.Data> response = queryResponse.blockingGet();
         if (response.hasErrors()) {
@@ -307,7 +307,7 @@ public class Backend {
         if (response.hasErrors()) {
             throw new Exception(response.errors.get(0).getMessage());
         }
-            return response.data;
+        return response.data;
     }
 
     public static void updateRecord(Double height,Double weight,Double BMI,String bloodType,String healthProblem){

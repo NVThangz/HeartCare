@@ -108,13 +108,13 @@ export class AuthService {
     }
     const tokenStore = this.tokenStore[email];
     if (!tokenStore) {
-      throw new ForbiddenError('Code not exist');
+      throw new ForbiddenError('Otp code not exist');
     }
     if (tokenStore.value !== token) {
-      throw new ForbiddenError('Invalid code');
+      throw new ForbiddenError('Otp code is incorrect');
     }
     if (tokenStore.expire < new Date()) {
-      throw new ForbiddenError('Code expired');
+      throw new ForbiddenError('Otp code expired');
     }
     delete this.tokenStore[email];
     return true;
@@ -165,7 +165,7 @@ export class AuthService {
         user: emailExist,
       };
     }
-    const user = await this.userService.createUserSocial(email, name );
+    const user = await this.userService.createUserSocial(email, name);
     const token = await this.getToken(user.id, user.email);
     await this.updateRefreshToken(user.id, token.refresh_token);
     return {
@@ -216,8 +216,10 @@ export class AuthService {
     if (!user) {
       throw new ForbiddenError('Email not exist');
     }
-    if(user.password === null) {
-      throw new ForbiddenError('Email is social account, please login with social');
+    if (user.password === null) {
+      throw new ForbiddenError(
+        'Email is social account, please login with social',
+      );
     }
     const valid = await bcrypt.compare(authInput.password, user.password);
     if (!valid) {
@@ -226,5 +228,4 @@ export class AuthService {
     const { password, ...result } = user;
     return result;
   }
-  
 }

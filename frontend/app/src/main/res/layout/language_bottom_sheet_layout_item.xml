@@ -7,7 +7,7 @@
 
 
     <LinearLayout
-        android:id="@+id/btn_edit"
+        android:id="@+id/btn_english"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,24 +19,24 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="14dp"
-            android:src="@drawable/ic_edit"/>
+            android:layout_marginTop="18dp"
+            android:src="@drawable/ic_english"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/segoeuib"
-            android:text="Edit"
-            android:textColor="@color/dark_sienna"
-            android:textFontWeight="500"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/latoregular"
+            android:text="English"
+            android:textColor="@color/purple_700"
+            android:textFontWeight="900"
             android:textSize="25sp"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/btn_delete"
+        android:id="@+id/btn_vietnamese"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,18 +48,18 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="14dp"
-            android:src="@drawable/ic_trash"/>
+            android:layout_marginTop="18dp"
+            android:src="@drawable/ic_vietnamese"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/segoeuib"
-            android:text="Delete"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/latoregular"
+            android:text="Vietnamese"
             android:textColor="@color/dark_red"
-            android:textFontWeight="500"
+            android:textFontWeight="900"
             android:textSize="25sp"/>
 
     </LinearLayout>

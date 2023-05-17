@@ -3,21 +3,32 @@ package com.example.heartcare.activity;
 import static com.example.heartcare.utilities.Constants.languages;
 import static com.example.heartcare.utilities.Constants.languages_ISO_639;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.heartcare.R;
+import com.example.heartcare.backend.Backend;
 
 import java.util.Locale;
 
@@ -25,8 +36,7 @@ public class SelectLanguage extends AppCompatActivity {
     private ConstraintLayout selectLanguageBox;
     private ConstraintLayout btnConfirm;
     private TextView tvLanguage;
-
-    private PopupMenu popupLanguage;
+    private ImageView icFlag;
 
     private void setLanguage(String languagesISO639) {
         Locale locale = new Locale(languagesISO639);
@@ -46,6 +56,7 @@ public class SelectLanguage extends AppCompatActivity {
         selectLanguageBox = findViewById(R.id.select_language_box);
         btnConfirm = findViewById(R.id.btn_confirm);
         tvLanguage = findViewById(R.id.tv_language);
+        icFlag = findViewById(R.id.ic_flag);
     }
 
     @Override
@@ -54,7 +65,6 @@ public class SelectLanguage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_language);
         map();
-        setPopupMenuLanguage();
         clickSelectLanguageBox();
         clickBtnConfirm();
     }
@@ -63,7 +73,7 @@ public class SelectLanguage extends AppCompatActivity {
         selectLanguageBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                popupLanguage.show();
+                showDialogSelectLanguage();
             }
         });
     }
@@ -81,21 +91,35 @@ public class SelectLanguage extends AppCompatActivity {
         });
     }
 
-    private void setPopupMenuLanguage() {
-        popupLanguage = new PopupMenu(this, selectLanguageBox);
-        for (int i = 0; i < languages.size(); i++) {
-            popupLanguage.getMenu().add(languages.get(i));
-        }
+    public void showDialogSelectLanguage() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.language_bottom_sheet_layout_item);
 
-        popupLanguage.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        LinearLayout englishLayout = dialog.findViewById(R.id.btn_english);
+        englishLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                String selectedLanguage = item.getTitle().toString();
-                tvLanguage.setText(selectedLanguage);
-                return true;
+            public void onClick(View v) {
+                dialog.dismiss();
+                icFlag.setImageResource(R.drawable.ic_english);
+                tvLanguage.setText("English");
             }
         });
 
+        LinearLayout vietnameseLayout = dialog.findViewById(R.id.btn_vietnamese);
+        vietnameseLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                icFlag.setImageResource(R.drawable.ic_vietnamese);
+                tvLanguage.setText("Vietnamese");
+            }
+        });
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
 }

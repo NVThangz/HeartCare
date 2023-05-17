@@ -7,7 +7,6 @@ import { HistoriesService } from '../histories/histories.service';
 import { chat } from 'googleapis/build/src/apis/chat';
 
 const DEFAULT_MODEL = 'gpt-3.5-turbo';
-const DEFAULT_SYSTEM_ROLE = "Bạn là bác sĩ tên Thắng chuyên khoa tim mạch, bạn sẽ tư vấn về các vấn đề sức khỏe cho người dùng, bạn sẽ cho câu trả lời ngắn gọn dưới 100 từ"
 
 
 interface ChatHistory {
@@ -32,8 +31,9 @@ export class AdvisoryService {
     this.OpenAIApi = new OpenAIApi(configuration);
   }
 
-  async getAdvisoryFirst(email: string) {
+  async getAdvisoryFirst(email: string, lang: string) {
     this.chatHistory[email] = [];
+    
     const [profile, record, history] = await Promise.all([
       await this.profilesService.findOne(email),
       await this.recordsService.findOne(email),
@@ -59,9 +59,17 @@ export class AdvisoryService {
 
     const age = this.calculateAge(profile.dob)
     
-    const userQuestion = `Tôi tên là ${profile.name}, tuổi ${age}, giới tính ${profile.sex}, chiều cao ${record.height}m, cân nặng ${record.weight}kg, nhóm máu ${record.bloodType}, BMI ${record.BMI}kg/m2`
+    const DEFAULT_SYSTEM_ROLE =
+    lang === 'vi' ? "Bạn là bác sĩ tên Thắng chuyên khoa tim mạch, bạn sẽ tư vấn về các vấn đề sức khỏe cho người dùng, bạn sẽ cho câu trả lời ngắn gọn dưới 100 từ"
+    : "You are a cardiologist named Thang, you will advise on health issues for users, you will give short answers under 100 words"
+
+    const userQuestion = 
+    lang === 'vi' ? `Tôi tên là ${profile.name}, tuổi ${age}, giới tính ${profile.sex}, chiều cao ${record.height}m, cân nặng ${record.weight}kg, nhóm máu ${record.bloodType}, BMI ${record.BMI}kg/m2`
                           + (record.HealthProblems ? ', những bệnh tôi mắc phải là ' + record.HealthProblems : '')
                           + (history.bpm ? `, nhịp tim trung bình của tôi là ${history.bpm}bpm`: '')
+                  :`My name is ${profile.name}, age ${age}, gender ${profile.sex}, height ${record.height}m, weight ${record.weight}kg, blood type ${ record.bloodType}, BMI ${record.BMI}kg/m2`
+                  + (record.HealthProblems ? ', the diseases I have are ' + record.HealthProblems : '')
+                  + (history.bpm ? `, my average heart rate is ${history.bpm}bpm`: '')
 
     console.log(userQuestion);
     this.chatHistory[email].push({"role": "system", "content": DEFAULT_SYSTEM_ROLE});

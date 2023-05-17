@@ -7,8 +7,8 @@ export class AdvisoryResolver {
   constructor(private readonly advisoryService: AdvisoryService) {}
 
   @Mutation('getAdvisoryFirst')
-  getAdvisoryFirst(@Args('email') email: string) {
-    return this.advisoryService.getAdvisoryFirst(email);
+  getAdvisoryFirst(@Args('email') email: string, @Args('lang') lang: string) {
+    return this.advisoryService.getAdvisoryFirst(email, lang);
   }
 
   @Mutation('getAdvisory')

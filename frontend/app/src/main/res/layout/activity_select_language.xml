@@ -93,16 +93,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_email">
 
+                <ImageView
+                    android:id="@+id/ic_flag"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/ic_english"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/tv_language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="2dp"
                     android:fontFamily="@font/segoeui"
                     android:text="@string/english"
                     android:textColor="@color/green_sea"
                     android:textFontWeight="900"
                     android:textSize="22sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_flag"
+                    app:layout_constraintStart_toEndOf="@+id/ic_flag"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="34dp"
                     tools:layout_conversion_absoluteWidth="87dp" />

@@ -19,3 +19,4 @@ TK mặc định
 user@gmail.com 
 user@gmail.com
 ```
+5.Chạy file IPv4.bat để lấy ip server

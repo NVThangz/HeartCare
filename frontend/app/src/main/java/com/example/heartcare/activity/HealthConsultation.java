@@ -167,6 +167,9 @@ public class HealthConsultation extends AppCompatActivity {
     }
 
     private void clickSendButton() {
+        SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("language", null);
+
         sendButton.setOnClickListener((v)->{
             String question = editTextMessage.getText().toString().trim();
             if (question.length() == 0) {

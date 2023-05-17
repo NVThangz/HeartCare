@@ -12,7 +12,7 @@ MYSQL_PASSWORD={Tên mật khẩu mysql}
 ```
 
 3. Chạy file Tạo database.bat 1 lần
-4. Chạy file Chạy server dev cổng 3000.bat để mở server dev
+4. Chạy file Chạy server dev cổng 3000.bat để mở server dev ở local
 
 TK mặc định 
 ```

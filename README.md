@@ -19,4 +19,5 @@ TK mặc định
 user@gmail.com 
 user@gmail.com
 ```
-5.Chạy file IPv4.bat để lấy ip server
+5.Chạy file IPv4.bat để lấy ip server và lưu lại giá trị này
+6.Mở Backend.java trong frontend chỉnh serverUrl theo giá trị lấy được ở trên

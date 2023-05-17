@@ -98,7 +98,9 @@ public class HealthConsultation extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                String FirstMessage = Backend.getAdvisoryFirst();
+                                SharedPreferences sharedPreferences = getSharedPreferences("HeartCare", Context.MODE_PRIVATE);
+                                String lang = sharedPreferences.getString("language", null);
+                                String FirstMessage = Backend.getAdvisoryFirst(lang);
                                 messageList.get(0).setMessage(FirstMessage);
                                 messageAdapter.notifyDataSetChanged();
                             } catch (Exception e) {

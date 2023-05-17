@@ -10,7 +10,7 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 scalar String
 
 type Mutation {
-  getAdvisoryFirst(email: String!): String!
+  getAdvisoryFirst(email: String!, lang: String!): String!
 
   getAdvisory(email: String!, question: String!): String!
 

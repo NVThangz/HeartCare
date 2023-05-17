@@ -12,7 +12,14 @@ MYSQL_PASSWORD={Tên mật khẩu mysql}
 ```
 
 3. Chạy file Tạo database.bat 1 lần
-4. Chạy file Chạy server dev cổng 3000.bat để mở server dev
+
+4. Chạy file Chạy server dev cổng 3000.bat để mở server dev ở local
+
+5. Chạy file IPv4.bat để lấy ip server và lưu lại giá trị này
+
+6. Mở Backend.java trong frontend chỉnh serverUrl theo giá trị lấy được ở trên
+
+7. Chạy android emulator để mở ứng dụng
 
 TK mặc định 
 ```

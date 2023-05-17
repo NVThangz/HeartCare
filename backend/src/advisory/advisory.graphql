@@ -6,5 +6,5 @@ input AdvisoryInput {
 
 type Mutation {
   getAdvisoryFirst(email: String!, lang: String!): String!
-  getAdvisory(email: String!, question: String!, lang: String!): String!
+  getAdvisory(email: String!, question: String!): String!
 }

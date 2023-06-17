@@ -28,7 +28,7 @@
 
 ## Video demo
 
-- [Heart Care](https://youtu.be/WdgbZXkrg6s)
+- [Heart Care](https://www.youtube.com/watch?v=JyoI1qmoC9w)
 
 ## Hướng dẫn
 

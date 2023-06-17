@@ -1,4 +1,37 @@
-## HeartCare
+# Introduction
+
+**Team member**
+- **Member 1:**
+    - **Full name:** Bùi Minh Hoạt
+    - **Student ID:** 21020326
+    - **University:** VNU Hanoi-University of Engineering and Technology
+    - **Mail for work:** official.buiminhhoat@gmail.com
+- **Member 2:**
+    - **Full name:** Nguyễn Châu Khanh
+    - **Student ID:** 21020019
+    - **University:** VNU Hanoi-University of Engineering and Technology
+    - **Mail for work:** official.nguyenchaukhanh@gmail.com
+- **Member 3:**
+    - **Full name:** Nguyễn Việt Thắng
+    - **Student ID:** 20020474 
+    - **University:** VNU Hanoi-University of Engineering and Technology
+- **Member 4:**
+    - **Full name:** Nguyễn Hữu Hoàng Sơn 
+    - **Student ID:** 20020212 
+    - **University:** VNU Hanoi-University of Engineering and Technology
+
+# Bài tập lớn UI - Heart Care
+
+![img.png](image/img.png)
+
+![img.png](image/img1.png)
+
+## Video demo
+
+- [Heart Care](https://youtu.be/WdgbZXkrg6s)
+
+## Hướng dẫn
+
 1. Chuyển file .env vào backend
 2. Vào backend sửa file .env = notepad
 ```

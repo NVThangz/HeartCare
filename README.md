@@ -26,6 +26,10 @@
 
 ![img.png](image/img1.png)
 
+## Tài liệu báo cáo
+
+- [Báo cáo ứng dụng Heart Care](https://drive.google.com/file/d/1qrSBLPxwO6S5CNYWR1GCf0GHTqAusuNx/view?usp=sharing)
+
 ## Video demo
 
 - [Heart Care](https://www.youtube.com/watch?v=JyoI1qmoC9w)
